@@ -34,12 +34,11 @@ enum_start (gegl_component_extract)
   enum_value (GEGL_COMPONENT_EXTRACT_CMYK_MAGENTA, "CMYK Magenta", N_("CMYK Magenta"))
   enum_value (GEGL_COMPONENT_EXTRACT_CMYK_YELLOW, "CMYK Yellow", N_("CMYK Yellow"))
   enum_value (GEGL_COMPONENT_EXTRACT_CMYK_KEY, "CMYK Key", N_("CMYK Key"))
-  enum_value (GEGL_COMPONENT_EXTRACT_YCBCR_Y, "Y'CbCr Y'", N_("Y'CbCr Y'"))
-  enum_value (GEGL_COMPONENT_EXTRACT_YCBCR_CB, "Y'CbCr Cb", N_("Y'CbCr Cb"))
-  enum_value (GEGL_COMPONENT_EXTRACT_YCBCR_CR, "Y'CbCr Cr", N_("Y'CbCr Cr"))
   enum_value (GEGL_COMPONENT_EXTRACT_LAB_L, "LAB L", N_("LAB L"))
   enum_value (GEGL_COMPONENT_EXTRACT_LAB_A, "LAB A", N_("LAB A"))
   enum_value (GEGL_COMPONENT_EXTRACT_LAB_B, "LAB B", N_("LAB B"))
+  enum_value (GEGL_COMPONENT_EXTRACT_LCH_C, "LCH C(ab)", N_("LCH C(ab)"))
+  enum_value (GEGL_COMPONENT_EXTRACT_LCH_H, "LCH H(ab)", N_("LCH H(ab)"))
   enum_value (GEGL_COMPONENT_EXTRACT_ALPHA, "Alpha", N_("Alpha"))
 enum_end (GeglComponentExtract)
 
@@ -50,9 +49,6 @@ property_enum (component, _("Component"),
 
 property_boolean (invert, _("Invert component"), FALSE)
      description (_("Invert the extracted component"))
-
-property_boolean (linear, _("Linear output"), FALSE)
-     description (_("Use linear output instead of gamma corrected"))
 
 #else
 
@@ -66,14 +62,12 @@ prepare (GeglOperation *operation)
 {
   GeglProperties *o             = GEGL_PROPERTIES (operation);
   const Babl     *input_format  = NULL;
-  const Babl     *output_format = (o->linear ?
-                                   babl_format ("Y float") :
-                                   babl_format ("Y' float"));
+  const Babl *output_format = babl_format ("Y' float");
 
   switch (o->component)
     {
     case GEGL_COMPONENT_EXTRACT_ALPHA:
-      input_format = babl_format ("YA float");
+      input_format = babl_format ("Y'A float");
       break;
 
     case GEGL_COMPONENT_EXTRACT_RGB_RED:
@@ -100,16 +94,15 @@ prepare (GeglOperation *operation)
       input_format = babl_format ("CMYK float");
       break;
 
-    case GEGL_COMPONENT_EXTRACT_YCBCR_Y:
-    case GEGL_COMPONENT_EXTRACT_YCBCR_CB:
-    case GEGL_COMPONENT_EXTRACT_YCBCR_CR:
-      input_format = babl_format ("Y'CbCr float");
-      break;
-
     case GEGL_COMPONENT_EXTRACT_LAB_L:
     case GEGL_COMPONENT_EXTRACT_LAB_A:
     case GEGL_COMPONENT_EXTRACT_LAB_B:
       input_format = babl_format ("CIE Lab float");
+      break;
+
+    case GEGL_COMPONENT_EXTRACT_LCH_C:
+    case GEGL_COMPONENT_EXTRACT_LCH_H:
+      input_format = babl_format ("CIE LCH(ab) float");
       break;
     }
 
@@ -141,7 +134,6 @@ process (GeglOperation       *operation,
     case GEGL_COMPONENT_EXTRACT_RGB_RED:
     case GEGL_COMPONENT_EXTRACT_HUE:
     case GEGL_COMPONENT_EXTRACT_CMYK_CYAN:
-    case GEGL_COMPONENT_EXTRACT_YCBCR_Y:
     case GEGL_COMPONENT_EXTRACT_LAB_L:
       component_index = 0;
 
@@ -155,20 +147,20 @@ process (GeglOperation       *operation,
     case GEGL_COMPONENT_EXTRACT_HSV_SATURATION:
     case GEGL_COMPONENT_EXTRACT_HSL_SATURATION:
     case GEGL_COMPONENT_EXTRACT_CMYK_MAGENTA:
-    case GEGL_COMPONENT_EXTRACT_YCBCR_CB:
     case GEGL_COMPONENT_EXTRACT_LAB_A:
+    case GEGL_COMPONENT_EXTRACT_LCH_C:
     case GEGL_COMPONENT_EXTRACT_ALPHA:
       component_index = 1;
 
-      if (o->component == GEGL_COMPONENT_EXTRACT_YCBCR_CB)
+      if (o->component == GEGL_COMPONENT_EXTRACT_LAB_A)
         {
-          min = -0.5;
-          max =  0.5;
+          min = -127.5;
+          max =  127.5;
         }
-      else if (o->component == GEGL_COMPONENT_EXTRACT_LAB_A)
+      else if (o->component == GEGL_COMPONENT_EXTRACT_LCH_C)
         {
-          min = -128.0;
-          max =  127;
+          min = 0.0;
+          max =  200.0;
         }
       break;
 
@@ -176,19 +168,19 @@ process (GeglOperation       *operation,
     case GEGL_COMPONENT_EXTRACT_HSV_VALUE:
     case GEGL_COMPONENT_EXTRACT_HSL_LIGHTNESS:
     case GEGL_COMPONENT_EXTRACT_CMYK_YELLOW:
-    case GEGL_COMPONENT_EXTRACT_YCBCR_CR:
     case GEGL_COMPONENT_EXTRACT_LAB_B:
+    case GEGL_COMPONENT_EXTRACT_LCH_H:
       component_index = 2;
 
-      if (o->component == GEGL_COMPONENT_EXTRACT_YCBCR_CR)
+      if (o->component == GEGL_COMPONENT_EXTRACT_LAB_B)
         {
-          min = -0.5;
-          max =  0.5;
+          min = -127.5;
+          max =  127.5;
         }
-      else if (o->component == GEGL_COMPONENT_EXTRACT_LAB_B)
+      else if (o->component == GEGL_COMPONENT_EXTRACT_LCH_H)
         {
-          min = -128.0;
-          max =  127;
+          min = 0.0;
+          max =  360.0;
         }
       break;
 
