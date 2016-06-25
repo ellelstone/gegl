@@ -23,14 +23,12 @@ op_LTLIBRARIES = \
 	buffer-source.la \
 	bump-map.la \
 	c2g.la \
-	cartoon.la \
 	channel-mixer.la \
 	checkerboard.la \
 	color-enhance.la \
 	color-exchange.la \
 	color-reduction.la \
 	color-rotate.la \
-	color-temperature.la \
 	color-to-alpha.la \
 	color.la \
 	contrast-curve.la \
