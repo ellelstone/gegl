@@ -182,7 +182,7 @@ diffract (gdouble         x,
 static void
 prepare (GeglOperation *operation)
 {
-  gegl_operation_set_format (operation, "output", babl_format ("R'G'B' float"));
+  gegl_operation_set_format (operation, "output", babl_format ("RGB float"));
 }
 
 static GeglRectangle

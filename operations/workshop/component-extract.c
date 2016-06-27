@@ -62,18 +62,18 @@ prepare (GeglOperation *operation)
 {
   GeglProperties *o             = GEGL_PROPERTIES (operation);
   const Babl     *input_format  = NULL;
-  const Babl *output_format = babl_format ("Y' float");
+  const Babl *output_format = babl_format ("Y float");
 
   switch (o->component)
     {
     case GEGL_COMPONENT_EXTRACT_ALPHA:
-      input_format = babl_format ("Y'A float");
+      input_format = babl_format ("YA float");
       break;
 
     case GEGL_COMPONENT_EXTRACT_RGB_RED:
     case GEGL_COMPONENT_EXTRACT_RGB_GREEN:
     case GEGL_COMPONENT_EXTRACT_RGB_BLUE:
-      input_format = babl_format ("R'G'B' float");
+      input_format = babl_format ("RGB float");
       break;
 
     case GEGL_COMPONENT_EXTRACT_HUE:

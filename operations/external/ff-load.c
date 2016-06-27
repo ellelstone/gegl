@@ -412,7 +412,7 @@ prepare (GeglOperation *operation)
 
   g_assert (o->user_data != NULL);
 
-  gegl_operation_set_format (operation, "output", babl_format ("R'G'B' u8"));
+  gegl_operation_set_format (operation, "output", babl_format ("RGB u8"));
 
   if (!p->loadedfilename ||
       strcmp (p->loadedfilename, o->path) ||
@@ -709,7 +709,7 @@ process (GeglOperation       *operation,
         if (p->video_stream->codec->pix_fmt == AV_PIX_FMT_RGB24)
         {
           GeglRectangle extent = {0,0,p->width,p->height};
-          gegl_buffer_set (output, &extent, 0, babl_format("R'G'B' u8"), p->lavc_frame->data[0], GEGL_AUTO_ROWSTRIDE);
+          gegl_buffer_set (output, &extent, 0, babl_format("RGB u8"), p->lavc_frame->data[0], GEGL_AUTO_ROWSTRIDE);
         }
         else
         {
@@ -723,7 +723,7 @@ process (GeglOperation       *operation,
             p->rgb_frame = alloc_picture (AV_PIX_FMT_RGB24, p->width, p->height);
           sws_scale (img_convert_ctx, (void*)p->lavc_frame->data,
                      p->lavc_frame->linesize, 0, p->height, p->rgb_frame->data, p->rgb_frame->linesize);
-          gegl_buffer_set (output, &extent, 0, babl_format("R'G'B' u8"), p->rgb_frame->data[0], GEGL_AUTO_ROWSTRIDE);
+          gegl_buffer_set (output, &extent, 0, babl_format("RGB u8"), p->rgb_frame->data[0], GEGL_AUTO_ROWSTRIDE);
           sws_freeContext (img_convert_ctx);
         }
       }

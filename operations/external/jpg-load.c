@@ -58,9 +58,9 @@ babl_from_jpeg_colorspace(J_COLOR_SPACE space)
     // XXX: assumes bitdepth == 8
   const Babl *format = NULL;
   if (space == JCS_GRAYSCALE)
-    format = babl_format ("Y' u8");
+    format = babl_format ("Y u8");
   else if (space == JCS_RGB)
-    format = babl_format ("R'G'B' u8");
+    format = babl_format ("RGB u8");
   else if (space == JCS_CMYK) {
     format = babl_format("CMYK u8");
   }

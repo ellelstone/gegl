@@ -41,9 +41,9 @@ static void
 prepare (GeglOperation *operation)
 {
   gegl_operation_set_format (operation, "input",
-                             babl_format ("R'G'B'A float"));
+                             babl_format ("RGBA float"));
   gegl_operation_set_format (operation, "output",
-                             babl_format ("R'G'B'A float"));
+                             babl_format ("RGBA float"));
 }
 
 /*
@@ -144,7 +144,7 @@ cl_process (GeglOperation       *operation,
 {
   GeglProperties *o = GEGL_PROPERTIES (operation);
   gfloat      color[4];
-  gegl_color_get_pixel (o->color, babl_format ("R'G'B'A float"), color);
+  gegl_color_get_pixel (o->color, babl_format ("RGBA float"), color);
 
   if (!cl_data)
     {
@@ -192,7 +192,7 @@ process (GeglOperation       *operation,
          gint                 level)
 {
   GeglProperties *o      = GEGL_PROPERTIES (operation);
-  const Babl *format = babl_format ("R'G'B'A float");
+  const Babl *format = babl_format ("RGBA float");
   gfloat      color[4];
   gint        x;
 

@@ -4168,19 +4168,19 @@ prepare (GeglOperation *operation)
 
   if (components == 1)
     {
-      new_format = babl_format ("Y' float");
+      new_format = babl_format ("Y float");
     }
   else if (components == 2 && babl_format_has_alpha (format))
     {
-      new_format = babl_format ("Y'A float");
+      new_format = babl_format ("YA float");
     }
   else if (components == 0 || babl_format_has_alpha (format))
     {
-      new_format = babl_format ("R'G'B'A float");
+      new_format = babl_format ("RGBA float");
     }
   else
     {
-      new_format = babl_format ("R'G'B' float");
+      new_format = babl_format ("RGB float");
     }
 
   gegl_operation_set_format (operation, "input", new_format);

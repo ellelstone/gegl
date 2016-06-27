@@ -737,7 +737,7 @@ fill_rgb_image (GeglProperties *o,
 {
   Priv     *p = (Priv*)o->user_data;
   GeglRectangle rect={0,0,width,height};
-  gegl_buffer_get (p->input, &rect, 1.0, babl_format ("R'G'B' u8"), pict->data[0], GEGL_AUTO_ROWSTRIDE, GEGL_ABYSS_NONE);
+  gegl_buffer_get (p->input, &rect, 1.0, babl_format ("RGB u8"), pict->data[0], GEGL_AUTO_ROWSTRIDE, GEGL_ABYSS_NONE);
 }
 
 static void

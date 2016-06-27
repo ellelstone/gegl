@@ -117,7 +117,7 @@ export_webp (GeglOperation       *operation,
   picture.width = result->width;
   picture.height = result->height;
 
-  format = babl_format ("R'G'B'A u8");
+  format = babl_format ("RGBA u8");
 
   if (!WebPValidateConfig (&config))
     {

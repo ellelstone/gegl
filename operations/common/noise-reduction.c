@@ -148,8 +148,8 @@ static void prepare (GeglOperation *operation)
   GeglProperties              *o = GEGL_PROPERTIES (operation);
 
   area->left = area->right = area->top = area->bottom = o->iterations;
-  gegl_operation_set_format (operation, "input",  babl_format ("R'G'B'A float"));
-  gegl_operation_set_format (operation, "output", babl_format ("R'G'B'A float"));
+  gegl_operation_set_format (operation, "input",  babl_format ("RGBA float"));
+  gegl_operation_set_format (operation, "output", babl_format ("RGBA float"));
 }
 
 #include "opencl/gegl-cl.h"
@@ -354,7 +354,7 @@ process (GeglOperation       *operation,
     rect.y      -= o->iterations;
     rect.width  += o->iterations*2;
     rect.height += o->iterations*2;
-    gegl_buffer_get (input, &rect, 1.0, babl_format ("R'G'B'A float"),
+    gegl_buffer_get (input, &rect, 1.0, babl_format ("RGBA float"),
                      src_buf, stride * 4 * 4, GEGL_ABYSS_NONE);
   }
 
@@ -378,7 +378,7 @@ process (GeglOperation       *operation,
 #endif
     }
 
-  gegl_buffer_set (output, result, 0, babl_format ("R'G'B'A float"),
+  gegl_buffer_set (output, result, 0, babl_format ("RGBA float"),
 #ifndef INPLACE
                    src_buf,
 #else

@@ -39,7 +39,7 @@ static void prepare (GeglOperation *operation)
   const Babl *format;
 
   if (o->srgb)
-    format = babl_format ("R'aG'aB'aA float");
+    format = babl_format ("RaGaBaA float");
   else
     format = babl_format ("RaGaBaA float");
 

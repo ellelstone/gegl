@@ -423,12 +423,12 @@ query_tiff(GeglOperation *operation)
       if (has_alpha)
         {
           if(alpha_is_premultiplied)
-            g_strlcpy(format_string, "Y'aA ", 32);
+            g_strlcpy(format_string, "YaA ", 32);
           else
-            g_strlcpy(format_string, "Y'A ", 32);
+            g_strlcpy(format_string, "YA ", 32);
         }
       else
-        g_strlcpy(format_string, "Y' ", 32);
+        g_strlcpy(format_string, "Y ", 32);
       break;
 
     case PHOTOMETRIC_RGB:
@@ -441,12 +441,12 @@ query_tiff(GeglOperation *operation)
       if (has_alpha)
         {
           if (alpha_is_premultiplied)
-            g_strlcpy(format_string, "R'aG'aB'aA ", 32);
+            g_strlcpy(format_string, "RaGaBaA ", 32);
           else
-            g_strlcpy(format_string, "R'G'B'A ", 32);
+            g_strlcpy(format_string, "RGBA ", 32);
         }
       else
-        g_strlcpy(format_string, "R'G'B' ", 32);
+        g_strlcpy(format_string, "RGB ", 32);
       break;
 
     default:
@@ -487,7 +487,7 @@ query_tiff(GeglOperation *operation)
     }
 
   if (fallback_mode == TRUE)
-    g_strlcpy(format_string, "R'aG'aB'aA u8", 32);
+    g_strlcpy(format_string, "RaGaBaA u8", 32);
 
   TIFFGetFieldDefaulted(p->tiff, TIFFTAG_PLANARCONFIG, &planar_config);
 

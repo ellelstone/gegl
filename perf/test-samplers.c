@@ -15,7 +15,7 @@ main (gint    argc,
 
   gegl_init (NULL, NULL);
   format = babl_format ("RGBA float");
-  format2 = babl_format ("R'G'B'A float");
+  format2 = babl_format ("RGBA float");
   buffer = gegl_buffer_new (&bound, format);
   buf = g_malloc0 (bound.width * bound.height * BPP);
 

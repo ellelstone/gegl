@@ -59,10 +59,10 @@ prepare (GeglOperation *operation)
         format = "RGB float";
       else if (model == babl_model ("RGBA"))
         format = "RGBA float";
-      else if (model == babl_model ("R'G'B'"))
-        format = "R'G'B' float";
-      else if (model == babl_model ("R'G'B'A"))
-        format = "R'G'B'A float";
+      else if (model == babl_model ("RGB"))
+        format = "RGB float";
+      else if (model == babl_model ("RGBA"))
+        format = "RGBA float";
       else if (babl_format_has_alpha (src_format))
         format = "RGBA float";
     }

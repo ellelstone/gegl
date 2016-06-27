@@ -127,12 +127,12 @@ gegl_buffer_export_jpg (GeglBuffer  *gegl_buffer,
 
   if (!grayscale)
     {
-      format = babl_format ("R'G'B' u8");
+      format = babl_format ("RGB u8");
       row_pointer[0] = g_malloc (width * 3);
     }
   else
     {
-      format = babl_format ("Y' u8");
+      format = babl_format ("Y u8");
       row_pointer[0] = g_malloc (width);
     }
 

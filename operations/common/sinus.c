@@ -193,10 +193,10 @@ prepare_coef (GeglProperties *o)
       params->c32 = ROUND (params->c32 / (2 * G_PI)) * 2 * G_PI;
     }
 
-  gegl_color_get_pixel (o->color1, babl_format ("R'G'B'A float"),
+  gegl_color_get_pixel (o->color1, babl_format ("RGBA float"),
                         &(params->color));
 
-  gegl_color_get_pixel (o->color2, babl_format ("R'G'B'A float"),
+  gegl_color_get_pixel (o->color2, babl_format ("RGBA float"),
                         &color);
 
   params->dcolor[0] = color[0] - params->color[0];
@@ -217,7 +217,7 @@ prepare (GeglOperation *operation)
 
   prepare_coef (o);
 
-  gegl_operation_set_format (operation, "output", babl_format ("R'G'B'A float"));
+  gegl_operation_set_format (operation, "output", babl_format ("RGBA float"));
 }
 
 static GeglRectangle

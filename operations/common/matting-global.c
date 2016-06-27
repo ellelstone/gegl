@@ -65,7 +65,7 @@ property_int (iterations, _("Iterations"), 10)
 #define COMPONENTS_OUTPUT 1
 
 static const gchar *FORMAT_AUX    = "Y u8";
-static const gchar *FORMAT_INPUT  = "R'G'B' float";
+static const gchar *FORMAT_INPUT  = "RGB float";
 static const gchar *FORMAT_OUTPUT = "Y float";
 
 static void

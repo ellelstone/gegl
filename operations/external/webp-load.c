@@ -161,12 +161,12 @@ query_webp (GeglOperation *operation)
   if (p->config->input.has_alpha)
     {
       p->config->output.colorspace = MODE_RGBA;
-      p->format = babl_format ("R'G'B'A u8");
+      p->format = babl_format ("RGBA u8");
     }
   else
     {
       p->config->output.colorspace = MODE_RGB;
-      p->format = babl_format ("R'G'B' u8");
+      p->format = babl_format ("RGB u8");
     }
 
   p->height = p->config->input.height;

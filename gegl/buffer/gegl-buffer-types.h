@@ -32,7 +32,7 @@ struct _GeglTileBackendPrivate
 {
   gint        tile_width;
   gint        tile_height;
-  const Babl *format;    /* defaults to the babl format "R'G'B'A u8" */
+  const Babl *format;    /* defaults to the babl format "RGBA u8" */
   gint        px_size;   /* size of a single pixel in bytes */
   gint        tile_size; /* size of an entire tile in bytes */
 

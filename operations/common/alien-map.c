@@ -73,9 +73,9 @@ prepare (GeglOperation *operation)
   if (o->color_model == GEGL_ALIEN_MAP_COLOR_MODEL_RGB)
     {
       gegl_operation_set_format (operation, "input",
-                                 babl_format ("R'G'B'A float"));
+                                 babl_format ("RGBA float"));
       gegl_operation_set_format (operation, "output",
-                                 babl_format ("R'G'B'A float"));
+                                 babl_format ("RGBA float"));
     }
   else
     {

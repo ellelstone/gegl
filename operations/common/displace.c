@@ -174,8 +174,8 @@ attach (GeglOperation *self)
 static void
 prepare (GeglOperation *operation)
 {
-  const Babl *inout_format = babl_format ("R'G'B'A float");
-  const Babl *aux_format   = babl_format ("Y'A float");
+  const Babl *inout_format = babl_format ("RGBA float");
+  const Babl *aux_format   = babl_format ("YA float");
 
   gegl_operation_set_format (operation, "input",  inout_format);
   gegl_operation_set_format (operation, "output", inout_format);

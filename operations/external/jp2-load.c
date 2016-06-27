@@ -176,11 +176,11 @@ query_jp2(GeglOperation *operation,
       switch (depth)
         {
         case 16:
-          p->format = babl_format("R'G'B' u16");
+          p->format = babl_format("RGB u16");
           break;
 
         case 8:
-          p->format = babl_format("R'G'B' u8");
+          p->format = babl_format("RGB u8");
           break;
 
         default:
@@ -435,12 +435,12 @@ process (GeglOperation       *operation,
           switch (depth)
             {
             case 16:
-              gegl_buffer_set (output, &rect, 0, babl_format ("R'G'B' u16"),
+              gegl_buffer_set (output, &rect, 0, babl_format ("RGB u16"),
                                data_s, GEGL_AUTO_ROWSTRIDE);
               break;
 
             case 8:
-              gegl_buffer_set (output, &rect, 0, babl_format ("R'G'B' u8"),
+              gegl_buffer_set (output, &rect, 0, babl_format ("RGB u8"),
                                data_b, GEGL_AUTO_ROWSTRIDE);
 	      break;
 

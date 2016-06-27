@@ -49,11 +49,11 @@ int main(int argc, char *argv[])
    * babl to generate the needed conversions automatically.
    */
 
-  sdl_format = babl_format_new (babl_model ("R'G'B'"),
+  sdl_format = babl_format_new (babl_model ("RGB"),
                                 babl_type ("u8"),
-                                babl_component ("B'"),
-                                babl_component ("G'"),
-                                babl_component ("R'"),
+                                babl_component ("B"),
+                                babl_component ("G"),
+                                babl_component ("R"),
                                 NULL);
 
   init_main_context (main_window, &context);

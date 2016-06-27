@@ -325,7 +325,7 @@ gegl_color_set_from_string (GeglColor   *self,
   GTokenValue       token_value;
   gboolean          color_parsing_successfull;
   float rgba[4] = {0.0, 0.0, 0.0, 1.0};
-  const Babl *format = babl_format ("R'G'B'A float");
+  const Babl *format = babl_format ("RGBA float");
 
   scanner                               = g_scanner_new (NULL);
   scanner->config->cpair_comment_single = "";

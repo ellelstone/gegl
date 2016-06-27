@@ -46,8 +46,8 @@ property_seed (seed, _("Random seed"), rand)
 static void
 prepare (GeglOperation *operation)
 {
-  gegl_operation_set_format (operation, "input" , babl_format ("R'G'B'A float"));
-  gegl_operation_set_format (operation, "output", babl_format ("R'G'B'A float"));
+  gegl_operation_set_format (operation, "input" , babl_format ("RGBA float"));
+  gegl_operation_set_format (operation, "output", babl_format ("RGBA float"));
 }
 
 static gboolean

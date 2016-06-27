@@ -77,7 +77,7 @@ static void
 prepare (GeglOperation *operation)
 {
   GeglProperties *o = GEGL_PROPERTIES (operation);
-  gegl_operation_set_format (operation, "output", babl_format ("R'aG'aB'aA float"));
+  gegl_operation_set_format (operation, "output", babl_format ("RaGaBaA float"));
 
   if (o->transform && o->transform[0] != '\0')
     {
@@ -165,7 +165,7 @@ process (GeglOperation       *operation,
 
   if (o->width > 0.1 && o->opacity > 0.0001)
     {
-      gegl_color_get_pixel (o->color, babl_format ("R'G'B'A double"), color);
+      gegl_color_get_pixel (o->color, babl_format ("RGBA double"), color);
       color[3] *= o->opacity;
       if (color[3] > 0.001)
           need_stroke=TRUE;

@@ -46,11 +46,11 @@ prepare (GeglOperation *self)
     {
       const Babl *model = babl_format_get_model (fmt);
 
-      if (model == babl_model ("R'aG'aB'aA") ||
-          model == babl_model ("Y'aA"))
+      if (model == babl_model ("RaGaBaA") ||
+          model == babl_model ("YaA"))
         {
           o->user_data = NULL;
-          fmt = babl_format ("R'aG'aB'aA float");
+          fmt = babl_format ("RaGaBaA float");
         }
       else if (model == babl_model ("RaGaBaA") ||
                model == babl_model ("YaA"))
@@ -58,13 +58,13 @@ prepare (GeglOperation *self)
           o->user_data = NULL;
           fmt = babl_format ("RaGaBaA float");
         }
-      else if (model == babl_model ("R'G'B'A") ||
-               model == babl_model ("R'G'B'")  ||
-               model == babl_model ("Y'")      ||
-               model == babl_model ("Y'A"))
+      else if (model == babl_model ("RGBA") ||
+               model == babl_model ("RGB")  ||
+               model == babl_model ("Y")      ||
+               model == babl_model ("YA"))
         {
           o->user_data = (void*)0xabc;
-          fmt = babl_format ("R'G'B'A float");
+          fmt = babl_format ("RGBA float");
         }
       else
         {

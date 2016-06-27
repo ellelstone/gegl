@@ -80,19 +80,19 @@ int main(int argc, char *argv[])
       RUN_TEST ("RGBA float", "RGBA float", GEGL_CL_COLOR_EQUAL)
       RUN_TEST ("RGBA float", "RaGaBaA float", GEGL_CL_COLOR_CONVERT)
       /* RUN_TEST ("RGBA float", "RGB float", GEGL_CL_COLOR_CONVERT) */
-      RUN_TEST ("RGBA float", "R'G'B'A float", GEGL_CL_COLOR_CONVERT)
-      /* RUN_TEST ("RGBA float", "R'aG'aB'aA float", GEGL_CL_COLOR_CONVERT) */
-      RUN_TEST ("RGBA float", "R'G'B'A u8", GEGL_CL_COLOR_CONVERT)
-      RUN_TEST ("RGBA float", "R'G'B' u8", GEGL_CL_COLOR_CONVERT)
+      RUN_TEST ("RGBA float", "RGBA float", GEGL_CL_COLOR_CONVERT)
+      /* RUN_TEST ("RGBA float", "RaGaBaA float", GEGL_CL_COLOR_CONVERT) */
+      RUN_TEST ("RGBA float", "RGBA u8", GEGL_CL_COLOR_CONVERT)
+      RUN_TEST ("RGBA float", "RGB u8", GEGL_CL_COLOR_CONVERT)
 
-      RUN_TEST ("R'G'B'A float", "RGBA float", GEGL_CL_COLOR_CONVERT)
-      RUN_TEST ("R'G'B'A float", "R'G'B'A float", GEGL_CL_COLOR_EQUAL)
-      /* RUN_TEST ("R'G'B'A float", "R'G'B'A u8", GEGL_CL_COLOR_CONVERT) */
-      /* RUN_TEST ("R'G'B'A float", "R'G'B' u8", GEGL_CL_COLOR_CONVERT) */
+      RUN_TEST ("RGBA float", "RGBA float", GEGL_CL_COLOR_CONVERT)
+      RUN_TEST ("RGBA float", "RGBA float", GEGL_CL_COLOR_EQUAL)
+      /* RUN_TEST ("RGBA float", "RGBA u8", GEGL_CL_COLOR_CONVERT) */
+      /* RUN_TEST ("RGBA float", "RGB u8", GEGL_CL_COLOR_CONVERT) */
 
-      RUN_TEST ("R'G'B'A u8", "RGBA float", GEGL_CL_COLOR_CONVERT)
-      /* RUN_TEST ("R'G'B'A u8", "R'G'B'A float", GEGL_CL_COLOR_CONVERT) */
-      RUN_TEST ("R'G'B'A u8", "R'G'B'A u8", GEGL_CL_COLOR_EQUAL)
+      RUN_TEST ("RGBA u8", "RGBA float", GEGL_CL_COLOR_CONVERT)
+      /* RUN_TEST ("RGBA u8", "RGBA float", GEGL_CL_COLOR_CONVERT) */
+      RUN_TEST ("RGBA u8", "RGBA u8", GEGL_CL_COLOR_EQUAL)
     }
 
   printf ("\n");

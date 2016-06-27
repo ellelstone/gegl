@@ -37,7 +37,7 @@ const gchar *compute_image_checksum (const char *path)
   fprintf (stderr, "%ix%i\n", bounds.width, bounds.height);
 
   buf = g_malloc (bounds.width * bounds.height * 4);
-  gegl_node_blit (img, 1.0, &bounds, babl_format("R'G'B'A u8"), buf,
+  gegl_node_blit (img, 1.0, &bounds, babl_format("RGBA u8"), buf,
     GEGL_AUTO_ROWSTRIDE, GEGL_BLIT_DEFAULT);
   
   g_checksum_update (checksum, buf, bounds.width * bounds.height * 4);

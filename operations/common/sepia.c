@@ -41,7 +41,7 @@ static void prepare (GeglOperation *operation)
   const Babl *format;
 
   if (o->srgb)
-    format = babl_format ("R'G'B'A float");
+    format = babl_format ("RGBA float");
   else
     format = babl_format ("RGBA float");
 

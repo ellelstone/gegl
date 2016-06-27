@@ -133,7 +133,7 @@ static void text_layout_text (GeglOp *self,
   {
     guint16 color[3];
 
-    gegl_color_get_pixel (o->color, babl_format ("R'G'B' u16"), color);
+    gegl_color_get_pixel (o->color, babl_format ("RGB u16"), color);
     attr = pango_attr_foreground_new (color[0], color[1], color[2]);
 
     if (attr)

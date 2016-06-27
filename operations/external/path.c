@@ -314,7 +314,7 @@ static void
 prepare (GeglOperation *operation)
 {
   GeglProperties *o = GEGL_PROPERTIES (operation);
-  gegl_operation_set_format (operation, "output", babl_format ("R'aG'aB'aA float"));
+  gegl_operation_set_format (operation, "output", babl_format ("RaGaBaA float"));
   if (o->transform && o->transform[0] != '\0')
     {
       GeglMatrix3 matrix;
@@ -372,7 +372,7 @@ process (GeglOperation       *operation,
   if (o->fill_opacity > 0.0001 && o->fill)
     {
       gdouble color[4] = {0, 0, 0, 0};
-      gegl_color_get_pixel (o->fill, babl_format ("R'G'B'A double"), color);
+      gegl_color_get_pixel (o->fill, babl_format ("RGBA double"), color);
       color[3] *= o->fill_opacity;
 
       if (color[3] > 0.001)

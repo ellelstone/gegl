@@ -150,29 +150,29 @@ test_opacity_linear_004 (void)
 static gboolean
 test_opacity_gamma_001 (void)
 {
-  return test_opacity_common (babl_format ("R'G'B' float"),
-                              babl_format ("R'G'B'A float"));
+  return test_opacity_common (babl_format ("RGB float"),
+                              babl_format ("RGBA float"));
 }
 
 static gboolean
 test_opacity_gamma_002 (void)
 {
-  return test_opacity_common (babl_format ("R'G'B'A u8"),
-                              babl_format ("R'G'B'A float"));
+  return test_opacity_common (babl_format ("RGBA u8"),
+                              babl_format ("RGBA float"));
 }
 
 static gboolean
 test_opacity_gamma_003 (void)
 {
-  return test_opacity_common (babl_format ("R'aG'aB'aA float"),
-                              babl_format ("R'aG'aB'aA float"));
+  return test_opacity_common (babl_format ("RaGaBaA float"),
+                              babl_format ("RaGaBaA float"));
 }
 
 static gboolean
 test_opacity_gamma_004 (void)
 {
-  return test_opacity_common (babl_format ("R'aG'aB'aA u8"),
-                              babl_format ("R'aG'aB'aA float"));
+  return test_opacity_common (babl_format ("RaGaBaA u8"),
+                              babl_format ("RaGaBaA float"));
 }
 
 #define RUN_TEST(test_name) \

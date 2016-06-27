@@ -651,7 +651,7 @@ prepare (GeglOperation *operation)
   p = (Priv*)o->user_data;
 
   gegl_operation_set_format (operation, "output",
-                            babl_format ("R'G'B'A u8"));
+                            babl_format ("RaGaBaA u8"));
 
 
   if (!p->fd)

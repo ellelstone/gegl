@@ -108,9 +108,9 @@ typedef struct
  *     laplacian which is already in doubles.
  */
 
-static const gchar *FORMAT_AUX    = "Y'A double";
-static const gchar *FORMAT_INPUT  = "R'G'B' double";
-static const gchar *FORMAT_OUTPUT = "Y' double";
+static const gchar *FORMAT_AUX    = "YA double";
+static const gchar *FORMAT_INPUT  = "RGB double";
+static const gchar *FORMAT_OUTPUT = "Y double";
 
 static const guint   AUX_VALUE = 0;
 static const guint   AUX_ALPHA = 1;

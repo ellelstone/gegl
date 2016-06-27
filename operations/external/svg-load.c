@@ -84,7 +84,7 @@ query_svg (GeglOperation *operation)
 
   rsvg_handle_get_dimensions (p->handle, &dimentions);
 
-  p->format = babl_format ("R'G'B'A u8");
+  p->format = babl_format ("RGBA u8");
 
   p->height = dimentions.height;
   p->width = dimentions.width;

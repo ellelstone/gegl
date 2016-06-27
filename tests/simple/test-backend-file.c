@@ -41,7 +41,7 @@ test_buffer_path (void)
   buf_a_path = g_build_filename (tmpdir, "buf_a.gegl", NULL);
 
   buf_a = g_object_new (GEGL_TYPE_BUFFER,
-                        "format", babl_format ("R'G'B'A u8"),
+                        "format", babl_format ("RGBA u8"),
                         "path", buf_a_path,
                         "x", roi.x,
                         "y", roi.y,
@@ -100,7 +100,7 @@ test_buffer_path_from_backend (void)
   backend_a = g_object_new (GEGL_TYPE_TILE_BACKEND_FILE,
                             "tile-width",  128,
                             "tile-height", 64,
-                            "format",      babl_format ("R'G'B'A u8"),
+                            "format",      babl_format ("RGBA u8"),
                             "path",        buf_a_path,
                             NULL);
 
@@ -153,7 +153,7 @@ test_buffer_load (void)
   gchar           *tmpdir = NULL;
   gchar           *buf_a_path = NULL;
   GeglBuffer      *buf_a = NULL;
-  const Babl      *format = babl_format ("R'G'B'A u8");
+  const Babl      *format = babl_format ("RGBA u8");
   GeglRectangle    roi = {0, 0, 128, 128};
 
   tmpdir = g_dir_make_tmp ("test-backend-file-XXXXXX", NULL);
@@ -216,7 +216,7 @@ test_buffer_same_path (void)
   gchar           *tmpdir = NULL;
   gchar           *buf_a_path = NULL;
   GeglBuffer      *buf_a = NULL;
-  const Babl      *format = babl_format ("R'G'B'A u8");
+  const Babl      *format = babl_format ("RGBA u8");
   GeglRectangle    roi = {0, 0, 128, 128};
 
   tmpdir = g_dir_make_tmp ("test-backend-file-XXXXXX", NULL);
@@ -283,7 +283,7 @@ test_buffer_open (void)
   gchar           *tmpdir = NULL;
   gchar           *buf_a_path = NULL;
   GeglBuffer      *buf_a = NULL;
-  const Babl      *format = babl_format ("R'G'B'A u8");
+  const Babl      *format = babl_format ("RGBA u8");
   GeglRectangle    roi = {0, 0, 128, 128};
 
   tmpdir = g_dir_make_tmp ("test-backend-file-XXXXXX", NULL);
@@ -346,7 +346,7 @@ test_buffer_change_extent (void)
   gchar           *tmpdir = NULL;
   gchar           *buf_a_path = NULL;
   GeglBuffer      *buf_a = NULL;
-  const Babl      *format = babl_format ("R'G'B'A u8");
+  const Babl      *format = babl_format ("RGBA u8");
   GeglRectangle    roi = {0, 0, 128, 128};
   GeglRectangle    roi2 = {0, 0, 64, 64};
 

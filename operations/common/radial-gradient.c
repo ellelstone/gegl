@@ -43,7 +43,7 @@ property_color  (end_color, _("End Color"), "white")
 static void
 prepare (GeglOperation *operation)
 {
-  gegl_operation_set_format (operation, "output", babl_format ("R'G'B'A float"));
+  gegl_operation_set_format (operation, "output", babl_format ("RGBA float"));
 }
 
 static GeglRectangle
@@ -74,8 +74,8 @@ process (GeglOperation       *operation,
   gfloat         color2[4];
   gfloat         length = dist (o->start_x, o->start_y, o->end_x, o->end_y);
 
-  gegl_color_get_pixel (o->start_color, babl_format ("R'G'B'A float"), color1);
-  gegl_color_get_pixel (o->end_color, babl_format ("R'G'B'A float"), color2);
+  gegl_color_get_pixel (o->start_color, babl_format ("RGBA float"), color1);
+  gegl_color_get_pixel (o->end_color, babl_format ("RGBA float"), color2);
 
   if (GEGL_FLOAT_IS_ZERO (length))
     {

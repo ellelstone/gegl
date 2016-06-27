@@ -11,7 +11,7 @@ main (gint    argc,
 
   gegl_init (&argc, &argv);
 
-  buffer = test_buffer (1024, 1024, babl_format ("R'G'B' u8"));
+  buffer = test_buffer (1024, 1024, babl_format ("RGB u8"));
   bench ("translate-integer", buffer, &translate_integer);
   bench ("translate-nearest", buffer, &translate_nearest);
 

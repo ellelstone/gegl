@@ -54,8 +54,8 @@ prepare (GeglOperation *operation)
 
   area->left = area->right = area->top = area->bottom = LAPLACE_RADIUS;
 
-  gegl_operation_set_format (operation, "input", babl_format ("R'G'B'A float"));
-  gegl_operation_set_format (operation, "output", babl_format ("R'G'B'A float"));
+  gegl_operation_set_format (operation, "input", babl_format ("RGBA float"));
+  gegl_operation_set_format (operation, "output", babl_format ("RGBA float"));
 }
 
 static gboolean
@@ -172,7 +172,7 @@ edge_laplace (GeglBuffer          *src,
   gint    src_width = src_rect->width;
 
   gegl_buffer_get (src, src_rect, 1.0,
-                   babl_format ("R'G'B'A float"), src_buf, GEGL_AUTO_ROWSTRIDE,
+                   babl_format ("RGBA float"), src_buf, GEGL_AUTO_ROWSTRIDE,
                    GEGL_ABYSS_CLAMP);
 
   for (y = 0; y < dst_rect->height + LAPLACE_RADIUS; y++)
@@ -265,7 +265,7 @@ edge_laplace (GeglBuffer          *src,
         offset++;
       }
 
-  gegl_buffer_set (dst, dst_rect, 0, babl_format ("R'G'B'A float"), dst_buf,
+  gegl_buffer_set (dst, dst_rect, 0, babl_format ("RGBA float"), dst_buf,
                    GEGL_AUTO_ROWSTRIDE);
 }
 

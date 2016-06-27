@@ -102,7 +102,7 @@ static void
 preprocess_spokes (GeglOperation *operation)
 {
   GeglProperties *o      = GEGL_PROPERTIES (operation);
-  const Babl     *format = babl_format ("R'G'B'A double");
+  const Babl     *format = babl_format ("RGBA double");
   SnParamsType *params;
   GRand      *gr;
   GeglColor  *tmp;
@@ -147,7 +147,7 @@ static void
 prepare (GeglOperation *operation)
 {
   GeglProperties *o      = GEGL_PROPERTIES (operation);
-  const Babl     *format = babl_format ("R'G'B'A double");
+  const Babl     *format = babl_format ("RGBA double");
   SnParamsType   *params;
   gdouble        c[4];
   gboolean need_preprocess_spokes = FALSE;

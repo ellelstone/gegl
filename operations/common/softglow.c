@@ -145,12 +145,12 @@ process (GeglOperation       *operation,
 
   gegl_rectangle_intersect (&working_region, &working_region, whole_region);
 
-  dest_tmp = gegl_buffer_new (&working_region, babl_format ("Y' float"));
+  dest_tmp = gegl_buffer_new (&working_region, babl_format ("Y float"));
 
-  iter = gegl_buffer_iterator_new (dest_tmp, &working_region, 0, babl_format ("Y' float"),
+  iter = gegl_buffer_iterator_new (dest_tmp, &working_region, 0, babl_format ("Y float"),
                                    GEGL_ACCESS_WRITE, GEGL_ABYSS_NONE);
 
-  gegl_buffer_iterator_add (iter, input, &working_region, 0, babl_format ("Y' float"),
+  gegl_buffer_iterator_add (iter, input, &working_region, 0, babl_format ("Y float"),
                             GEGL_ACCESS_READ, GEGL_ABYSS_NONE);
 
   while (gegl_buffer_iterator_next (iter))
@@ -180,7 +180,7 @@ process (GeglOperation       *operation,
   gegl_buffer_iterator_add (iter, input, result, 0, babl_format ("RGBA float"),
                             GEGL_ACCESS_READ, GEGL_ABYSS_NONE);
 
-  gegl_buffer_iterator_add (iter, dest, result, 0, babl_format ("Y' float"),
+  gegl_buffer_iterator_add (iter, dest, result, 0, babl_format ("Y float"),
                             GEGL_ACCESS_READ, GEGL_ABYSS_NONE);
 
   while (gegl_buffer_iterator_next (iter))

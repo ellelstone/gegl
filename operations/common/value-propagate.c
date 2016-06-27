@@ -329,7 +329,7 @@ propagate_color_to_peak (gfloat  *pixel,
   gint peak_min = 1;
   gint peak_includes_equals = 1;
 
-  gegl_color_get_pixel (o->color, babl_format ("R'G'B' float"), &color);
+  gegl_color_get_pixel (o->color, babl_format ("RGB float"), &color);
 
   memcpy (best, pixel, sizeof (gfloat) * 4);
 
@@ -386,7 +386,7 @@ propagate_color (gfloat  *pixel,
   gint   i;
   gfloat best[4], color[3];
 
-  gegl_color_get_pixel (o->color, babl_format ("R'G'B' float"), &color);
+  gegl_color_get_pixel (o->color, babl_format ("RGB float"), &color);
 
   memcpy (best, pixel, sizeof(gfloat) * 4);
 
@@ -473,8 +473,8 @@ prepare (GeglOperation *operation)
 
   area->left = area->right = area->top = area->bottom = 1;
 
-  gegl_operation_set_format (operation, "input", babl_format ("R'G'B'A float"));
-  gegl_operation_set_format (operation, "output", babl_format ("R'G'B'A float"));
+  gegl_operation_set_format (operation, "input", babl_format ("RGBA float"));
+  gegl_operation_set_format (operation, "output", babl_format ("RGBA float"));
 }
 
 static void
@@ -515,7 +515,7 @@ process (GeglOperation       *operation,
          gint                 level)
 {
   GeglProperties *o = GEGL_PROPERTIES (operation);
-  const Babl     *format = babl_format ("R'G'B'A float");
+  const Babl     *format = babl_format ("RGBA float");
   GeglRectangle   src_rect;
   gfloat         *src_buf;
   gfloat         *dst_buf;

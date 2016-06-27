@@ -615,12 +615,12 @@ gegl_gblur_1d_prepare (GeglOperation *operation)
     {
       const Babl *model = babl_format_get_model (src_format);
 
-      if (model == babl_model ("RGB") || model == babl_model ("R'G'B'"))
+      if (model == babl_model ("RGB") || model == babl_model ("RGB"))
         format = "RGB float";
-      else if (model == babl_model ("Y") || model == babl_model ("Y'"))
+      else if (model == babl_model ("Y") || model == babl_model ("Y"))
         format = "Y float";
-      else if (model == babl_model ("YA") || model == babl_model ("Y'A") ||
-               model == babl_model ("YaA") || model == babl_model ("Y'aA"))
+      else if (model == babl_model ("YA") || model == babl_model ("YA") ||
+               model == babl_model ("YaA") || model == babl_model ("YaA"))
         format = "YaA float";
     }
 

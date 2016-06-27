@@ -53,9 +53,9 @@ static void prepare (GeglOperation *operation)
   const GeglRectangle *bb = gegl_operation_source_get_bounding_box (operation, "input");
 
   if (! format || ! babl_format_has_alpha (format))
-    format = babl_format ("R'G'B' float");
+    format = babl_format ("RGB float");
   else
-    format = babl_format ("R'G'B'A float");
+    format = babl_format ("RGBA float");
 
   gegl_operation_set_format (operation, "input",  format);
   gegl_operation_set_format (operation, "output", format);

@@ -118,23 +118,23 @@ get_babl_format(int bit_depth, int color_type)
    if (color_type & PNG_COLOR_TYPE_RGB)
       {
         if (color_type & PNG_COLOR_MASK_ALPHA)
-          strcpy (format_string, "R'G'B'A ");
+          strcpy (format_string, "RGBA ");
         else
-          strcpy (format_string, "R'G'B' ");
+          strcpy (format_string, "RGB ");
       }
     else if ((color_type & PNG_COLOR_TYPE_GRAY) == PNG_COLOR_TYPE_GRAY)
       {
         if (color_type & PNG_COLOR_MASK_ALPHA)
-          strcpy (format_string, "Y'A ");
+          strcpy (format_string, "YA ");
         else
-          strcpy (format_string, "Y' ");
+          strcpy (format_string, "Y ");
       }
     else if (color_type & PNG_COLOR_TYPE_PALETTE)
       {
         if (color_type & PNG_COLOR_MASK_ALPHA)
-          strcpy (format_string, "R'G'B'A ");
+          strcpy (format_string, "RGBA ");
         else
-          strcpy (format_string, "R'G'B' ");
+          strcpy (format_string, "RGB ");
       }
     else
       {

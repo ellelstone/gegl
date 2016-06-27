@@ -100,23 +100,23 @@ gegl_buffer_export_png (GeglBuffer  *gegl_buffer,
       if (babl_format_get_n_components (babl) != 2)
         {
           png_color_type = PNG_COLOR_TYPE_RGB_ALPHA;
-          strcpy (format_string, "R'G'B'A ");
+          strcpy (format_string, "RGBA ");
         }
       else
         {
           png_color_type = PNG_COLOR_TYPE_GRAY_ALPHA;
-          strcpy (format_string, "Y'A ");
+          strcpy (format_string, "YA ");
         }
     else
       if (babl_format_get_n_components (babl) != 1)
         {
           png_color_type = PNG_COLOR_TYPE_RGB;
-          strcpy (format_string, "R'G'B' ");
+          strcpy (format_string, "RGB ");
         }
       else
         {
           png_color_type = PNG_COLOR_TYPE_GRAY;
-          strcpy (format_string, "Y' ");
+          strcpy (format_string, "Y ");
         }
   }
 

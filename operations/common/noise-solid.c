@@ -247,7 +247,7 @@ static void
 prepare (GeglOperation *operation)
 {
   GeglProperties *o = GEGL_PROPERTIES (operation);
-  const Babl     *format = babl_format ("Y' float");
+  const Babl     *format = babl_format ("Y float");
 
   if (o->user_data == NULL)
     o->user_data = g_slice_new0 (NsParamsType);

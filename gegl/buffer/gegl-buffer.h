@@ -591,7 +591,7 @@ const GeglRectangle * gegl_sampler_get_context_rect (GeglSampler *sampler);
  * @format: desired pixel format.
  *
  * Creates a GeglBuffer backed by a linear memory buffer, of the given
- * @extent in the specified @format. babl_format ("R'G'B'A u8") for instance
+ * @extent in the specified @format. babl_format ("RGBA u8") for instance
  * to make a normal 8bit buffer.
  *
  * Returns: a GeglBuffer that can be used as any other GeglBuffer.
@@ -612,7 +612,7 @@ GeglBuffer *  gegl_buffer_linear_new          (const GeglRectangle *extent,
  *              function.
  *
  * Creates a GeglBuffer backed by a linear memory buffer that already exists,
- * of the given @extent in the specified @format. babl_format ("R'G'B'A u8")
+ * of the given @extent in the specified @format. babl_format ("RGBA u8")
  * for instance to make a normal 8bit buffer.
  *
  * Returns: a GeglBuffer that can be used as any other GeglBuffer.

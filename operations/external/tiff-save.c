@@ -393,52 +393,52 @@ export_tiff (GeglOperation *operation,
   model = babl_format_get_model(format);
   type = babl_format_get_type(format, 0);
 
-  if (model == babl_model("Y") || model == babl_model("Y'"))
+  if (model == babl_model("Y") || model == babl_model("Y"))
     {
       has_alpha = FALSE;
       color_space = PHOTOMETRIC_MINISBLACK;
-      model = babl_model("Y'");
+      model = babl_model("Y");
       samples_per_pixel = 1;
     }
-  else if (model == babl_model("YA") || model == babl_model("Y'A"))
+  else if (model == babl_model("YA") || model == babl_model("YA"))
     {
       has_alpha = TRUE;
       alpha_is_premultiplied = FALSE;
       color_space = PHOTOMETRIC_MINISBLACK;
-      model = babl_model("Y'A");
+      model = babl_model("YA");
       samples_per_pixel = 2;
     }
-  else if (model == babl_model("YaA") || model == babl_model("Y'aA"))
+  else if (model == babl_model("YaA") || model == babl_model("YaA"))
     {
       has_alpha = TRUE;
       alpha_is_premultiplied = TRUE;
       color_space = PHOTOMETRIC_MINISBLACK;
-      model = babl_model("Y'aA");
+      model = babl_model("YaA");
       samples_per_pixel = 2;
     }
-  else if (model == babl_model("RGB") || model == babl_model("R'G'B'"))
+  else if (model == babl_model("RGB") || model == babl_model("RGB"))
     {
       has_alpha = FALSE;
       color_space = PHOTOMETRIC_RGB;
-      model = babl_model("R'G'B'");
+      model = babl_model("RGB");
       samples_per_pixel = 3;
       predictor = 2;
     }
-  else if (model == babl_model("RGBA") || model == babl_model("R'G'B'A"))
+  else if (model == babl_model("RGBA") || model == babl_model("RGBA"))
     {
       has_alpha = TRUE;
       alpha_is_premultiplied = FALSE;
       color_space = PHOTOMETRIC_RGB;
-      model = babl_model("R'G'B'A");
+      model = babl_model("RGBA");
       samples_per_pixel = 4;
       predictor = 2;
     }
-  else if (model == babl_model("RaGaBaA") || model == babl_model("R'aG'aB'aA"))
+  else if (model == babl_model("RaGaBaA") || model == babl_model("RaGaBaA"))
     {
       has_alpha = TRUE;
       alpha_is_premultiplied = TRUE;
       color_space = PHOTOMETRIC_RGB;
-      model = babl_model("R'aG'aB'aA");
+      model = babl_model("RaGaBaA");
       samples_per_pixel = 4;
       predictor = 2;
     }
@@ -449,7 +449,7 @@ export_tiff (GeglOperation *operation,
       has_alpha = TRUE;
       alpha_is_premultiplied = TRUE;
       color_space = PHOTOMETRIC_RGB;
-      model = babl_model("R'aG'aB'aA");
+      model = babl_model("RaGaBaA");
       samples_per_pixel = 4;
       predictor = 2;
     }

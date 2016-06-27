@@ -29,7 +29,7 @@
  * ALPHA CHANNEL IS ALWAYS LAST. DO NOT CHANGE THIS WITHOUT UPDATING
  * THE REST OF THE CODE!
  */
-#define GEGL_SC_COLOR_BABL_NAME     "R'G'B'A float"
+#define GEGL_SC_COLOR_BABL_NAME     "RGBA float"
 
 /**
  * The type used for individual color channels. Note that this should

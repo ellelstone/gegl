@@ -500,7 +500,7 @@ process (GeglOperation       *operation,
       prect.width = 1;
       prect.height = 1;
 
-      gegl_buffer_set (output, &prect, 0, babl_format ("R'G'B' u8"), pixel, 8);
+      gegl_buffer_set (output, &prect, 0, babl_format ("RGB u8"), pixel, 8);
     }
   }
 #endif

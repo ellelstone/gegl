@@ -69,9 +69,9 @@ class TestGeglColor(unittest.TestCase):
         values = c.get_components(Gegl.format("RGBA u8"))
         self.assertEqual(values, [float(0xFF), 0.0, 0.0, float(0xFF)])
 
-        c.set_components(Gegl.format("R'G'B' u8"), [128, 0, 128])
+        c.set_components(Gegl.format("RGB u8"), [128, 0, 128])
 
-        values = c.get_components(Gegl.format("R'G'B'A u8"))
+        values = c.get_components(Gegl.format("RGBA u8"))
         self.assertEqual(values, [float(128), 0.0, float(128), float(255)])
 
         c.set_components(Gegl.format("YA double"), [0.5, 0.5])

@@ -150,7 +150,7 @@ test_comparison (const gfloat        *reference,
   GeglBuffer    *src_ref_buffer;
   GeglBuffer    *src_aux_buffer;
   GeglRectangle  extent;
-  const Babl    *input_format = babl_format ("R'G'B'A float");
+  const Babl    *input_format = babl_format ("RGBA float");
   GeglNode      *graph, *source_ref, *source_aux, *comparison;
   gint           test_result;
 

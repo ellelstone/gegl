@@ -102,9 +102,9 @@ prepare (GeglOperation *operation)
    * functions expect
    */
   gegl_operation_set_format (operation, "input",
-                             babl_format ("R'G'B'A float"));
+                             babl_format ("RGBA float"));
   gegl_operation_set_format (operation, "output",
-                             babl_format ("R'G'B'A float"));
+                             babl_format ("RGBA float"));
 }
 
 static void

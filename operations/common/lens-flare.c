@@ -309,7 +309,7 @@ static void
 prepare (GeglOperation *operation)
 {
   GeglProperties *o      = GEGL_PROPERTIES (operation);
-  const Babl     *format = babl_format ("R'G'B'A float");
+  const Babl     *format = babl_format ("RGBA float");
   LfParamsType   *params = NULL;
 
   if (o->user_data == NULL)

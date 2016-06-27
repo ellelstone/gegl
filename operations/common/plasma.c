@@ -144,7 +144,7 @@ put_pixel (PlasmaContext *context,
       rect.width = 1;
       rect.height = 1;
 
-      gegl_buffer_set (context->output, &rect, 0, babl_format ("R'G'B' float"),
+      gegl_buffer_set (context->output, &rect, 0, babl_format ("RGB float"),
                        pixel, GEGL_AUTO_ROWSTRIDE);
       return;
     }
@@ -191,7 +191,7 @@ do_plasma (PlasmaContext *context,
       rect.width = x2 - x1 + 1;
       rect.height = y2 - y1 + 1;
 
-      gegl_buffer_get (context->output, &rect, 1.0, babl_format ("R'G'B' float"),
+      gegl_buffer_get (context->output, &rect, 1.0, babl_format ("RGB float"),
                        context->buffer, GEGL_AUTO_ROWSTRIDE, GEGL_ABYSS_NONE);
 
       context->using_buffer = TRUE;
@@ -203,7 +203,7 @@ do_plasma (PlasmaContext *context,
 
       context->using_buffer = FALSE;
 
-      gegl_buffer_set (context->output, &rect, 0, babl_format ("R'G'B' float"),
+      gegl_buffer_set (context->output, &rect, 0, babl_format ("RGB float"),
                        context->buffer, GEGL_AUTO_ROWSTRIDE);
 
       return ret;
@@ -250,16 +250,16 @@ do_plasma (PlasmaContext *context,
         return FALSE;
 
       gegl_buffer_sample_at_level (context->output, x1, y1, NULL, tl,
-                          babl_format ("R'G'B' float"), level,
+                          babl_format ("RGB float"), level,
                           GEGL_SAMPLER_NEAREST, GEGL_ABYSS_NONE);
       gegl_buffer_sample_at_level (context->output, x1, y2, NULL, bl,
-                          babl_format ("R'G'B' float"), level,
+                          babl_format ("RGB float"), level,
                           GEGL_SAMPLER_NEAREST, GEGL_ABYSS_NONE);
       gegl_buffer_sample_at_level (context->output, x2, y1, NULL, tr,
-                          babl_format ("R'G'B' float"), level,
+                          babl_format ("RGB float"), level,
                           GEGL_SAMPLER_NEAREST, GEGL_ABYSS_NONE);
       gegl_buffer_sample_at_level (context->output, x2, y2, NULL, br,
-                          babl_format ("R'G'B' float"), level,
+                          babl_format ("RGB float"), level,
                           GEGL_SAMPLER_NEAREST, GEGL_ABYSS_NONE);
 
       ran = context->o->turbulence / (2.0 * recursion_depth);
@@ -333,7 +333,7 @@ do_plasma (PlasmaContext *context,
 static void
 prepare (GeglOperation *operation)
 {
-  gegl_operation_set_format (operation, "output", babl_format ("R'G'B' float"));
+  gegl_operation_set_format (operation, "output", babl_format ("RGB float"));
 }
 
 static gboolean

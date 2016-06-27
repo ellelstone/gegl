@@ -335,7 +335,7 @@ void          gegl_node_blit_buffer      (GeglNode            *node,
  * gegl_node_blit (gegl,
  *                 1.0,
  *                 &roi,
- *                 babl_format("R'G'B'A u8"),
+ *                 babl_format("RGBA u8"),
  *                 buffer,
  *                 GEGL_AUTO_ROWSTRIDE,
  *                 GEGL_BLIT_DEFAULT);

@@ -99,11 +99,11 @@ prepare (GeglOperation *operation)
 
   gegl_operation_set_format (operation, "output",
                             babl_format_new (
-                                  babl_model ("R'G'B'"),
+                                  babl_model ("RGB"),
                                   babl_type ("u8"),
-                                  babl_component ("B'"),
-                                  babl_component ("G'"),
-                                  babl_component ("R'"),
+                                  babl_component ("B"),
+                                  babl_component ("G"),
+                                  babl_component ("R"),
                                   NULL));
 
   p->w = o->width;

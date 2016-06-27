@@ -284,22 +284,22 @@ prepare (GeglOperation *operation)
   if (in_format)
     {
       if (babl_format_has_alpha (in_format))
-        in_format = babl_format ("R'G'B'A float");
+        in_format = babl_format ("RGBA float");
       else
-        in_format = babl_format ("R'G'B' float");
+        in_format = babl_format ("RGB float");
     }
   else
-    in_format = babl_format ("R'G'B' float");
+    in_format = babl_format ("RGB float");
 
   if (bm_format)
     {
       if (babl_format_has_alpha (bm_format))
-        bm_format = babl_format ("Y'A float");
+        bm_format = babl_format ("YA float");
       else
-        bm_format = babl_format ("Y' float");
+        bm_format = babl_format ("Y float");
     }
   else
-    bm_format = babl_format ("Y' float");
+    bm_format = babl_format ("Y float");
 
   bumpmap_init_params (o, in_format, bm_format);
 

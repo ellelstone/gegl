@@ -236,19 +236,19 @@ get_bounding_box (GeglOperation *operation)
     {
       if (img.channels == 3)
         gegl_operation_set_format (operation, "output",
-                                   babl_format ("R'G'B' u8"));
+                                   babl_format ("RGB u8"));
       else
         gegl_operation_set_format (operation, "output",
-                                   babl_format ("Y' u8"));
+                                   babl_format ("Y u8"));
     }
   else if (img.bpc == 2)
     {
       if (img.channels == 3)
         gegl_operation_set_format (operation, "output",
-                                   babl_format ("R'G'B' u16"));
+                                   babl_format ("RGB u16"));
       else
         gegl_operation_set_format (operation, "output",
-                                   babl_format ("Y' u16"));
+                                   babl_format ("Y u16"));
     }
   else
     g_warning ("%s: Programmer stupidity error", G_STRLOC);
@@ -304,19 +304,19 @@ process (GeglOperation       *operation,
   if (img.bpc == 1)
     {
       if (img.channels == 3)
-        gegl_buffer_get (output, &rect, 1.0, babl_format ("R'G'B' u8"), img.data,
+        gegl_buffer_get (output, &rect, 1.0, babl_format ("RGB u8"), img.data,
                          GEGL_AUTO_ROWSTRIDE, GEGL_ABYSS_NONE);
       else
-        gegl_buffer_get (output, &rect, 1.0, babl_format ("Y' u8"), img.data,
+        gegl_buffer_get (output, &rect, 1.0, babl_format ("Y u8"), img.data,
                          GEGL_AUTO_ROWSTRIDE, GEGL_ABYSS_NONE);
     }
   else if (img.bpc == 2)
     {
       if (img.channels == 3)
-        gegl_buffer_get (output, &rect, 1.0, babl_format ("R'G'B' u16"), img.data,
+        gegl_buffer_get (output, &rect, 1.0, babl_format ("RGB u16"), img.data,
                          GEGL_AUTO_ROWSTRIDE, GEGL_ABYSS_NONE);
       else
-        gegl_buffer_get (output, &rect, 1.0, babl_format ("Y' u16"), img.data,
+        gegl_buffer_get (output, &rect, 1.0, babl_format ("Y u16"), img.data,
                          GEGL_AUTO_ROWSTRIDE, GEGL_ABYSS_NONE);
     }
   else
@@ -327,19 +327,19 @@ process (GeglOperation       *operation,
   if (img.bpc == 1)
     {
       if (img.channels == 3)
-        gegl_buffer_set (output, &rect, 0, babl_format ("R'G'B' u8"), img.data,
+        gegl_buffer_set (output, &rect, 0, babl_format ("RGB u8"), img.data,
                          GEGL_AUTO_ROWSTRIDE);
       else
-        gegl_buffer_set (output, &rect, 0, babl_format ("Y' u8"), img.data,
+        gegl_buffer_set (output, &rect, 0, babl_format ("Y u8"), img.data,
                          GEGL_AUTO_ROWSTRIDE);
     }
   else if (img.bpc == 2)
     {
       if (img.channels == 3)
-        gegl_buffer_set (output, &rect, 0, babl_format ("R'G'B' u16"), img.data,
+        gegl_buffer_set (output, &rect, 0, babl_format ("RGB u16"), img.data,
                          GEGL_AUTO_ROWSTRIDE);
       else
-        gegl_buffer_set (output, &rect, 0, babl_format ("Y' u16"), img.data,
+        gegl_buffer_set (output, &rect, 0, babl_format ("Y u16"), img.data,
                          GEGL_AUTO_ROWSTRIDE);
     }
   else

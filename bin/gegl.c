@@ -259,7 +259,7 @@ main (gint    argc,
             bounds.width *= o->scale;
             bounds.height *= o->scale;
             temp = gegl_malloc (bounds.width * bounds.height * 4);
-            tempb = gegl_buffer_new (&bounds, babl_format("R'G'B'A u8"));
+            tempb = gegl_buffer_new (&bounds, babl_format("RGBA u8"));
 
             n0 = gegl_node_new_child (gegl, "operation", "gegl:buffer-source",
                                             "buffer", tempb,
@@ -277,11 +277,11 @@ main (gint    argc,
               while (frame_no < duration)
               {
                 gegl_node_blit (gegl, o->scale, &bounds,
-                                babl_format("R'G'B'A u8"), temp,
+                                babl_format("RGBA u8"), temp,
                                 GEGL_AUTO_ROWSTRIDE,
                                 GEGL_BLIT_DEFAULT);
 
-                gegl_buffer_set (tempb, &bounds, 0.0, babl_format ("R'G'B'A u8"),
+                gegl_buffer_set (tempb, &bounds, 0.0, babl_format ("RGBA u8"),
                                  temp, GEGL_AUTO_ROWSTRIDE);
 
                 gegl_node_get (iter, "audio", &audio, NULL);
@@ -321,11 +321,11 @@ main (gint    argc,
             bounds.width *= o->scale;
             bounds.height *= o->scale;
             temp = gegl_malloc (bounds.width * bounds.height * 4);
-            tempb = gegl_buffer_new (&bounds, babl_format("R'G'B'A u8"));
-            gegl_node_blit (gegl, o->scale, &bounds, babl_format("R'G'B'A u8"), temp, GEGL_AUTO_ROWSTRIDE,
+            tempb = gegl_buffer_new (&bounds, babl_format("RGBA u8"));
+            gegl_node_blit (gegl, o->scale, &bounds, babl_format("RGBA u8"), temp, GEGL_AUTO_ROWSTRIDE,
                             GEGL_BLIT_DEFAULT);
 
-            gegl_buffer_set (tempb, &bounds, 0.0, babl_format ("R'G'B'A u8"),
+            gegl_buffer_set (tempb, &bounds, 0.0, babl_format ("RGBA u8"),
                              temp, GEGL_AUTO_ROWSTRIDE);
 
             n0 = gegl_node_new_child (gegl, "operation", "gegl:buffer-source",

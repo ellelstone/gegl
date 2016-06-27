@@ -51,7 +51,7 @@ prepare (GeglOperation *self)
 {
   gegl_operation_set_format (self, "input",  babl_format ("CIE Lab alpha float"));
   gegl_operation_set_format (self, "aux",    babl_format ("CIE Lab alpha float"));
-  gegl_operation_set_format (self, "output", babl_format ("R'G'B' u8"));
+  gegl_operation_set_format (self, "output", babl_format ("RGB u8"));
 }
 
 static GeglRectangle
@@ -82,7 +82,7 @@ process (GeglOperation       *operation,
   gdouble             diffsum      = 0.0;
   gint                wrong_pixels = 0;
   const Babl         *cielab       = babl_format ("CIE Lab alpha float");
-  const Babl         *srgb         = babl_format ("R'G'B' u8");
+  const Babl         *srgb         = babl_format ("RGB u8");
   const Babl         *yadbl        = babl_format ("YA double");
   GeglBuffer         *diff_buffer;
   GeglBufferIterator *iter;

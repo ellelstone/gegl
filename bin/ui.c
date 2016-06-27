@@ -1624,7 +1624,7 @@ static void load_into_buffer (State *o, const char *path)
   else
     {
       GeglRectangle extent = {0,0,1,1}; /* segfaults with NULL / 0,0,0,0*/
-      o->buffer = gegl_buffer_new (&extent, babl_format("R'G'B' u8"));
+      o->buffer = gegl_buffer_new (&extent, babl_format("RGB u8"));
     }
 }
 

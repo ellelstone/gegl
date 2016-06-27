@@ -56,7 +56,7 @@ static void prepare (GeglOperation *operation)
 {
   GeglProperties *o = GEGL_PROPERTIES (operation);
   gegl_operation_set_format (operation, "output",
-      babl_format(gdk_pixbuf_get_has_alpha(GDK_PIXBUF(o->pixbuf))?"R'G'B'A u8":"R'G'B' u8"));
+      babl_format(gdk_pixbuf_get_has_alpha(GDK_PIXBUF(o->pixbuf))?"RGBA u8":"RGB u8"));
 }
 
 static gboolean

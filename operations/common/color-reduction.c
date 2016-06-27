@@ -66,8 +66,8 @@ property_seed (seed, _("Random seed"), rand)
 static void
 prepare (GeglOperation *operation)
 {
-  gegl_operation_set_format (operation, "input", babl_format ("R'G'B'A u16"));
-  gegl_operation_set_format (operation, "output", babl_format ("R'G'B'A u16"));
+  gegl_operation_set_format (operation, "input", babl_format ("RGBA u16"));
+  gegl_operation_set_format (operation, "output", babl_format ("RGBA u16"));
 }
 
 static void
@@ -143,7 +143,7 @@ process_floyd_steinberg (GeglBuffer          *input,
 
       /* Pull input row */
 
-      gegl_buffer_get (input, &line_rect, 1.0, babl_format ("R'G'B'A u16"), line_buf,
+      gegl_buffer_get (input, &line_rect, 1.0, babl_format ("RGBA u16"), line_buf,
                        GEGL_AUTO_ROWSTRIDE, GEGL_ABYSS_NONE);
 
       /* Process the row */
@@ -196,7 +196,7 @@ process_floyd_steinberg (GeglBuffer          *input,
 
       /* Push output row */
 
-      gegl_buffer_set (output, &line_rect, 0, babl_format ("R'G'B'A u16"), line_buf, GEGL_AUTO_ROWSTRIDE);
+      gegl_buffer_set (output, &line_rect, 0, babl_format ("RGBA u16"), line_buf, GEGL_AUTO_ROWSTRIDE);
       line_rect.y++;
     }
 
@@ -386,10 +386,10 @@ process_standard (GeglBuffer          *input,
 
   generate_channel_masks (channel_bits, channel_mask);
 
-  gi = gegl_buffer_iterator_new (input, result, 0, babl_format ("R'G'B'A u16"),
+  gi = gegl_buffer_iterator_new (input, result, 0, babl_format ("RGBA u16"),
                                  GEGL_ACCESS_READ, GEGL_ABYSS_NONE);
 
-  gegl_buffer_iterator_add (gi, output, result, 0, babl_format ("R'G'B'A u16"),
+  gegl_buffer_iterator_add (gi, output, result, 0, babl_format ("RGBA u16"),
                             GEGL_ACCESS_WRITE, GEGL_ABYSS_NONE);
 
   while (gegl_buffer_iterator_next (gi))

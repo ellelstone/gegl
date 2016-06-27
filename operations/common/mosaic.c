@@ -373,7 +373,7 @@ mosaic (GeglOperation       *operation,
   input_buf = g_new (gfloat, NB_CPN * result->width * result->height);
 
   gegl_buffer_get (drawable, result,
-                   1.0, babl_format ("R'G'B'A float"), input_buf,
+                   1.0, babl_format ("RGBA float"), input_buf,
                    GEGL_AUTO_ROWSTRIDE, GEGL_ABYSS_NONE);
 
   {
@@ -2381,9 +2381,9 @@ prepare (GeglOperation *operation)
   area->top = area->bottom = 2 * ceil (o->tile_size) + 1;
 
   gegl_operation_set_format (operation, "input",
-                             babl_format ("R'G'B'A float"));
+                             babl_format ("RGBA float"));
   gegl_operation_set_format (operation, "output",
-                             babl_format ("R'G'B'A float"));
+                             babl_format ("RGBA float"));
 }
 
 static gboolean
@@ -2423,7 +2423,7 @@ process (GeglOperation       *operation,
   offset += (result->x - working_region.x);
   offset *= 4;
 
-  gegl_buffer_set (output, result, 0, babl_format ("R'G'B'A float"),
+  gegl_buffer_set (output, result, 0, babl_format ("RGBA float"),
                    res + offset, rowstride);
 
   g_free (res);
