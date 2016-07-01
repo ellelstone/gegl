@@ -115,10 +115,10 @@ gegl_cl_color_compile_kernels (void)
     { babl_format ("RGBA u8"), babl_format("RaGaBaA float"), "rgbau8_to_ragabaf", NULL },
     { babl_format ("RaGaBaA float"), babl_format("RGBA u8"), "ragabaf_to_rgbau8", NULL },
 
-    { babl_format ("RGBA float"), babl_format("R'G'B'A float"), "rgbaf_to_rgba_gamma_f", NULL },
-    { babl_format ("R'G'B'A float"), babl_format("RGBA float"), "rgba_gamma_f_to_rgbaf", NULL },
-    { babl_format ("RGBA u8"), babl_format("R'G'B'A float"), "rgbau8_to_rgba_gamma_f", NULL },
-    { babl_format ("R'G'B'A float"), babl_format("RGBA u8"), "rgba_gamma_f_to_rgbau8", NULL },
+    { babl_format ("RGBA float"), babl_format("RGBA float"), "rgbaf_to_rgba_gamma_f", NULL },
+    { babl_format ("RGBA float"), babl_format("RGBA float"), "rgba_gamma_f_to_rgbaf", NULL },
+    { babl_format ("RGBA u8"), babl_format("RGBA float"), "rgbau8_to_rgba_gamma_f", NULL },
+    { babl_format ("RGBA float"), babl_format("RGBA u8"), "rgba_gamma_f_to_rgbau8", NULL },
 
     { babl_format ("RGB u8"), babl_format("RGBA float"), "rgbu8_to_rgbaf", NULL },
     { babl_format ("RGBA float"), babl_format("RGB u8"), "rgbaf_to_rgbu8", NULL },
@@ -131,14 +131,14 @@ gegl_cl_color_compile_kernels (void)
     { babl_format ("YA float"), babl_format("RGBA u8"), "yaf_to_rgbau8", NULL },
     { babl_format ("RaGaBaA float"), babl_format("YA float"), "ragabaf_to_yaf", NULL },
 
-    { babl_format ("RGBA float"), babl_format("R'G'B'A u8"), "rgbaf_to_rgba_gamma_u8", NULL },
-    { babl_format ("RGBA float"), babl_format("R'G'B' u8"), "rgbaf_to_rgb_gamma_u8", NULL },
+    { babl_format ("RGBA float"), babl_format("RGBA u8"), "rgbaf_to_rgba_gamma_u8", NULL },
+    { babl_format ("RGBA float"), babl_format("RGB u8"), "rgbaf_to_rgb_gamma_u8", NULL },
 
-    { babl_format ("RaGaBaA float"), babl_format("R'G'B'A u8"), "ragabaf_to_rgba_gamma_u8", NULL },
-    { babl_format ("RaGaBaA float"), babl_format("R'G'B' u8"), "ragabaf_to_rgb_gamma_u8", NULL },
+    { babl_format ("RaGaBaA float"), babl_format("RGBA u8"), "ragabaf_to_rgba_gamma_u8", NULL },
+    { babl_format ("RaGaBaA float"), babl_format("RGB u8"), "ragabaf_to_rgb_gamma_u8", NULL },
 
-    { babl_format ("YA float"), babl_format("R'G'B'A u8"), "yaf_to_rgba_gamma_u8", NULL },
-    { babl_format ("YA float"), babl_format("R'G'B' u8"), "yaf_to_rgb_gamma_u8", NULL },
+    { babl_format ("YA float"), babl_format("RGBA u8"), "yaf_to_rgba_gamma_u8", NULL },
+    { babl_format ("YA float"), babl_format("RGB u8"), "yaf_to_rgb_gamma_u8", NULL },
 
     { babl_format ("YA float"), babl_format ("RaGaBaA float"), "yaf_to_ragabaf", NULL },
 
@@ -146,22 +146,22 @@ gegl_cl_color_compile_kernels (void)
 
     { babl_format ("RGBA float"), babl_format ("RGB float"), "rgbaf_to_rgbf", NULL },
 
-    { babl_format ("R'G'B' float"), babl_format ("RGBA float"), "rgb_gamma_f_to_rgbaf", NULL },
+    { babl_format ("RGB float"), babl_format ("RGBA float"), "rgb_gamma_f_to_rgbaf", NULL },
 
     /* Reuse some conversions */
-    { babl_format ("R'G'B' u8"), babl_format ("R'G'B'A float"), "rgbu8_to_rgbaf", NULL },
-    { babl_format ("R'G'B'A u8"), babl_format ("R'G'B'A float"), "rgbau8_to_rgbaf", NULL },
+    { babl_format ("RGB u8"), babl_format ("RGBA float"), "rgbu8_to_rgbaf", NULL },
+    { babl_format ("RGBA u8"), babl_format ("RGBA float"), "rgbau8_to_rgbaf", NULL },
 
-    { babl_format ("R'G'B' float"), babl_format ("RaGaBaA float"), "rgb_gamma_f_to_rgbaf", NULL },
+    { babl_format ("RGB float"), babl_format ("RaGaBaA float"), "rgb_gamma_f_to_rgbaf", NULL },
   };
 
   ColorConversionInfo lut8_conversions[] = {
-    { babl_format ("R'G'B'A u8"), babl_format("RGBA float"), "rgba_gamma_u8_to_rgbaf", NULL },
-    { babl_format ("R'G'B'A u8"), babl_format("RaGaBaA float"), "rgba_gamma_u8_to_ragabaf", NULL },
-    { babl_format ("R'G'B'A u8"), babl_format("YA float"), "rgba_gamma_u8_to_yaf", NULL },
-    { babl_format ("R'G'B' u8"), babl_format("RGBA float"), "rgb_gamma_u8_to_rgbaf", NULL },
-    { babl_format ("R'G'B' u8"), babl_format("RaGaBaA float"), "rgb_gamma_u8_to_ragabaf", NULL },
-    { babl_format ("R'G'B' u8"), babl_format("YA float"), "rgb_gamma_u8_to_yaf", NULL },
+    { babl_format ("RGBA u8"), babl_format("RGBA float"), "rgba_gamma_u8_to_rgbaf", NULL },
+    { babl_format ("RGBA u8"), babl_format("RaGaBaA float"), "rgba_gamma_u8_to_ragabaf", NULL },
+    { babl_format ("RGBA u8"), babl_format("YA float"), "rgba_gamma_u8_to_yaf", NULL },
+    { babl_format ("RGB u8"), babl_format("RGBA float"), "rgb_gamma_u8_to_rgbaf", NULL },
+    { babl_format ("RGB u8"), babl_format("RaGaBaA float"), "rgb_gamma_u8_to_ragabaf", NULL },
+    { babl_format ("RGB u8"), babl_format("YA float"), "rgb_gamma_u8_to_yaf", NULL },
   };
 
   /* Fail if the kernels are already compiled, meaning this must have been called twice */
