@@ -40,10 +40,7 @@ static void prepare (GeglOperation *operation)
   GeglProperties *o = GEGL_PROPERTIES (operation);
   const Babl *format;
 
-  if (o->srgb)
-    format = babl_format ("RGBA float");
-  else
-    format = babl_format ("RGBA float");
+  format = babl_format ("RGBA float");
 
   gegl_operation_set_format (operation, "input", format);
   gegl_operation_set_format (operation, "output", format);

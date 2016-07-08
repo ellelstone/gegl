@@ -155,8 +155,8 @@ static void prepare (GeglOperation *operation)
       o->stop4,
       o->stop5
   };
-  const Babl *input_format = (o->srgb) ? babl_format ("YA float") : babl_format ("YA float");
-  const Babl *output_format = (o->srgb) ? babl_format ("RGBA float") : babl_format ("RGBA float");
+  const Babl *input_format = babl_format ("YA float");
+  const Babl *output_format = babl_format ("RGBA float");
 
   gegl_operation_set_format (operation, "input", input_format);
   gegl_operation_set_format (operation, "output", output_format);

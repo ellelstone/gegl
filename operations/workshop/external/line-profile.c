@@ -83,7 +83,7 @@ process (GeglOperation       *operation,
 
   {
     GeglRectangle extent = {0,0,width,height};
-    output = gegl_buffer_new (&extent, babl_format ("B'aG'aR'aA u8"));
+    output = gegl_buffer_new (&extent, babl_format ("BaGaRaA u8"));
   }
 
   {
@@ -150,7 +150,7 @@ process (GeglOperation       *operation,
    cairo_line_to (cr, o->x1, o->y1);
    cairo_stroke (cr);
 
-    gegl_buffer_set (output, NULL, 0, babl_format ("B'aG'aR'aA u8"), buf, GEGL_AUTO_ROWSTRIDE);
+    gegl_buffer_set (output, NULL, 0, babl_format ("BaGaRaA u8"), buf, GEGL_AUTO_ROWSTRIDE);
   }
 
   return TRUE;

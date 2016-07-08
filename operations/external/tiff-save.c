@@ -393,14 +393,14 @@ export_tiff (GeglOperation *operation,
   model = babl_format_get_model(format);
   type = babl_format_get_type(format, 0);
 
-  if (model == babl_model("Y") || model == babl_model("Y"))
+  if (model == babl_model("Y"))
     {
       has_alpha = FALSE;
       color_space = PHOTOMETRIC_MINISBLACK;
       model = babl_model("Y");
       samples_per_pixel = 1;
     }
-  else if (model == babl_model("YA") || model == babl_model("YA"))
+  else if (model == babl_model("YA"))
     {
       has_alpha = TRUE;
       alpha_is_premultiplied = FALSE;
@@ -408,7 +408,7 @@ export_tiff (GeglOperation *operation,
       model = babl_model("YA");
       samples_per_pixel = 2;
     }
-  else if (model == babl_model("YaA") || model == babl_model("YaA"))
+  else if (model == babl_model("YaA"))
     {
       has_alpha = TRUE;
       alpha_is_premultiplied = TRUE;
@@ -416,7 +416,7 @@ export_tiff (GeglOperation *operation,
       model = babl_model("YaA");
       samples_per_pixel = 2;
     }
-  else if (model == babl_model("RGB") || model == babl_model("RGB"))
+  else if (model == babl_model("RGB"))
     {
       has_alpha = FALSE;
       color_space = PHOTOMETRIC_RGB;
@@ -424,7 +424,7 @@ export_tiff (GeglOperation *operation,
       samples_per_pixel = 3;
       predictor = 2;
     }
-  else if (model == babl_model("RGBA") || model == babl_model("RGBA"))
+  else if (model == babl_model("RGBA"))
     {
       has_alpha = TRUE;
       alpha_is_premultiplied = FALSE;
@@ -433,7 +433,7 @@ export_tiff (GeglOperation *operation,
       samples_per_pixel = 4;
       predictor = 2;
     }
-  else if (model == babl_model("RaGaBaA") || model == babl_model("RaGaBaA"))
+  else if (model == babl_model("RaGaBaA"))
     {
       has_alpha = TRUE;
       alpha_is_premultiplied = TRUE;

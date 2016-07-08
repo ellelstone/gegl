@@ -37,10 +37,10 @@ test_buffer_cast (void)
   gegl_buffer_set (buffer, NULL, 0, NULL, srcpix, GEGL_AUTO_ROWSTRIDE);
 
   gegl_buffer_set_format (cbuffer, 
-       babl_format_new ("name", "B' u8",
+       babl_format_new ("name", "B u8",
                           babl_model ("RGBA"),
                           babl_type ("u8"),
-                          babl_component ("B'"),
+                          babl_component ("B"),
                           NULL));
   gegl_buffer_copy (buffer, NULL, GEGL_ABYSS_NONE,
                     cbuffer, NULL);

@@ -52,15 +52,9 @@ prepare (GeglOperation *self)
           o->user_data = NULL;
           fmt = babl_format ("RaGaBaA float");
         }
-      else if (model == babl_model ("RaGaBaA") ||
-               model == babl_model ("YaA"))
-        {
-          o->user_data = NULL;
-          fmt = babl_format ("RaGaBaA float");
-        }
       else if (model == babl_model ("RGBA") ||
                model == babl_model ("RGB")  ||
-               model == babl_model ("Y")      ||
+               model == babl_model ("Y")    ||
                model == babl_model ("YA"))
         {
           o->user_data = (void*)0xabc;

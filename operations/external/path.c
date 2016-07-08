@@ -383,7 +383,7 @@ process (GeglOperation       *operation,
           guchar *data;
 
           g_mutex_lock (&mutex);
-          data = gegl_buffer_linear_open (output, result, NULL, babl_format ("B'aG'aR'aA u8"));
+          data = gegl_buffer_linear_open (output, result, NULL, babl_format ("BaGaRaA u8"));
           surface = cairo_image_surface_create_for_data (data,
                                                          CAIRO_FORMAT_ARGB32,
                                                          result->width,
