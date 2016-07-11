@@ -258,7 +258,7 @@ gegl_op_class_init (GeglOpClass *klass)
   operation_class->prepare = prepare;
   G_OBJECT_CLASS (klass)->finalize = finalize;
 
-  operation_class->opencl_support = TRUE;
+//  operation_class->opencl_support = TRUE;
 
   gegl_operation_class_set_keys (operation_class,
       "name",       "gegl:channel-mixer",
