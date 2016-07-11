@@ -129,7 +129,7 @@ color_to_alpha (const gfloat *color,
   dst[3] *= alpha[3];
 }
 
-#include "opencl/gegl-cl.h"
+/*#include "opencl/gegl-cl.h"
 #include "opencl/color-to-alpha.cl.h"
 
 static GeglClRunData * cl_data = NULL;
@@ -181,7 +181,7 @@ cl_process (GeglOperation       *operation,
  error:
   return TRUE;
 }
-
+*/
 
 static gboolean
 process (GeglOperation       *operation,
@@ -243,10 +243,10 @@ gegl_op_class_init (GeglOpClass *klass)
   filter_class    = GEGL_OPERATION_POINT_FILTER_CLASS (klass);
 
   filter_class->process    = process;
-  filter_class->cl_process = cl_process;
+//  filter_class->cl_process = cl_process;
 
   operation_class->prepare = prepare;
-  operation_class->opencl_support = TRUE;
+//  operation_class->opencl_support = TRUE;
 
   gegl_operation_class_set_keys (operation_class,
     "name",        "gegl:color-to-alpha",

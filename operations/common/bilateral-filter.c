@@ -61,7 +61,7 @@ static void prepare (GeglOperation *operation)
   gegl_operation_set_format (operation, "output", babl_format ("RGBA float"));
 }
 
-#include "opencl/gegl-cl.h"
+/*#include "opencl/gegl-cl.h"
 #include "gegl-buffer-cl-iterator.h"
 
 #include "opencl/bilateral-filter.cl.h"
@@ -154,7 +154,7 @@ cl_process (GeglOperation       *operation,
     }
 
   return TRUE;
-}
+}*/
 
 static gboolean
 process (GeglOperation       *operation,
@@ -166,9 +166,9 @@ process (GeglOperation       *operation,
   GeglProperties *o = GEGL_PROPERTIES (operation);
   GeglRectangle compute;
 
-  if (o->blur_radius >= 1.0 && gegl_operation_use_opencl (operation))
+/*  if (o->blur_radius >= 1.0 && gegl_operation_use_opencl (operation))
     if (cl_process (operation, input, output, result))
-      return TRUE;
+      return TRUE;*/
 
   compute = gegl_operation_get_required_for_output (operation, "input",result);
 
@@ -282,7 +282,7 @@ gegl_op_class_init (GeglOpClass *klass)
   filter_class->process   = process;
   operation_class->prepare = prepare;
 
-  operation_class->opencl_support = TRUE;
+//  operation_class->opencl_support = TRUE;
 
   gegl_operation_class_set_keys (operation_class,
            "name", "gegl:bilateral-filter",

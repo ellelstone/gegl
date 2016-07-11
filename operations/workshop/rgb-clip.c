@@ -171,7 +171,7 @@ gegl_op_class_init (GeglOpClass *klass)
 
   operation_class->prepare = prepare;
   operation_class->process = operation_process;
-  operation_class->opencl_support = FALSE;
+//  operation_class->opencl_support = FALSE;
 
   filter_class->process    = process;
 

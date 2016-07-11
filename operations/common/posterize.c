@@ -65,7 +65,7 @@ static gboolean process (GeglOperation       *operation,
   return TRUE;
 }
 
-#include "opencl/gegl-cl.h"
+/*#include "opencl/gegl-cl.h"
 #include "opencl/posterize.cl.h"
 
 static GeglClRunData *cl_data = NULL;
@@ -113,7 +113,7 @@ cl_process (GeglOperation       *operation,
 error:
   return TRUE;
 }
-
+*/
 static void
 gegl_op_class_init (GeglOpClass *klass)
 {
@@ -123,9 +123,9 @@ gegl_op_class_init (GeglOpClass *klass)
   operation_class    = GEGL_OPERATION_CLASS (klass);
   point_filter_class = GEGL_OPERATION_POINT_FILTER_CLASS (klass);
 
-  operation_class->opencl_support = TRUE;
+//  operation_class->opencl_support = TRUE;
   point_filter_class->process     = process;
-  point_filter_class->cl_process  = cl_process;
+//  point_filter_class->cl_process  = cl_process;
 
   gegl_operation_class_set_keys (operation_class,
     "name",        "gegl:posterize",

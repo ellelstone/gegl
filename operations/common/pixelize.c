@@ -384,7 +384,7 @@ pixelize (gfloat              *input,
       }
 }
 
-#include "opencl/gegl-cl.h"
+/*#include "opencl/gegl-cl.h"
 #include "gegl-buffer-cl-iterator.h"
 
 #include "opencl/pixelize.cl.h"
@@ -547,7 +547,7 @@ cl_process (GeglOperation       *operation,
 
   return !err;
 }
-
+*/
 static gboolean
 process (GeglOperation       *operation,
          GeglBuffer          *input,
@@ -564,9 +564,9 @@ process (GeglOperation       *operation,
 
   whole_region = gegl_operation_source_get_bounding_box (operation, "input");
 
-  if (gegl_operation_use_opencl (operation))
+/*  if (gegl_operation_use_opencl (operation))
     if (cl_process (operation, input, output, roi))
-      return TRUE;
+      return TRUE;*/
 
   if (o->size_x * o->size_y < SQR (ALLOC_THRESHOLD_SIZE))
     {
@@ -644,7 +644,7 @@ gegl_op_class_init (GeglOpClass *klass)
 
   operation_class->prepare          = prepare;
   operation_class->get_bounding_box = get_bounding_box;
-  operation_class->opencl_support   = TRUE;
+//  operation_class->opencl_support   = TRUE;
 
   filter_class->process           = process;
 

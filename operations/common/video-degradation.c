@@ -187,7 +187,7 @@ prepare (GeglOperation *operation)
   gegl_operation_set_format (operation, "output", format);
 }
 
-static gboolean
+/*static gboolean
 cl_process (GeglOperation       *operation,
             cl_mem               in_buf,
             cl_mem               out_buf,
@@ -237,7 +237,7 @@ cl_process (GeglOperation       *operation,
       gegl_clReleaseMemObject (filter_pat);
     return TRUE;
 }
-
+*/
 static gboolean
 process (GeglOperation       *operation,
          void                *in_buf,
@@ -300,7 +300,7 @@ process (GeglOperation       *operation,
   return TRUE;
 }
 
-#include "opencl/video-degradation.cl.h"
+//#include "opencl/video-degradation.cl.h"
 
 static void
 gegl_op_class_init (GeglOpClass *klass)
@@ -314,7 +314,7 @@ gegl_op_class_init (GeglOpClass *klass)
   operation_class->prepare = prepare;
 
   filter_class->process    = process;
-  filter_class->cl_process = cl_process;
+//  filter_class->cl_process = cl_process;
 
   gegl_operation_class_set_keys (operation_class,
     "name",        "gegl:video-degradation",
@@ -323,7 +323,7 @@ gegl_op_class_init (GeglOpClass *klass)
     "license",     "GPL3+",
     "description", _("This function simulates the degradation of "
                      "being on an old low-dotpitch RGB video monitor."),
-    "cl-source"  , video_degradation_cl_source,
+//    "cl-source"  , video_degradation_cl_source,
     NULL);
 }
 

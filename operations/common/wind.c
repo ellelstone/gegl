@@ -654,7 +654,7 @@ gegl_op_class_init (GeglOpClass *klass)
   operation_class->prepare                 = prepare;
   operation_class->get_cached_region       = get_cached_region;
   operation_class->get_required_for_output = get_required_for_output;
-  operation_class->opencl_support          = FALSE;
+//  operation_class->opencl_support          = FALSE;
 
   gegl_operation_class_set_keys (operation_class,
      "name",       "gegl:wind",

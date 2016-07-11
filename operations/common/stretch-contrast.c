@@ -119,7 +119,7 @@ get_cached_region (GeglOperation       *operation,
   return result;
 }
 
-#include "opencl/gegl-cl.h"
+/*#include "opencl/gegl-cl.h"
 #include "gegl-buffer-cl-iterator.h"
 #include "opencl/stretch-contrast.cl.h"
 
@@ -177,7 +177,7 @@ cl_buffer_get_min_max (cl_mem               in_tex,
                       MIN (cl_data->work_group_size[0],
                            cl_data->work_group_size[1]));
 
-  /* Needs to be a power of two */
+  //Needs to be a power of two
   local_ws = 256;
   while (local_ws > max_local_ws)
     local_ws /= 2;
@@ -202,8 +202,8 @@ cl_buffer_get_min_max (cl_mem               in_tex,
                                     NULL, &cl_err);
   CL_CHECK;
 
-  /* The full initialization is done in the two_stages_local_min_max_reduce
-     kernel */
+  //The full initialization is done in the two_stages_local_min_max_reduce kernel
+
 #if 0
   cl_err = gegl_clSetKernelArg(cl_data->kernel[3], 0, sizeof(cl_mem),
                                (void*)&cl_aux_min);
@@ -254,14 +254,14 @@ cl_buffer_get_min_max (cl_mem               in_tex,
                                (void*)&cl_min_max);
   CL_CHECK;
 
-  /* Only one work group */
+  //Only one work group
   cl_err = gegl_clEnqueueNDRangeKernel (gegl_cl_get_command_queue (),
                                         cl_data->kernel[1], 1,
                                         NULL, &local_ws, &local_ws,
                                         0, NULL, NULL);
   CL_CHECK;
 
-  /* Read the memory buffer, probably better to keep it in GPU memory */
+  //Read the memory buffer, probably better to keep it in GPU memory
   cl_err = gegl_clEnqueueReadBuffer (gegl_cl_get_command_queue (),
                                      cl_min_max, CL_TRUE, 0,
                                      2 * sizeof (cl_float4), &min_max_buf, 0,
@@ -394,7 +394,7 @@ cl_process (GeglOperation       *operation,
     {
       diff[c] = max[c] - min[c];
 
-      /* Avoid a divide by zero error if the image is a solid color */
+      //Avoid a divide by zero error if the image is a solid color
       if (diff[c] < 1e-3)
         {
           min[c]  = 0.0;
@@ -446,7 +446,7 @@ cl_process (GeglOperation       *operation,
 
   return !err;
 }
-
+*/
 static gboolean
 process (GeglOperation       *operation,
          GeglBuffer          *input,
@@ -459,9 +459,9 @@ process (GeglOperation       *operation,
   GeglProperties         *o;
   gint                c;
 
-  if (gegl_cl_is_accelerated ())
+/*  if (gegl_cl_is_accelerated ())
     if (cl_process (operation, input, output, result))
-      return TRUE;
+      return TRUE;*/
 
   o = GEGL_PROPERTIES (operation);
 
@@ -559,7 +559,7 @@ gegl_op_class_init (GeglOpClass *klass)
   operation_class->process = operation_process;
   operation_class->get_required_for_output = get_required_for_output;
   operation_class->get_cached_region = get_cached_region;
-  operation_class->opencl_support = TRUE;
+//  operation_class->opencl_support = TRUE;
 
   gegl_operation_class_set_keys (operation_class,
     "name",        "gegl:stretch-contrast",

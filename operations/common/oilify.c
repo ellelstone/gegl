@@ -279,7 +279,7 @@ prepare (GeglOperation *operation)
                              babl_format ("RGBA float"));
 }
 
-#include "opencl/gegl-cl.h"
+/*#include "opencl/gegl-cl.h"
 #include "gegl-buffer-cl-iterator.h"
 
 #include "opencl/oilify.cl.h"
@@ -311,7 +311,7 @@ cl_oilify (cl_mem              in_tex,
     }
   if (!cl_data)  return TRUE;
 
-  /* simple hack: select suitable kernel using boolean, 0 - no intensity mode, 1 - intensity mode */
+  //simple hack: select suitable kernel using boolean, 0 - no intensity mode, 1 - intensity mode
   cl_err = gegl_clSetKernelArg(cl_data->kernel[use_inten], arg++, sizeof(cl_mem),   (void*)&in_tex);
   CL_CHECK;
   cl_err = gegl_clSetKernelArg(cl_data->kernel[use_inten], arg++, sizeof(cl_mem),   (void*)&out_tex);
@@ -381,7 +381,7 @@ cl_process (GeglOperation       *operation,
 
   return TRUE;
 }
-
+*/
 static gboolean
 process (GeglOperation       *operation,
          GeglBuffer          *input,
@@ -402,9 +402,9 @@ process (GeglOperation       *operation,
   GeglRectangle src_rect;
   gint total_pixels;
 
-  if (gegl_operation_use_opencl (operation))
+/*  if (gegl_operation_use_opencl (operation))
     if (cl_process (operation, input, output, result))
-      return TRUE;
+      return TRUE;*/
 
   src_rect.x      = result->x - op_area->left;
   src_rect.width  = result->width + op_area->left + op_area->right;

@@ -4187,7 +4187,7 @@ prepare (GeglOperation *operation)
   gegl_operation_set_format (operation, "output", new_format);
 }
 
-#include "opencl/gegl-cl.h"
+/*#include "opencl/gegl-cl.h"
 #include "opencl/texturize-canvas.cl.h"
 
 static GeglClRunData *cl_data = NULL;
@@ -4280,7 +4280,7 @@ error:
       return TRUE;
    }
 }
-
+*/
 
 static gboolean
 process (GeglOperation       *operation,
@@ -4370,10 +4370,10 @@ gegl_op_class_init (GeglOpClass *klass)
   point_filter_class = GEGL_OPERATION_POINT_FILTER_CLASS (klass);
 
   point_filter_class->process = process;
-  point_filter_class->cl_process = cl_process;
+//  point_filter_class->cl_process = cl_process;
   operation_class->prepare = prepare;
 
-  operation_class->opencl_support = TRUE;
+//  operation_class->opencl_support = TRUE;
   gegl_operation_class_set_keys (operation_class,
     "name",               "gegl:texturize-canvas",
     "title",              _("Texturize Canvas"),

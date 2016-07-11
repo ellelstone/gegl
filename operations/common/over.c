@@ -78,7 +78,7 @@ process (GeglOperation       *op,
   return TRUE;
 }
 
-#include "opencl/svg-src-over.cl.h"
+/*#include "opencl/svg-src-over.cl.h"
 
 static gboolean
 cl_process (GeglOperation       *operation,
@@ -92,7 +92,7 @@ cl_process (GeglOperation       *operation,
   GeglOperationClass *operation_class = GEGL_OPERATION_GET_CLASS (operation);
   cl_int cl_err = 0;
 
-  /* The kernel will have been compiled by our parent class */
+  //The kernel will have been compiled by our parent class
   if (!operation_class->cl_data)
     return TRUE;
 
@@ -114,7 +114,7 @@ cl_process (GeglOperation       *operation,
 error:
   return TRUE;
 }
-
+*/
 /* Fast paths */
 static gboolean operation_process (GeglOperation        *operation,
                                    GeglOperationContext *context,
@@ -126,11 +126,11 @@ static gboolean operation_process (GeglOperation        *operation,
   gpointer input, aux;
   operation_class = GEGL_OPERATION_CLASS (gegl_op_parent_class);
 
-  /* get the raw values this does not increase the reference count */
+  //get the raw values this does not increase the reference count
   input = gegl_operation_context_get_object (context, "input");
   aux = gegl_operation_context_get_object (context, "aux");
 
-  /* pass the input/aux buffers directly through if they are alone*/
+  //pass the input/aux buffers directly through if they are alone
   {
     const GeglRectangle *in_extent = NULL;
     const GeglRectangle *aux_extent = NULL;
@@ -156,9 +156,9 @@ static gboolean operation_process (GeglOperation        *operation,
         return TRUE;
       }
   }
-  /* chain up, which will create the needed buffers for our actual
-   * process function
-   */
+  // chain up, which will create the needed buffers for our actual
+  // process function
+  //
   return operation_class->process (operation, context, output_prop, result, level);
 }
 
@@ -173,7 +173,7 @@ gegl_op_class_init (GeglOpClass *klass)
   operation_class->prepare = prepare;
   operation_class->process = operation_process;
 
-  point_composer_class->cl_process = cl_process;
+//  point_composer_class->cl_process = cl_process;
   point_composer_class->process    = process;
 
   gegl_operation_class_set_keys (operation_class,
@@ -183,7 +183,7 @@ gegl_op_class_init (GeglOpClass *klass)
     "categories" , "compositors:porter-duff",
     "description",
           _("Porter Duff operation over (also known as normal mode, and src-over) (d = cA + cB * (1 - aA))"),
-    "cl-source"  , svg_src_over_cl_source,
+//    "cl-source"  , svg_src_over_cl_source,
     NULL);
 }
 

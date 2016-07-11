@@ -61,11 +61,11 @@ property_seed    (seed, _("Random seed"), rand)
 #define GEGL_OP_C_SOURCE noise-cell.c
 
 #include "gegl-op.h"
-#include <gegl-buffer-cl-iterator.h>
+//#include <gegl-buffer-cl-iterator.h>
 #include <gegl-debug.h>
 #include <math.h>
 
-#include "opencl/noise-cell.cl.h"
+//#include "opencl/noise-cell.cl.h"
 
 /* Random feature counts following the Poisson distribution with
    lambda equal to 7. */
@@ -92,7 +92,7 @@ typedef struct
   gboolean palettize;
 } Context;
 
-static GeglClRunData *cl_data = NULL;
+//static GeglClRunData *cl_data = NULL;
 
 static inline guint
 philox (guint s,
@@ -254,7 +254,7 @@ get_bounding_box (GeglOperation *operation)
   return gegl_rectangle_infinite_plane ();
 }
 
-static gboolean
+/*static gboolean
 cl_process (GeglOperation       *operation,
             cl_mem               out_tex,
             const GeglRectangle *roi)
@@ -314,7 +314,7 @@ cl_process (GeglOperation       *operation,
 
 error:
   return TRUE;
-}
+}*/
 
 static gboolean
 c_process (GeglOperation       *operation,
@@ -377,7 +377,7 @@ process (GeglOperation       *operation,
   g_assert(babl_format_get_n_components (out_format) == 1 &&
            babl_format_get_type (out_format, 0) == babl_type ("float"));
 
-  if (gegl_operation_use_opencl (operation))
+/*  if (gegl_operation_use_opencl (operation))
     {
       GeglBufferClIterator *cl_iter;
       gboolean              err;
@@ -401,7 +401,7 @@ process (GeglOperation       *operation,
         GEGL_NOTE (GEGL_DEBUG_OPENCL, "Error: %s", GEGL_OPERATION_GET_CLASS (operation)->name);
       else
         return TRUE;
-    }
+    }*/
 
   iter = gegl_buffer_iterator_new (out_buf, roi, level, out_format,
                                    GEGL_ACCESS_WRITE, GEGL_ABYSS_NONE);
@@ -424,7 +424,7 @@ gegl_op_class_init (GeglOpClass *klass)
   source_class->process = process;
   operation_class->get_bounding_box = get_bounding_box;
   operation_class->prepare = prepare;
-  operation_class->opencl_support = TRUE;
+//  operation_class->opencl_support = TRUE;
 
   gegl_operation_class_set_keys (operation_class,
     "name",               "gegl:cell-noise",

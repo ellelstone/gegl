@@ -44,10 +44,10 @@ static void prepare (GeglOperation *operation)
   gegl_operation_set_format (operation, "output", format);
 }
 
-#include "opencl/gegl-cl.h"
+//#include "opencl/gegl-cl.h"
 #include "gegl/gegl-debug.h"
 
-#include "opencl/contrast-curve.cl.h"
+//#include "opencl/contrast-curve.cl.h"
 
 /* TODO : Replace gegl_curve_calc_values and gegl_curve_calc_value in cl_process
           with something more suitable for the cl version*/
@@ -62,7 +62,7 @@ copy_double_array_to_float_array (gdouble *in,
     out[i] = (gfloat) in[i];
 }
 
-static GeglClRunData * cl_data = NULL;
+/*static GeglClRunData * cl_data = NULL;
 
 static gboolean
 cl_process (GeglOperation       *self,
@@ -99,7 +99,7 @@ cl_process (GeglOperation       *self,
       gegl_curve_calc_values (o->curve, 0.0, 1.0, num_sampling_points, xs, ys);
       g_free (xs);
 
-      /*We need to downscale the array to pass it to the GPU*/
+      //We need to downscale the array to pass it to the GPU
       ysf = g_new (gfloat, num_sampling_points);
       copy_double_array_to_float_array (ys, ysf, num_sampling_points);
       g_free (ys);
@@ -147,7 +147,7 @@ cl_process (GeglOperation       *self,
         }
       else
         {
-          /*If the curve size doesn't fit constant memory is better to use CPU*/
+          //If the curve size doesn't fit constant memory is better to use CPU
           GEGL_NOTE (GEGL_DEBUG_OPENCL,
                      "Not enough constant memory for the curve");
           g_free (ysf);
@@ -164,14 +164,14 @@ error:
 
       return TRUE;
     }
-  else  /*If the curve doesn't have a lookup table is better to use CPU*/
+  else  //If the curve doesn't have a lookup table is better to use CPU
     {
       GEGL_NOTE (GEGL_DEBUG_OPENCL,
                  "Curve not suitable to be computed in the GPU");
       return TRUE;
     }
 }
-
+*/
 static gboolean
 process (GeglOperation       *op,
          void                *in_buf,
@@ -247,9 +247,9 @@ gegl_op_class_init (GeglOpClass *klass)
   point_filter_class = GEGL_OPERATION_POINT_FILTER_CLASS (klass);
 
   point_filter_class->process = process;
-  point_filter_class->cl_process = cl_process;
+//  point_filter_class->cl_process = cl_process;
   operation_class->prepare = prepare;
-  operation_class->opencl_support = TRUE;
+//  operation_class->opencl_support = TRUE;
 
   gegl_operation_class_set_keys (operation_class,
     "name"       , "gegl:contrast-curve",

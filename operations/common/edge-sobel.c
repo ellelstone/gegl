@@ -75,9 +75,9 @@ static void prepare (GeglOperation *operation)
  *  issue. This is causing tests to fail. The shift can be corrected, but real
  *  issue is handling pixels that the sobel kernel needs from outside the image.
  */
-/*
 
-#include "opencl/gegl-cl.h"
+
+/*#include "opencl/gegl-cl.h"
 #include "gegl-buffer-cl-iterator.h"
 
 #include "opencl/edge-sobel.cl.h"
@@ -389,7 +389,7 @@ gegl_op_class_init (GeglOpClass *klass)
   filter_class     = GEGL_OPERATION_FILTER_CLASS (klass);
 
   operation_class->prepare        = prepare;
-  operation_class->opencl_support = TRUE;
+//  operation_class->opencl_support = TRUE;
 
   filter_class->process           = process;
 

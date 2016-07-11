@@ -170,7 +170,7 @@ get_bounding_box (GeglOperation *operation)
   return *in_rect;
 }
 
-#include "opencl/gegl-cl.h"
+/*#include "opencl/gegl-cl.h"
 #include "gegl-buffer-cl-iterator.h"
 
 #include "opencl/c2g.cl.h"
@@ -322,7 +322,7 @@ cl_process (GeglOperation       *operation,
 
   return TRUE;
 }
-
+*/
 static gboolean
 process (GeglOperation       *operation,
          GeglBuffer          *input,
@@ -334,9 +334,9 @@ process (GeglOperation       *operation,
   GeglRectangle compute;
   compute = gegl_operation_get_required_for_output (operation, "input",result);
 
-  if (o->radius < 500 && gegl_operation_use_opencl (operation))
+/*  if (o->radius < 500 && gegl_operation_use_opencl (operation))
     if(cl_process(operation, input, output, result))
-      return TRUE;
+      return TRUE;*/
 
   c2g (operation, input, &compute, output, result,
        o->radius,
@@ -383,7 +383,7 @@ gegl_op_class_init (GeglOpClass *klass)
    */
   operation_class->get_bounding_box = get_bounding_box;
 
-  operation_class->opencl_support = TRUE;
+//  operation_class->opencl_support = TRUE;
 
   gegl_operation_class_set_keys (operation_class,
     "name",        "gegl:c2g",

@@ -109,7 +109,7 @@ process (GeglOperation       *op,
   return TRUE;
 }
 
-#include "opencl/brightness-contrast.cl.h"
+//#include "opencl/brightness-contrast.cl.h"
 
 /*
  * The class init function sets up information needed for this operations class
@@ -150,7 +150,7 @@ gegl_op_class_init (GeglOpClass *klass)
       "title",      _("Brightness Contrast"),
       "categories", "color",
       "description", _("Changes the light level and contrast. This operation operates in linear light, 'contrast' is a scale factor around 50%% gray, and 'brightness' a constant offset to apply after contrast scaling."),
-      "cl-source"  , brightness_contrast_cl_source,
+//      "cl-source"  , brightness_contrast_cl_source,
       "reference-composition", composition,
       NULL);
 }

@@ -38,7 +38,7 @@ static void prepare (GeglOperation *operation)
   gegl_operation_set_format (operation, "output", format);
 }
 
-#include "opencl/gegl-cl.h"
+/*#include "opencl/gegl-cl.h"
 #include "opencl/weighted-blend.cl.h"
 
 static GeglClRunData *cl_data = NULL;
@@ -99,7 +99,7 @@ cl_process (GeglOperation       *self,
 error:
   return TRUE;
 }
-
+*/
 static gboolean
 process (GeglOperation       *op,
          void                *in_buf,
@@ -176,9 +176,9 @@ gegl_op_class_init (GeglOpClass *klass)
   point_composer_class = GEGL_OPERATION_POINT_COMPOSER_CLASS (klass);
 
   point_composer_class->process    = process;
-  point_composer_class->cl_process = cl_process;
+//  point_composer_class->cl_process = cl_process;
   operation_class->prepare         = prepare;
-  operation_class->opencl_support  = TRUE;
+//  operation_class->opencl_support  = TRUE;
 
   gegl_operation_class_set_keys (operation_class,
     "name" ,       "gegl:weighted-blend",

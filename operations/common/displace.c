@@ -367,7 +367,7 @@ gegl_op_class_init (GeglOpClass *klass)
   operation_class->process                   = operation_process;
   operation_class->get_required_for_output   = get_required_for_output;
   operation_class->get_invalidated_by_change = get_invalidated_by_change;
-  operation_class->opencl_support            = FALSE;
+//  operation_class->opencl_support            = FALSE;
 
   gegl_operation_class_set_keys (operation_class,
     "name",        "gegl:displace",

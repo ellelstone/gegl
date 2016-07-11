@@ -59,13 +59,13 @@ bilateral_filter (GeglBuffer          *src,
                   gint                 s_sigma,
                   gfloat               r_sigma);
 
-static gboolean
+/*static gboolean
 bilateral_cl_process (GeglOperation       *operation,
                       GeglBuffer          *input,
                       GeglBuffer          *output,
                       const GeglRectangle *result,
                       gint                 s_sigma,
-                      gfloat               r_sigma);
+                      gfloat               r_sigma);*/
 
 #include <stdio.h>
 
@@ -102,11 +102,11 @@ bilateral_process (GeglOperation       *operation,
 {
   GeglProperties   *o = GEGL_PROPERTIES (operation);
 
-#if 0
+/*#if 0
   if (gegl_operation_use_opencl (operation))
     if (bilateral_cl_process (operation, input, output, result, o->s_sigma, o->r_sigma/100))
       return TRUE;
-#endif
+#endif*/
 
   bilateral_filter (input, result, output, result, o->s_sigma, o->r_sigma/100);
 
@@ -270,7 +270,7 @@ bilateral_filter (GeglBuffer          *src,
   g_free (smoothed);
 }
 
-#include "opencl/gegl-cl.h"
+/*#include "opencl/gegl-cl.h"
 #include "gegl-buffer-cl-iterator.h"
 #include "opencl/bilateral-filter-fast.cl.h"
 
@@ -471,7 +471,7 @@ bilateral_cl_process (GeglOperation       *operation,
     }
 
   return !err;
-}
+}*/
 
 static void
 gegl_op_class_init (GeglOpClass *klass)
@@ -488,7 +488,7 @@ gegl_op_class_init (GeglOpClass *klass)
   operation_class->get_required_for_output = bilateral_get_required_for_output;
   operation_class->get_cached_region       = bilateral_get_cached_region;
 
-  operation_class->opencl_support = FALSE;
+//  operation_class->opencl_support = FALSE;
 
   gegl_operation_class_set_keys (operation_class,
   "name"       , "gegl:bilateral-filter-fast",

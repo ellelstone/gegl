@@ -180,12 +180,12 @@ process (GeglOperation       *op,
   return TRUE;
 }
 
-#include "opencl/gegl-cl.h"
+/*#include "opencl/gegl-cl.h"
 #include "opencl/color-temperature.cl.h"
 
 static GeglClRunData *cl_data = NULL;
 
-/* OpenCL processing function */
+// OpenCL processing function
 static gboolean
 cl_process (GeglOperation       *op,
             cl_mem               in_tex,
@@ -194,9 +194,9 @@ cl_process (GeglOperation       *op,
             const GeglRectangle *roi,
             int                  level)
 {
-  /* Retrieve a pointer to GeglProperties structure which contains all the
-   * chanted properties
-   */
+  // Retrieve a pointer to GeglProperties structure which contains all the
+  // chanted properties
+  //
 
   GeglProperties   *o         = GEGL_PROPERTIES (op);
   const gfloat *coeffs    = o->user_data;
@@ -273,7 +273,7 @@ gegl_op_class_init (GeglOpClass *klass)
   point_filter_class->process    = process;
   point_filter_class->cl_process = cl_process;
 
-  operation_class->opencl_support = TRUE;
+//  operation_class->opencl_support = TRUE;
 
   gegl_operation_class_set_keys (operation_class,
     "name",        "gegl:color-temperature",
@@ -283,7 +283,7 @@ gegl_op_class_init (GeglOpClass *klass)
     "reference-composition", composition,
     NULL);
 }
-
+*/
 /* Coefficients of rational functions of degree 5 fitted per color channel to
  * the linear RGB coordinates of the range 1000K-12000K of the Planckian locus
  * with the 20K step. Original CIE-xy data from

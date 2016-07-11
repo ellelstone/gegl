@@ -66,7 +66,7 @@ prepare (GeglOperation *operation)
   gegl_operation_set_format (operation, "output", babl_format ("RaGaBaA float"));
 }
 
-#include "opencl/gegl-cl.h"
+/*#include "opencl/gegl-cl.h"
 #include "gegl-buffer-cl-iterator.h"
 
 #include "opencl/motion-blur-linear.cl.h"
@@ -195,7 +195,7 @@ cl_process (GeglOperation       *operation,
 
   return TRUE;
 }
-
+*/
 static inline gfloat *
 get_pixel_color (gfloat              *in_buf,
                  const GeglRectangle *rect,
@@ -244,9 +244,9 @@ process (GeglOperation       *operation,
   src_rect.width += op_area->left + op_area->right;
   src_rect.height += op_area->top + op_area->bottom;
 
-  if (gegl_operation_use_opencl (operation))
+/*  if (gegl_operation_use_opencl (operation))
     if (cl_process (operation, input, output, roi, &src_rect))
-      return TRUE;
+      return TRUE;*/
 
   in_buf = g_new (gfloat, src_rect.width * src_rect.height * 4);
   out_buf = g_new0 (gfloat, roi->width * roi->height * 4);
@@ -319,7 +319,7 @@ gegl_op_class_init (GeglOpClass *klass)
   filter_class = GEGL_OPERATION_FILTER_CLASS (klass);
 
   operation_class->prepare        = prepare;
-  operation_class->opencl_support = TRUE;
+//  operation_class->opencl_support = TRUE;
 
   filter_class->process           = process;
 

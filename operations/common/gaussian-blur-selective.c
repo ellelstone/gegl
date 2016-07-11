@@ -250,7 +250,7 @@ gegl_op_class_init (GeglOpClass *klass)
   operation_class->prepare                   = prepare;
   operation_class->get_required_for_output   = get_required_for_output;
   operation_class->get_invalidated_by_change = get_invalidated_by_change;
-  operation_class->opencl_support            = FALSE;
+//  operation_class->opencl_support            = FALSE;
 
   composer_class->process = process;
 

@@ -197,7 +197,7 @@ process (GeglOperation       *op,
   return TRUE;
 }
 
-#include "opencl/gegl-cl.h"
+/*#include "opencl/gegl-cl.h"
 
 #include "opencl/opacity.cl.h"
 
@@ -247,7 +247,7 @@ cl_process (GeglOperation       *op,
 error:
   return TRUE;
 }
-
+*/
 /* Fast path when opacity is a no-op
  */
 static gboolean operation_process (GeglOperation        *operation,
@@ -290,9 +290,9 @@ gegl_op_class_init (GeglOpClass *klass)
   operation_class->prepare = prepare;
   operation_class->process = operation_process;
   point_composer_class->process = process;
-  point_composer_class->cl_process = cl_process;
+//  point_composer_class->cl_process = cl_process;
 
-  operation_class->opencl_support = TRUE;
+//  operation_class->opencl_support = TRUE;
 
   gegl_operation_class_set_keys (operation_class,
     "name"       , "gegl:opacity",

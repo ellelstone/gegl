@@ -33,8 +33,8 @@ property_object (buffer, _("Buffer location"), GEGL_TYPE_BUFFER)
 #include "gegl-op.h"
 
 #include "gegl/gegl-debug.h"
-#include "opencl/gegl-cl.h"
-#include "gegl-buffer-cl-iterator.h"
+//#include "opencl/gegl-cl.h"
+//#include "gegl-buffer-cl-iterator.h"
 
 static gboolean
 process (GeglOperation       *operation,
@@ -50,7 +50,7 @@ process (GeglOperation       *operation,
       const Babl *in_format = gegl_buffer_get_format (input);
       const Babl *out_format = gegl_buffer_get_format (output);
 
-      if (gegl_operation_use_opencl (operation)
+/*      if (gegl_operation_use_opencl (operation)
           && gegl_cl_color_supported (in_format, out_format) == GEGL_CL_COLOR_CONVERT)
         {
           size_t size;
@@ -108,7 +108,7 @@ process (GeglOperation       *operation,
             gegl_buffer_copy (input, result, GEGL_ABYSS_NONE,
                               output, result);
         }
-      else
+      else*/
         gegl_buffer_copy (input, result, GEGL_ABYSS_NONE,
                           output, result);
     }

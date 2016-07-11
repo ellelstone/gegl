@@ -55,7 +55,7 @@ process (GeglOperation       *op,
   return TRUE;
 }
 
-#include "opencl/invert-linear.cl.h"
+//#include "opencl/invert-linear.cl.h"
 
 static void
 gegl_op_class_init (GeglOpClass *klass)
@@ -76,7 +76,7 @@ gegl_op_class_init (GeglOpClass *klass)
     "description",
        _("Inverts the components (except alpha), the result is the "
          "corresponding \"negative\" image."),
-    "cl-source"  , invert_linear_cl_source,
+//    "cl-source"  , invert_linear_cl_source,
     NULL);
 }
 

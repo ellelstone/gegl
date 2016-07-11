@@ -377,7 +377,7 @@ fir_ver_blur (GeglBuffer          *src,
 }
 
 
-#include "opencl/gegl-cl.h"
+/*#include "opencl/gegl-cl.h"
 #include "gegl-buffer-cl-iterator.h"
 
 #include "opencl/gblur-1d.cl.h"
@@ -513,7 +513,7 @@ error:
 
   return FALSE;
 }
-
+*/
 static gfloat
 gaussian_func_1d (gfloat x,
                   gfloat sigma)
@@ -815,12 +815,12 @@ gegl_gblur_1d_process (GeglOperation       *operation,
 
       clen = fir_gen_convolve_matrix (o->std_dev, &cmatrix);
 
-      /* FIXME: implement others format cases */
+      /* FIXME: implement others format cases 
       if (gegl_operation_use_opencl (operation) &&
           format == babl_format ("RaGaBaA float"))
         if (fir_cl_process(input, output, result, format,
                            cmatrix, clen, o->orientation, abyss_policy))
-          return TRUE;
+          return TRUE;*/
 
       if (o->orientation == GEGL_ORIENTATION_HORIZONTAL)
         fir_hor_blur (input, result, output, cmatrix, clen, abyss_policy, format);
@@ -883,7 +883,7 @@ gegl_op_class_init (GeglOpClass *klass)
   operation_class->get_bounding_box        = gegl_gblur_1d_get_bounding_box;
   operation_class->get_required_for_output = gegl_gblur_1d_get_required_for_output;
   operation_class->get_cached_region       = gegl_gblur_1d_get_cached_region;
-  operation_class->opencl_support          = TRUE;
+//  operation_class->opencl_support          = TRUE;
   gegl_operation_class_set_keys (operation_class,
     "name",       "gegl:gblur-1d",
     "categories", "hidden:blur",

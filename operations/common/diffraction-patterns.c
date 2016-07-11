@@ -244,7 +244,7 @@ gegl_op_class_init (GeglOpClass *klass)
 
   operation_class->get_bounding_box = get_bounding_box;
   operation_class->prepare = prepare;
-  operation_class->opencl_support = FALSE;
+//  operation_class->opencl_support = FALSE;
 
   gegl_operation_class_set_keys (operation_class,
     "name",               "gegl:diffraction-patterns",

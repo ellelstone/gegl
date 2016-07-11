@@ -58,11 +58,11 @@ prepare (GeglOperation *operation)
   gegl_operation_set_format (operation, "output", babl_format ("RGBA float"));
 }
 
-static gboolean
+/*static gboolean
 cl_process (GeglOperation       *operation,
             GeglBuffer          *input,
             GeglBuffer          *output,
-            const GeglRectangle *result);
+            const GeglRectangle *result);*/
 
 static gboolean
 process (GeglOperation       *operation,
@@ -74,9 +74,9 @@ process (GeglOperation       *operation,
   gint    i, j;
   gfloat *buf1, *buf2, *buf3;
 
-  if (gegl_operation_use_opencl (operation))
+/*  if (gegl_operation_use_opencl (operation))
     if (cl_process (operation, input, output, result))
-      return TRUE;
+      return TRUE;*/
 
   buf1 = g_new (gfloat, SQR (CHUNK_SIZE + LAPLACE_RADIUS * 2) * 4);
   buf2 = g_new (gfloat, SQR (CHUNK_SIZE + LAPLACE_RADIUS * 2) * 4);
@@ -269,7 +269,7 @@ edge_laplace (GeglBuffer          *src,
                    GEGL_AUTO_ROWSTRIDE);
 }
 
-#include "opencl/gegl-cl.h"
+/*#include "opencl/gegl-cl.h"
 #include "gegl-buffer-cl-iterator.h"
 
 #include "opencl/edge-laplace.cl.h"
@@ -386,7 +386,7 @@ cl_process (GeglOperation       *operation,
 
   return !err;
 }
-
+*/
 static void
 gegl_op_class_init (GeglOpClass *klass)
 {
@@ -399,7 +399,7 @@ gegl_op_class_init (GeglOpClass *klass)
   filter_class->process    = process;
   operation_class->prepare = prepare;
 
-  operation_class->opencl_support = TRUE;
+//  operation_class->opencl_support = TRUE;
 
   gegl_operation_class_set_keys (operation_class,
     "name",        "gegl:edge-laplace",

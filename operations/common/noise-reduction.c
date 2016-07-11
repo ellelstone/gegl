@@ -152,7 +152,7 @@ static void prepare (GeglOperation *operation)
   gegl_operation_set_format (operation, "output", babl_format ("RGBA float"));
 }
 
-#include "opencl/gegl-cl.h"
+/*#include "opencl/gegl-cl.h"
 #include "gegl-buffer-cl-iterator.h"
 
 #include "opencl/noise-reduction.cl.h"
@@ -177,7 +177,7 @@ cl_noise_reduction (cl_mem                in_tex,
   cl_mem temp_tex = NULL;
   cl_mem tmptex   = NULL;
 
-  gint stride = 16; /*R'G'B'A float*/
+  gint stride = 16; //R'G'B'A float
 
   if (!cl_data)
     {
@@ -314,7 +314,7 @@ cl_process (GeglOperation       *operation,
 
   return !err;
 }
-
+*/
 #define INPLACE 1
 
 static gboolean
@@ -334,9 +334,9 @@ process (GeglOperation       *operation,
 #endif
   GeglRectangle rect;
 
-  if (gegl_operation_use_opencl (operation))
+/*  if (gegl_operation_use_opencl (operation))
     if(cl_process(operation, input, output, result))
-      return TRUE;
+      return TRUE;*/
 
   rect = *result;
 
@@ -417,7 +417,7 @@ gegl_op_class_init (GeglOpClass *klass)
 
   filter_class->process   = process;
   operation_class->prepare = prepare;
-  operation_class->opencl_support = TRUE;
+//  operation_class->opencl_support = TRUE;
 
   operation_class->get_bounding_box = get_bounding_box;
 

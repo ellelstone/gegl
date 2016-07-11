@@ -120,7 +120,7 @@ scale_to_aspect (float scale)
 }
 #endif
 
-#include "opencl/gegl-cl.h"
+/*#include "opencl/gegl-cl.h"
 
 #include "opencl/vignette.cl.h"
 
@@ -156,7 +156,7 @@ cl_process (GeglOperation       *operation,
 
   gegl_color_get_pixel (o->color, babl_format ("RGBA float"), color);
 
-  for (x=0; x<3; x++)   /* premultiply */
+  for (x=0; x<3; x++)   //premultiply
     color[x] *= color[3];
 
   radius0 = o->radius * (1.0-o->softness);
@@ -171,7 +171,7 @@ cl_process (GeglOperation       *operation,
   roi_x = roi->x;
   roi_y = roi->y;
 
-  /* constant for all pixels */
+  //constant for all pixels
   cost = cos(-o->rotation * (G_PI*2/360.0));
   sint = sin(-o->rotation * (G_PI*2/360.0));
 
@@ -238,7 +238,7 @@ cl_process (GeglOperation       *operation,
 error:
   return TRUE;
 }
-
+*/
 static gboolean
 process (GeglOperation       *operation,
          void                *in_buf,
@@ -370,10 +370,10 @@ gegl_op_class_init (GeglOpClass *klass)
 
   operation_class->prepare        = prepare;
   operation_class->no_cache       = TRUE;
-  operation_class->opencl_support = TRUE;
+//  operation_class->opencl_support = TRUE;
 
   point_filter_class->process    = process;
-  point_filter_class->cl_process = cl_process;
+//  point_filter_class->cl_process = cl_process;
 
   gegl_operation_class_set_keys (operation_class,
     "name",               "gegl:vignette",

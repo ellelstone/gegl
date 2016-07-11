@@ -179,7 +179,7 @@ static void prepare (GeglOperation *operation)
   gegl_operation_set_format (operation, "output", babl_format ("RaGaBaA float"));
 }
 
-#include "opencl/gegl-cl.h"
+/*#include "opencl/gegl-cl.h"
 #include "gegl-buffer-cl-iterator.h"
 
 #include "opencl/box-blur.cl.h"
@@ -332,7 +332,7 @@ cl_process (GeglOperation       *operation,
 
   return !err;
 }
-
+*/
 static gboolean
 process (GeglOperation       *operation,
          GeglBuffer          *input,
@@ -347,9 +347,9 @@ process (GeglOperation       *operation,
   GeglOperationAreaFilter *op_area;
   op_area = GEGL_OPERATION_AREA_FILTER (operation);
 
-  if (gegl_operation_use_opencl (operation))
+/*  if (gegl_operation_use_opencl (operation))
     if (cl_process (operation, input, output, result))
-      return TRUE;
+      return TRUE;*/
 
   rect = *result;
   tmprect = *result;
@@ -386,7 +386,7 @@ gegl_op_class_init (GeglOpClass *klass)
   filter_class->process    = process;
   operation_class->prepare = prepare;
 
-  operation_class->opencl_support = TRUE;
+//  operation_class->opencl_support = TRUE;
 
   gegl_operation_class_set_keys (operation_class,
       "name",        "gegl:box-blur",

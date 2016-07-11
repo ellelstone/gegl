@@ -60,11 +60,11 @@ static void prepare (GeglOperation *operation)
   gegl_operation_set_format (operation, "output", babl_format ("RGBA float"));
 }
 
-static gboolean
+/*static gboolean
 cl_process (GeglOperation       *operation,
             GeglBuffer          *input,
             GeglBuffer          *output,
-            const GeglRectangle *result);
+            const GeglRectangle *result);*/
 
 static gboolean
 process (GeglOperation       *operation,
@@ -77,9 +77,9 @@ process (GeglOperation       *operation,
   GeglBuffer          *temp_in;
   GeglRectangle        compute;
 
-  if (gegl_operation_use_opencl (operation))
+/*  if (gegl_operation_use_opencl (operation))
     if (cl_process (operation, input, output, result))
-      return TRUE;
+      return TRUE;*/
 
   compute = gegl_operation_get_required_for_output (operation, "input", result);
 
@@ -214,7 +214,7 @@ snn_mean (GeglBuffer          *src,
 }
 
 
-#include "opencl/gegl-cl.h"
+/*#include "opencl/gegl-cl.h"
 #include "gegl-buffer-cl-iterator.h"
 
 #include "opencl/snn-mean.cl.h"
@@ -313,7 +313,7 @@ cl_process (GeglOperation       *operation,
 
   return TRUE;
 }
-
+*/
 static void
 gegl_op_class_init (GeglOpClass *klass)
 {
@@ -326,7 +326,7 @@ gegl_op_class_init (GeglOpClass *klass)
   filter_class->process    = process;
   operation_class->prepare = prepare;
 
-  operation_class->opencl_support = TRUE;
+//  operation_class->opencl_support = TRUE;
 
   gegl_operation_class_set_keys (operation_class,
     "name"       , "gegl:snn-mean",

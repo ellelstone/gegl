@@ -412,7 +412,7 @@ prepare (GeglOperation *operation)
                              babl_format ("RaGaBaA float"));
 }
 
-#include "opencl/gegl-cl.h"
+/*#include "opencl/gegl-cl.h"
 #include "gegl-buffer-cl-iterator.h"
 
 #include "opencl/gaussian-blur.cl.h"
@@ -605,7 +605,7 @@ cl_process (GeglOperation       *operation,
   g_free (cmatrix_y);
   return !err;
 }
-
+*/
 static gboolean
 process (GeglOperation       *operation,
          GeglBuffer          *input,
@@ -646,9 +646,9 @@ process (GeglOperation       *operation,
       vertical_irr   = o->std_dev_y > 1.0;
     }
 
-  if (gegl_operation_use_opencl (operation) && !(horizontal_irr | vertical_irr))
+/*  if (gegl_operation_use_opencl (operation) && !(horizontal_irr | vertical_irr))
     if (cl_process(operation, input, output, result))
-      return TRUE;
+      return TRUE;*/
 
   gegl_rectangle_intersect (&temp_extend, &rect, gegl_buffer_get_extent (input));
   temp_extend.x      = result->x;
@@ -694,7 +694,7 @@ gegl_op_class_init (GeglOpClass *klass)
   filter_class    = GEGL_OPERATION_FILTER_CLASS (klass);
 
   operation_class->prepare        = prepare;
-  operation_class->opencl_support = TRUE;
+//  operation_class->opencl_support = TRUE;
 
   filter_class->process           = process;
 

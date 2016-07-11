@@ -103,7 +103,7 @@ process (GeglOperation       *op,
   return TRUE;
 }
 
-#include "opencl/gegl-cl.h"
+/*#include "opencl/gegl-cl.h"
 
 static const char* kernel_source =
 "__kernel void kernel_exposure(__global const float4 *in,     \n"
@@ -122,7 +122,7 @@ static const char* kernel_source =
 
 static GeglClRunData *cl_data = NULL;
 
-/* OpenCL processing function */
+// OpenCL processing function
 static cl_int
 cl_process (GeglOperation       *op,
             cl_mem               in_tex,
@@ -131,9 +131,9 @@ cl_process (GeglOperation       *op,
             const GeglRectangle *roi,
             gint                 level)
 {
-  /* Retrieve a pointer to GeglProperties structure which contains all the
-   * chanted properties
-   */
+  // Retrieve a pointer to GeglProperties structure which contains all the
+  // chanted properties
+  //
 
   GeglProperties *o = GEGL_PROPERTIES (op);
 
@@ -165,7 +165,7 @@ cl_process (GeglOperation       *op,
 
   return cl_err;
 }
-
+*/
 static void
 gegl_op_class_init (GeglOpClass *klass)
 {
@@ -175,11 +175,11 @@ gegl_op_class_init (GeglOpClass *klass)
   operation_class    = GEGL_OPERATION_CLASS (klass);
   point_filter_class = GEGL_OPERATION_POINT_FILTER_CLASS (klass);
 
-  operation_class->opencl_support = TRUE;
+//  operation_class->opencl_support = TRUE;
   operation_class->prepare        = prepare;
 
   point_filter_class->process    = process;
-  point_filter_class->cl_process = cl_process;
+//  point_filter_class->cl_process = cl_process;
 
   gegl_operation_class_set_keys (operation_class,
     "name",        "gegl:exposure",

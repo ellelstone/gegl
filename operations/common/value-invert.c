@@ -128,7 +128,7 @@ process (GeglOperation       *op,
   return TRUE;
 }
 
-#include "opencl/value-invert.cl.h"
+//#include "opencl/value-invert.cl.h"
 
 static void
 gegl_op_class_init (GeglOpClass *klass)
@@ -149,7 +149,7 @@ gegl_op_class_init (GeglOpClass *klass)
     "description",
         _("Inverts just the value component, the result is the corresponding "
           "'inverted' image."),
-    "cl-source"  , value_invert_cl_source,
+//    "cl-source"  , value_invert_cl_source,
     NULL);
 }
 

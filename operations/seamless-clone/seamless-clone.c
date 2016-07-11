@@ -246,7 +246,7 @@ gegl_op_class_init (GeglOpClass *klass)
   operation_class->prepare         = prepare;
   composer_class->process          = process;
 
-  operation_class->opencl_support = FALSE;
+//  operation_class->opencl_support = FALSE;
   gegl_operation_class_set_keys (operation_class,
     "name",        "gegl:seamless-clone",
     "categories",  "blend",

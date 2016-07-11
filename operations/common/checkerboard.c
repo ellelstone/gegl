@@ -93,7 +93,7 @@ get_bounding_box (GeglOperation *operation)
       ((((coordinate) + 1) /(stride)) - 1))
 
 
-#include "opencl/checkerboard.cl.h"
+/*#include "opencl/checkerboard.cl.h"
 static GeglClRunData *cl_data = NULL;
 
 static gboolean
@@ -144,7 +144,7 @@ checkerboard_cl_process (GeglOperation       *operation,
 error:
   return TRUE;
 }
-
+*/
 
 static gboolean
 checkerboard_process_simple (GeglOperation       *operation,
@@ -289,7 +289,7 @@ operation_source_process (GeglOperation       *operation,
   if ((result->width > 0) && (result->height > 0))
     {
       GeglBufferIterator *iter;
-      if (gegl_operation_use_opencl (operation) &&
+/*      if (gegl_operation_use_opencl (operation) &&
           babl_format_get_n_components (out_format) == 4 &&
           babl_format_get_type (out_format, 0) == babl_type ("float"))
         {
@@ -315,7 +315,7 @@ operation_source_process (GeglOperation       *operation,
             GEGL_NOTE (GEGL_DEBUG_OPENCL, "Error: %s", GEGL_OPERATION_GET_CLASS (operation)->name);
           else
             return TRUE;
-        }
+        }*/
 
       iter = gegl_buffer_iterator_new (output, result, level, out_format,
                                        GEGL_ACCESS_WRITE, GEGL_ABYSS_NONE);
