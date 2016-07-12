@@ -15,7 +15,7 @@
  *
  * Copyright 2004, 2006 Øyvind Kolås <pippin@gimp.org>
  */
-
+/*
 #include "config.h"
 #include <glib/gi18n-lib.h>
 
@@ -60,7 +60,7 @@ typedef struct Priv
   const Babl *rgba_float;
 
   gint        bx1, by1;
-  gint        bx2, by2;    /* mask bounds */
+  gint        bx2, by2;    //mask bounds
 
   gint        width;
   gint        height;
@@ -135,7 +135,7 @@ drawable_lua_process (GeglOperation       *op,
                       const gchar         *buffer,
                       gdouble              user_value)
 {
-    /*GimpRGB    background;*/
+    //GimpRGB    background;
 
     GeglRectangle *in_rect = gegl_operation_source_get_bounding_box (GEGL_OPERATION (op),
                                                                        "input");
@@ -188,7 +188,7 @@ drawable_lua_process (GeglOperation       *op,
       luaL_loadstring (L, "os.setlocale ('C', 'numeric')");
 
 
-      /* insert default loop start/end filling the selection */
+      //insert default loop start/end filling the selection
       if (file && file[0]!='\0')
         status = luaL_loadfile (L, file);
       else if (buffer)
@@ -284,12 +284,12 @@ set_rgba_pixel (void       *data,
 
   p = data;
 
-  /*FIXME: */
+  //FIXME:
   if (x < p->bx1 || y < p->by1 || x > p->bx2 || y > p->by2)
-      return;     /* outside selection, ignore */
+      return;     //outside selection, ignore
 #if 0
   if (x < 0 || y < 0 || x >= p->width || y >= p->height)
-      return;    /* out of drawable bounds */
+      return;    //out of drawable bounds
 #endif
   for (i = 0; i < 4; i++)
     {
@@ -659,7 +659,7 @@ static int l_set_lab (lua_State * lua)
     a = lua_tonumber (lua, -2);
     b = lua_tonumber (lua, -1);
 
-    /* pixel assumed to be of type double */
+    //pixel assumed to be of type double
 
     get_rgba_pixel (p, 0, x, y, pixel);
 #if 0
@@ -682,7 +682,7 @@ static int l_get_lab (lua_State * lua)
   lua_Number img_no = 0;
 
   lua_Number pixel[4];
-  /*double lab_pixel[3];*/
+  //double lab_pixel[3];
 
   lua_pushstring (lua, "priv");
   lua_gettable (lua, LUA_REGISTRYINDEX);
@@ -997,3 +997,4 @@ gegl_op_class_init (GeglOpClass *klass)
 }
 
 #endif
+*/

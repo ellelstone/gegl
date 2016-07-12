@@ -24,7 +24,7 @@
  * Copyright (C) 2011 Robert Sasu <sasu.robert@gmail.com>
  * Copyright (C) 2011 Mukund Sivaraman <muks@banu.com>
  */
-
+/*
 #include "config.h"
 #include <glib/gi18n-lib.h>
 
@@ -98,9 +98,9 @@ property_double (saturation, _("Saturation"), 0.0)
 static void
 prepare (GeglOperation *operation)
 {
-  /* gamma-corrected RGB because that's what the HSV conversion
-   * functions expect
-   */
+  // gamma-corrected RGB because that's what the HSV conversion
+   // functions expect
+   //
   gegl_operation_set_format (operation, "input",
                              babl_format ("RGBA float"));
   gegl_operation_set_format (operation, "output",
@@ -290,7 +290,7 @@ left_end (gfloat   from,
         return alpha + TWO_PI;
 
     default:
-      return alpha; /* 1 */
+      return alpha; //1
     }
 }
 
@@ -310,7 +310,7 @@ right_end (gfloat   from,
         return beta + TWO_PI;
 
     default:
-      return beta; /* -1 */
+      return beta; //-1
     }
 }
 
@@ -409,3 +409,4 @@ gegl_op_class_init (GeglOpClass *klass)
 }
 
 #endif
+*/

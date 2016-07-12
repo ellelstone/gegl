@@ -11,12 +11,13 @@ line_profile_la_CFLAGS = $(CAIRO_CFLAGS) $(PANGO_CFLAGS) $(BABL_CFLAGS) $(GLIB_C
 ops += line-profile.la
 endif
 
-if HAVE_LUA
-ops += gluas.la
-gluas_la_SOURCES = gluas.c
-gluas_la_LIBADD  = $(op_libs) $(LUA_LIBS)
-gluas_la_CFLAGS  = $(LUA_CFLAGS) $(BABL_CFLAGS) $(GLIB_CFLAGS)
-endif
+#gluas uses hsv hsl and old lab code
+#if HAVE_LUA
+#ops += gluas.la
+#gluas_la_SOURCES = gluas.c
+#gluas_la_LIBADD  = $(op_libs) $(LUA_LIBS)
+#gluas_la_CFLAGS  = $(LUA_CFLAGS) $(BABL_CFLAGS) $(GLIB_CFLAGS)
+#endif
 
 if HAVE_LENSFUN
 ops += lens-correct.la

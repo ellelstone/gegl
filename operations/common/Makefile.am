@@ -1,4 +1,4 @@
-#elle: not made: supernova.c stretch-contrast-hsv.c noise-hsv.c
+#elle: HSV/HSL/CMYK: color-rotate noise-hsv.c stretch-contrast-hsv.c supernova.c value-invert.c
 
 SUBDIRS = perlin
 
@@ -30,7 +30,6 @@ op_LTLIBRARIES = \
 	color-enhance.la \
 	color-exchange.la \
 	color-reduction.la \
-	color-rotate.la \
 	color-to-alpha.la \
 	color.la \
 	contrast-curve.la \
@@ -134,7 +133,6 @@ op_LTLIBRARIES = \
 	tile-paper.la \
 	tile-seamless.la \
 	unsharp-mask.la \
-	value-invert.la \
 	value-propagate.la \
 	video-degradation.la \
 	vignette.la \

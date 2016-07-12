@@ -36,13 +36,13 @@
  *
  */
 
-
+/*
 #include "config.h"
 #include <glib/gi18n-lib.h>
 
 #ifdef GEGL_PROPERTIES
 
-   /* no properties */
+   //no properties
 
 #else
 
@@ -154,4 +154,4 @@ gegl_op_class_init (GeglOpClass *klass)
 }
 
 #endif
-
+*/
