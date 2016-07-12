@@ -28,7 +28,7 @@
 
 #include "gegl-operation-filter.h"
 
-#include "opencl/gegl-cl.h"
+//#include "opencl/gegl-cl.h"
 
 G_BEGIN_DECLS
 
@@ -59,12 +59,12 @@ struct _GeglOperationPointFilterClass
                                                         checkerboard op for
                                                         semantics */
                         gint                 level);
-  gboolean (* cl_process) (GeglOperation       *self,
+/*  gboolean (* cl_process) (GeglOperation       *self,
                            cl_mem               in_tex,
                            cl_mem               out_tex,
                            size_t               global_worksize,
                            const GeglRectangle *roi,
-                           gint                 level);
+                           gint                 level);*/
   gpointer                 pad[4];
 };
 

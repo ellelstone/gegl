@@ -21,7 +21,7 @@
    The API is stubbed out so we detect if OpenCL libraries are available
    in runtime.
 */
-
+#include <stdio.h>//elle for printf statement
 #include "config.h"
 
 #define __GEGL_CL_INIT_MAIN__
@@ -157,13 +157,13 @@ GeglClState;
 
 static cl_device_type gegl_cl_default_device_type = CL_DEVICE_TYPE_GPU;
 static GeglClState cl_state = { 0, };
-static GHashTable *cl_program_hash = NULL;
+//static GHashTable *cl_program_hash = NULL;
 
 
 gboolean
 gegl_cl_has_gl_sharing (void)
 {
-  return cl_state.have_opengl && gegl_cl_is_accelerated ();
+  return FALSE;//cl_state.have_opengl && gegl_cl_is_accelerated ();
 }
 
 void
@@ -279,7 +279,7 @@ gegl_cl_device_has_extension (cl_device_id device, const char *extension_name)
 gboolean
 gegl_cl_has_extension (const char *extension_name)
 {
-  if (!gegl_cl_is_accelerated () || !extension_name)
+//  if (!gegl_cl_is_accelerated () || !extension_name)
     return FALSE;
 
   return gegl_cl_device_has_extension (cl_state.device, extension_name);
@@ -363,7 +363,7 @@ t_glXGetCurrentContext gegl_glXGetCurrentContext;
 t_glXGetCurrentDisplay gegl_glXGetCurrentDisplay;
 #endif
 
-static gboolean
+/*static gboolean
 gegl_cl_init_get_gl_sharing_props (cl_context_properties   gl_contex_props[64],
                                    GError                **error)
 {
@@ -400,7 +400,7 @@ gegl_cl_init_get_gl_sharing_props (cl_context_properties   gl_contex_props[64],
 
   return FALSE;
 
-  #else /* Some kind of unix */
+  #else //Some kind of unix
   GLXContext  context;
   Display    *display;
 
@@ -434,7 +434,7 @@ gegl_cl_init_get_gl_sharing_props (cl_context_properties   gl_contex_props[64],
 
   #endif
 }
-
+*/
 static gboolean
 gegl_cl_init_common (cl_device_type          requested_device_type,
                      gboolean                gl_sharing,
@@ -452,7 +452,7 @@ gegl_cl_init (GError **error)
   return gegl_cl_init_common (gegl_cl_default_device_type, FALSE, error);
 }
 
-static gboolean
+/*static gboolean
 gegl_cl_init_load_functions (GError **error)
 {
 #ifdef G_OS_WIN32
@@ -518,8 +518,8 @@ gegl_cl_init_load_functions (GError **error)
 
   return TRUE;
 }
-
-static gboolean
+*/
+/*static gboolean
 gegl_cl_gl_init_load_functions (GError **error)
 {
   CL_LOAD_EXTENSION_FUNCTION (clCreateFromGLTexture2D)
@@ -527,9 +527,9 @@ gegl_cl_gl_init_load_functions (GError **error)
   CL_LOAD_EXTENSION_FUNCTION (clEnqueueReleaseGLObjects)
 
   return TRUE;
-}
+}*/
 
-static gboolean
+/*static gboolean
 gegl_cl_init_load_device_info (cl_platform_id   platform,
                                cl_device_id     device,
                                cl_device_type   requested_device_type,
@@ -539,7 +539,7 @@ gegl_cl_init_load_device_info (cl_platform_id   platform,
 
   if (device)
     {
-      /* Get platform from device */
+      //Get platform from device
       err = gegl_clGetDeviceInfo (device, CL_DEVICE_PLATFORM, sizeof (cl_platform_id), &platform, NULL);
       if (err != CL_SUCCESS)
         {
@@ -640,21 +640,21 @@ gegl_cl_init_load_device_info (cl_platform_id   platform,
 
   return TRUE;
 }
-
+*/
 static gboolean
 gegl_cl_init_common (cl_device_type          requested_device_type,
                      gboolean                gl_sharing,
                      GError                **error)
 {
-  cl_int err;
+//  cl_int err;
 
-  if (cl_state.hard_disable)
-    {
+//  if (cl_state.hard_disable)
+//    {
       GEGL_NOTE (GEGL_DEBUG_OPENCL, "OpenCL is disabled");
-      g_set_error (error, GEGL_OPENCL_ERROR, 0, "OpenCL is disabled");
+//      g_set_error (error, GEGL_OPENCL_ERROR, 0, "OpenCL is disabled");
       return FALSE;
-    }
-
+//    }
+/*
   if (!cl_state.is_loaded)
     {
       cl_command_queue_properties command_queue_flags = 0;
@@ -674,7 +674,7 @@ gegl_cl_init_common (cl_device_type          requested_device_type,
             return FALSE;
 
 #ifdef __APPLE__
-          /* Create context */
+          //Create context
           ctx = gegl_clCreateContext (gl_contex_props, 0, 0, NULL, 0, &err);
 
           if (err != CL_SUCCESS)
@@ -684,7 +684,7 @@ gegl_cl_init_common (cl_device_type          requested_device_type,
               return FALSE;
             }
 
-          /* Get device */
+          //Get device
           clGetContextInfo (ctx, CL_CONTEXT_DEVICES, sizeof(cl_device_id), &sharing_device, NULL);
 
           if (err != CL_SUCCESS)
@@ -701,7 +701,7 @@ gegl_cl_init_common (cl_device_type          requested_device_type,
               return FALSE;
             }
 #else
-          /* Get default GPU device */
+          //Get default GPU device
           if (!gegl_cl_init_load_device_info (NULL, NULL, CL_DEVICE_TYPE_GPU, error))
             return FALSE;
 
@@ -712,11 +712,11 @@ gegl_cl_init_common (cl_device_type          requested_device_type,
               return FALSE;
             }
 
-          /* Load extension functions */
+          //Load extension functions
           if (!gegl_cl_gl_init_load_functions (error))
             return FALSE;
 
-          /* Create context */
+          //Create context
           ctx = gegl_clCreateContext (gl_contex_props, 1, &cl_state.device, NULL, NULL, &err);
 
           if (err != CL_SUCCESS)
@@ -768,7 +768,7 @@ gegl_cl_init_common (cl_device_type          requested_device_type,
       _gegl_cl_is_accelerated = TRUE;
       cl_state.is_loaded = TRUE;
 
-      /* XXX: this dict is being leaked */
+      //XXX: this dict is being leaked
       cl_program_hash = g_hash_table_new (g_str_hash, g_str_equal);
 
       gegl_cl_color_compile_kernels ();
@@ -779,7 +779,7 @@ gegl_cl_init_common (cl_device_type          requested_device_type,
   if (cl_state.is_loaded)
     _gegl_cl_is_accelerated = TRUE;
 
-  return TRUE;
+  return TRUE;*/
 }
 
 #undef CL_LOAD_FUNCTION
@@ -790,12 +790,12 @@ gegl_cl_init_common (cl_device_type          requested_device_type,
 GeglClRunData *
 gegl_cl_compile_and_build (const char *program_source, const char *kernel_name[])
 {
-  gint errcode;
-  GeglClRunData *cl_data = NULL;
-  if (!gegl_cl_is_accelerated ())
+//  gint errcode;
+//  GeglClRunData *cl_data = NULL;
+//  if (!gegl_cl_is_accelerated ())
     return NULL;
 
-  cl_data = (GeglClRunData *)g_hash_table_lookup (cl_program_hash, program_source);
+/*  cl_data = (GeglClRunData *)g_hash_table_lookup (cl_program_hash, program_source);
 
   if (cl_data == NULL)
     {
@@ -878,7 +878,7 @@ gegl_cl_compile_and_build (const char *program_source, const char *kernel_name[]
       g_hash_table_insert (cl_program_hash, g_strdup (program_source), (void*)cl_data);
     }
 
-  return cl_data;
+  return cl_data;*/
 }
 
 void

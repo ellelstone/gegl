@@ -192,16 +192,16 @@ gegl_config_use_opencl_notify (GObject    *gobject,
                                    gegl_config_use_opencl_notify,
                                    NULL);
 
-  if (cfg->use_opencl)
+/*  if (cfg->use_opencl)
     {
        gegl_cl_init (NULL);
     }
   else
-    {
+    {*/
       gegl_cl_disable ();
-    }
+/*    }*/
 
-  cfg->use_opencl = gegl_cl_is_accelerated();
+  cfg->use_opencl = FALSE; //gegl_cl_is_accelerated();
 
   g_signal_handlers_unblock_by_func (gobject,
                                      gegl_config_use_opencl_notify,
@@ -379,20 +379,20 @@ static void gegl_config_parse_env (GeglConfig *config)
 
   if (g_getenv ("GEGL_USE_OPENCL"))
     {
-      const char *opencl_env = g_getenv ("GEGL_USE_OPENCL");
+/*      const char *opencl_env = g_getenv ("GEGL_USE_OPENCL");
 
       if (g_ascii_strcasecmp (opencl_env, "yes") == 0)
         ;
-      else if (g_ascii_strcasecmp (opencl_env, "no") == 0)
+      else if (g_ascii_strcasecmp (opencl_env, "no") == 0)*/
         gegl_cl_hard_disable ();
-      else if (g_ascii_strcasecmp (opencl_env, "cpu") == 0)
+/*      else if (g_ascii_strcasecmp (opencl_env, "cpu") == 0)
         gegl_cl_set_default_device_type (CL_DEVICE_TYPE_CPU);
       else if (g_ascii_strcasecmp (opencl_env, "gpu") == 0)
         gegl_cl_set_default_device_type (CL_DEVICE_TYPE_GPU);
       else if (g_ascii_strcasecmp (opencl_env, "accelerator") == 0)
         gegl_cl_set_default_device_type (CL_DEVICE_TYPE_ACCELERATOR);
       else
-        g_warning ("Unknown value for GEGL_USE_OPENCL: %s", opencl_env);
+        g_warning ("Unknown value for GEGL_USE_OPENCL: %s", opencl_env);*/
     }
 
   if (g_getenv ("GEGL_SWAP"))
@@ -702,7 +702,7 @@ gegl_post_parse_hook (GOptionContext *context,
                    "notify::use-opencl",
                    G_CALLBACK (gegl_config_use_opencl_notify),
                    NULL);
-  g_object_set (config, "use-opencl", config->use_opencl, NULL);
+  g_object_set (config, "use-opencl", FALSE/*config->use_opencl*/, NULL);
 
   g_signal_connect (G_OBJECT (config),
                    "notify::application-license",

@@ -779,7 +779,7 @@ gegl_processor_work (GeglProcessor *processor,
 {
   gboolean   more_work = FALSE;
 
-  if (gegl_config()->use_opencl)
+/*  if (gegl_config()->use_opencl)
     {
       if (gegl_cl_is_accelerated ()
           && processor->chunk_size != GEGL_CL_CHUNK_SIZE)
@@ -803,7 +803,7 @@ gegl_processor_work (GeglProcessor *processor,
           g_list_free (visits_list);
           g_object_unref (visitor);
         }
-    }
+    }*/
 
   more_work = gegl_processor_render (processor, &processor->rectangle, progress);
   if (more_work)

@@ -761,7 +761,7 @@ gboolean
 gegl_operation_use_opencl (const GeglOperation *operation)
 {
   g_return_val_if_fail (operation->node, FALSE);
-  return operation->node->use_opencl && gegl_cl_is_accelerated ();
+  return FALSE;//operation->node->use_opencl && gegl_cl_is_accelerated ();
 }
 
 const Babl *

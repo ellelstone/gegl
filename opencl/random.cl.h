@@ -1,5 +1,5 @@
-static const char* random_cl_source =
-"/* This file is part of GEGL                                                  \n"
+/*static const char* random_cl_source =
+" This file is part of GEGL                                                  \n"
 " *                                                                            \n"
 " * GEGL is free software; you can redistribute it and/or                      \n"
 " * modify it under the terms of the GNU Lesser General Public                 \n"
@@ -15,9 +15,9 @@ static const char* random_cl_source =
 " * License along with GEGL; if not, see <http://www.gnu.org/licenses/>.       \n"
 " *                                                                            \n"
 " * Copyright 2013 Carlos Zubieta (czubieta.dev@gmail.com)                     \n"
-" */                                                                           \n"
+"                                                                           \n"
 "                                                                              \n"
-"/* XXX: this file should be kept in sync with gegl-random. */                 \n"
+"//XXX: this file should be kept in sync with gegl-random.                 \n"
 "                                                                              \n"
 "typedef ushort4 GeglRandom;                                                   \n"
 "                                                                              \n"
@@ -135,4 +135,4 @@ static const char* random_cl_source =
 "  float f = gegl_cl_random_float (cl_random_data, rand, x, y, z, n);          \n"
 "  return f * (max - min) + min;                                               \n"
 "}                                                                             \n"
-;
+;*/

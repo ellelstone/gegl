@@ -89,7 +89,7 @@ gegl_config_get_property (GObject    *gobject,
         break;
 
       case PROP_USE_OPENCL:
-        g_value_set_boolean (value, gegl_cl_is_accelerated());
+        g_value_set_boolean (value, FALSE /*gegl_cl_is_accelerated()*/);
         break;
 
       case PROP_QUEUE_SIZE:
@@ -140,7 +140,7 @@ gegl_config_set_property (GObject      *gobject,
         _gegl_threads = g_value_get_int (value);
         return;
       case PROP_USE_OPENCL:
-        config->use_opencl = g_value_get_boolean (value);
+        config->use_opencl = FALSE;//g_value_get_boolean (value);
         break;
       case PROP_QUEUE_SIZE:
         config->queue_size = g_value_get_int (value);
@@ -242,7 +242,7 @@ gegl_config_class_init (GeglConfigClass *klass)
                                    g_param_spec_boolean ("use-opencl",
                                                          "Use OpenCL",
                                                          "Try to use OpenCL",
-                                                         TRUE,
+                                                         FALSE,//TRUE,
                                                          G_PARAM_READWRITE |
                                                          G_PARAM_CONSTRUCT));
 

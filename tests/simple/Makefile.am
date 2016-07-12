@@ -1,4 +1,6 @@
 # The tests
+# test-opencl-colors removed
+
 noinst_PROGRAMS =			\
 	test-backend-file		\
 	test-buffer-cast		\
@@ -20,7 +22,6 @@ noinst_PROGRAMS =			\
 	test-node-connections		\
 	test-node-properties		\
 	test-object-forked		\
-	test-opencl-colors		\
 	test-serialize \
 	test-path			\
 	test-proxynop-processing	\

@@ -30,8 +30,8 @@
 #include <unistd.h>
 #include <string.h>
 
-#include "opencl/gegl-cl.h"
-#include "gegl-buffer-cl-iterator.h"
+//#include "opencl/gegl-cl.h"
+//#include "gegl-buffer-cl-iterator.h"
 
 typedef struct ThreadData
 {
@@ -160,7 +160,7 @@ static void prepare (GeglOperation *operation)
   gegl_operation_set_format (operation, "output", format);
 }
 
-static gboolean
+/*static gboolean
 gegl_operation_point_filter_cl_process (GeglOperation       *operation,
                                         GeglBuffer          *input,
                                         GeglBuffer          *output,
@@ -178,7 +178,7 @@ gegl_operation_point_filter_cl_process (GeglOperation       *operation,
   cl_int cl_err = 0;
   gboolean err;
 
-  /* non-texturizable format! */
+  //non-texturizable format!
   if (!gegl_cl_color_babl (in_format,  NULL) ||
       !gegl_cl_color_babl (out_format, NULL))
     {
@@ -188,7 +188,7 @@ gegl_operation_point_filter_cl_process (GeglOperation       *operation,
 
   GEGL_NOTE (GEGL_DEBUG_OPENCL, "GEGL_OPERATION_POINT_FILTER: %s", operation_class->name);
 
-  /* Process */
+  //Process
   iter = gegl_buffer_cl_iterator_new (output, result, out_format, GEGL_CL_BUFFER_WRITE);
 
   gegl_buffer_cl_iterator_add (iter, input, result, in_format, GEGL_CL_BUFFER_READ, GEGL_ABYSS_NONE);
@@ -244,7 +244,7 @@ error:
     gegl_buffer_cl_iterator_stop (iter);
   return FALSE;
 }
-
+*/
 static void
 gegl_operation_point_filter_class_init (GeglOperationPointFilterClass *klass)
 {
@@ -272,7 +272,7 @@ gegl_operation_point_filter_process (GeglOperation       *operation,
                                        const GeglRectangle *result,
                                        gint                 level)
 {
-  GeglOperationClass *operation_class = GEGL_OPERATION_GET_CLASS (operation);
+//  GeglOperationClass *operation_class = GEGL_OPERATION_GET_CLASS (operation);
   GeglOperationPointFilterClass *point_filter_class = GEGL_OPERATION_POINT_FILTER_GET_CLASS (operation);
   const Babl *in_format   = gegl_operation_get_format (operation, "input");
   const Babl *out_format  = gegl_operation_get_format (operation, "output");
@@ -283,11 +283,11 @@ gegl_operation_point_filter_process (GeglOperation       *operation,
       const Babl *in_buf_format  = input?gegl_buffer_get_format(input):NULL;
       const Babl *output_buf_format = output?gegl_buffer_get_format(output):NULL;
 
-      if (gegl_operation_use_opencl (operation) && (operation_class->cl_data || point_filter_class->cl_process))
+/*      if (gegl_operation_use_opencl (operation) && (operation_class->cl_data || point_filter_class->cl_process))
       {
         if (gegl_operation_point_filter_cl_process (operation, input, output, result, level))
             return TRUE;
-      }
+      }*/
 
       if (gegl_operation_use_threading (operation, result) && result->height > 1)
       {
