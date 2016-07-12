@@ -25,8 +25,6 @@ libbuffer_la_SOURCES = \
     gegl-buffer-access.c	\
     gegl-buffer-index.h		\
     gegl-buffer-iterator.c	\
-    gegl-buffer-cl-iterator.c	\
-    gegl-buffer-cl-cache.c	\
     gegl-buffer-linear.c	\
 	gegl-buffer-load.c	\
     gegl-buffer-save.c		\
@@ -57,8 +55,6 @@ libbuffer_la_SOURCES = \
     gegl-buffer-private.h	\
     gegl-buffer-iterator.h	\
     gegl-buffer-iterator-private.h	\
-    gegl-buffer-cl-iterator.h	\
-    gegl-buffer-cl-cache.h	\
     gegl-buffer-types.h		\
     gegl-cache.h		\
     gegl-sampler.h		\

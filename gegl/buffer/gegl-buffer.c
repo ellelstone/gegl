@@ -48,7 +48,7 @@
 #include "gegl-tile-backend-ram.h"
 #include "gegl-types-internal.h"
 #include "gegl-config.h"
-#include "gegl-buffer-cl-cache.h"
+//#include "gegl-buffer-cl-cache.h"
 
 #ifdef GEGL_ENABLE_DEBUG
 #define DEBUG_ALLOCATIONS (gegl_debug_flags & GEGL_DEBUG_BUFFER_ALLOC)
@@ -375,8 +375,8 @@ gegl_buffer_dispose (GObject *object)
 
   gegl_buffer_sample_cleanup (buffer);
 
-  if (gegl_cl_is_accelerated ())
-    gegl_buffer_cl_cache_invalidate (GEGL_BUFFER (object), NULL);
+/*  if (gegl_cl_is_accelerated ())
+    gegl_buffer_cl_cache_invalidate (GEGL_BUFFER (object), NULL);*/
 
   if (GEGL_IS_TILE_STORAGE (handler->source))
     {

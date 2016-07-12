@@ -36,7 +36,7 @@
 #include "gegl-sampler.h"
 #include "gegl-tile-backend.h"
 #include "gegl-buffer-iterator.h"
-#include "gegl-buffer-cl-cache.h"
+//#include "gegl-buffer-cl-cache.h"
 #include "gegl-config.h"
 
 static void gegl_buffer_iterate_read_fringed (GeglBuffer          *buffer,
@@ -485,10 +485,10 @@ gegl_buffer_set_internal (GeglBuffer          *buffer,
                           const void          *src,
                           gint                 rowstride)
 {
-  if (gegl_cl_is_accelerated ())
+/*  if (gegl_cl_is_accelerated ())
     {
       gegl_buffer_cl_cache_flush (buffer, rect);
-    }
+    }*/
 
   gegl_buffer_iterate_write (buffer, rect, (void *) src, rowstride, format, level);
 
@@ -1393,10 +1393,10 @@ _gegl_buffer_get_unlocked (GeglBuffer          *buffer,
       return;
     }
 
-  if (gegl_cl_is_accelerated ())
+/*  if (gegl_cl_is_accelerated ())
     {
       gegl_buffer_cl_cache_flush (buffer, rect);
-    }
+    }*/
 
   if (!rect && GEGL_FLOAT_EQUAL (scale, 1.0))
     {
@@ -1784,8 +1784,8 @@ gegl_buffer_clear2 (GeglBuffer          *dst,
 
   pxsize = babl_format_get_bytes_per_pixel (dst->soft_format);
 
-  if (gegl_cl_is_accelerated ())
-    gegl_buffer_cl_cache_invalidate (dst, dst_rect);
+/*  if (gegl_cl_is_accelerated ())
+    gegl_buffer_cl_cache_invalidate (dst, dst_rect);*/
 
   /* FIXME: this can be even further optimized by special casing it so
    * that fully voided tiles are dropped.

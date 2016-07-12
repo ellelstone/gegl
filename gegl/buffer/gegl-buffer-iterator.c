@@ -596,7 +596,7 @@ gegl_buffer_iterator_next (GeglBufferIterator *iter)
 
   if (priv->state == GeglIteratorState_Start)
     {
-      int index;
+//      int index;
       GeglBuffer *primary = priv->sub_iter[0].buffer;
       if (primary->tile_width == primary->extent.width 
           && primary->tile_height == primary->extent.height 
@@ -609,24 +609,24 @@ gegl_buffer_iterator_next (GeglBufferIterator *iter)
           && FALSE) /* XXX: conditions are not strict enough, GIMPs TIFF
                        plug-in fails; but GEGLs buffer test suite passes */
       {
-        if (gegl_cl_is_accelerated ())
+/*        if (gegl_cl_is_accelerated ())
           for (index = 0; index < priv->num_buffers; index++)
             {
               SubIterState *sub = &priv->sub_iter[index];
               gegl_buffer_cl_cache_flush (sub->buffer, &sub->full_rect);
-            }
+            }*/
         linear_shortcut (iter);
         return TRUE;
       }
 
       prepare_iteration (iter);
 
-      if (gegl_cl_is_accelerated ())
+/*      if (gegl_cl_is_accelerated ())
         for (index = 0; index < priv->num_buffers; index++)
           {
             SubIterState *sub = &priv->sub_iter[index];
             gegl_buffer_cl_cache_flush (sub->buffer, &sub->full_rect);
-          }
+          }*/
 
       initialize_rects (iter);
 

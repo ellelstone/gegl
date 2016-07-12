@@ -320,7 +320,7 @@ gegl_operation_prepare (GeglOperation *self)
 
   klass = GEGL_OPERATION_GET_CLASS (self);
 
-  /* build OpenCL kernel */
+  /* build OpenCL kernel 
   if (!klass->cl_data)
   {
     const gchar *cl_source = gegl_operation_class_get_key (klass, "cl-source");
@@ -339,7 +339,7 @@ gegl_operation_prepare (GeglOperation *self)
         klass->cl_data = gegl_cl_compile_and_build (cl_source, kernel_name);
         free (name);
       }
-  }
+  }*/
 
   if (klass->prepare)
     klass->prepare (self);
@@ -526,7 +526,7 @@ gegl_operation_invalidate (GeglOperation       *operation,
     gegl_node_invalidated (operation->node, roi, clear_cache);
 }
 
-gboolean
+/*gboolean
 gegl_operation_cl_set_kernel_args (GeglOperation *operation,
                                    cl_kernel      kernel,
                                    gint          *p,
@@ -553,11 +553,11 @@ gegl_operation_cl_set_kernel_args (GeglOperation *operation,
       for (parent_no=0;parent_no<n_parent;parent_no++)
         if (self[prop_no]==parent[parent_no])
           found=TRUE;
-      /* only print properties if we are an addition compared to
-       * GeglOperation
-       */
+      //only print properties if we are an addition compared to
+      //GeglOperation
+      //
 
-      /* Removing pads */
+      //Removing pads
       if (!strcmp(g_param_spec_get_name (self[prop_no]), "input") ||
           !strcmp(g_param_spec_get_name (self[prop_no]), "output") ||
           !strcmp(g_param_spec_get_name (self[prop_no]), "aux"))
@@ -620,7 +620,7 @@ gegl_operation_cl_set_kernel_args (GeglOperation *operation,
 
   return TRUE;
 }
-
+*/
 gchar **
 gegl_operation_list_keys (const gchar *operation_name,
                           guint       *n_keys)

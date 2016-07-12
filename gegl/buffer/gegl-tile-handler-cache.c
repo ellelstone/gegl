@@ -31,7 +31,7 @@
 #include "gegl-tile-storage.h"
 #include "gegl-debug.h"
 
-#include "gegl-buffer-cl-cache.h"
+//#include "gegl-buffer-cl-cache.h"
 
 /*
 #define GEGL_DEBUG_CACHE_HITS
@@ -180,8 +180,8 @@ gegl_tile_handler_cache_get_tile_command (GeglTileSource *tile_store,
   GeglTileSource       *source   = ((GeglTileHandler*) (tile_store))->source;
   GeglTile             *tile     = NULL;
 
-  if (G_UNLIKELY (gegl_cl_is_accelerated ()))
-    gegl_buffer_cl_cache_flush2 (cache, NULL);
+/*  if (G_UNLIKELY (gegl_cl_is_accelerated ()))
+    gegl_buffer_cl_cache_flush2 (cache, NULL);*/
 
   tile = gegl_tile_handler_cache_get_tile (cache, x, y, z);
   if (tile)
@@ -221,8 +221,8 @@ gegl_tile_handler_cache_command (GeglTileSource  *tile_store,
         {
           GList     *link;
 
-          if (gegl_cl_is_accelerated ())
-            gegl_buffer_cl_cache_flush2 (cache, NULL);
+/*          if (gegl_cl_is_accelerated ())
+            gegl_buffer_cl_cache_flush2 (cache, NULL);*/
 
           if (cache->count)
             {

@@ -38,7 +38,7 @@
 #include "graph/gegl-visitable.h"
 #include "process/gegl-list-visitor.h"
 
-#include "opencl/gegl-cl.h"
+//#include "opencl/gegl-cl.h"
 
 enum
 {
