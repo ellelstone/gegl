@@ -19,7 +19,7 @@
  * Copyright 2013 Carlos Zubieta <czubieta.dev@gmail.com>
  *
  */
-
+/*
 #include "config.h"
 #include <glib/gi18n-lib.h>
 
@@ -111,7 +111,7 @@ get_required_for_output (GeglOperation       *operation,
 {
   GeglRectangle result = *gegl_operation_source_get_bounding_box (operation, "input");
 
-  /* Don't request an infinite plane */
+  //Don't request an infinite plane
   if (gegl_rectangle_is_infinite_plane (&result))
     return *roi;
 
@@ -157,10 +157,10 @@ process (GeglOperation       *operation,
 
       for (i = 0; i < gi->length; i++)
         {
-          out[0] = in[0]; /* Keep hue */
+          out[0] = in[0]; //Keep hue
           out[1] = (in[1] - data.slo) / data.sdiff;
           out[2] = (in[2] - data.vlo) / data.vdiff;
-          out[3] = in[3]; /* Keep alpha */
+          out[3] = in[3]; //Keep alpha
 
           in  += 4;
           out += 4;
@@ -170,8 +170,8 @@ process (GeglOperation       *operation,
   return TRUE;
 }
 
-/* Pass-through when trying to perform a reduction on an infinite plane
- */
+//Pass-through when trying to perform a reduction on an infinite plane
+
 static gboolean
 operation_process (GeglOperation        *operation,
                    GeglOperationContext *context,
@@ -194,9 +194,9 @@ operation_process (GeglOperation        *operation,
       return TRUE;
     }
 
-  /* chain up, which will create the needed buffers for our actual
-   * process function
-   */
+  //chain up, which will create the needed buffers for our actual
+   //process function
+   //
   return operation_class->process (operation, context, output_prop, result,
                                    gegl_operation_context_get_level (context));
 }
@@ -230,3 +230,4 @@ gegl_op_class_init (GeglOpClass *klass)
 }
 
 #endif
+*/

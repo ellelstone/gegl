@@ -25,15 +25,6 @@ enum_start (gegl_component_extract)
   enum_value (GEGL_COMPONENT_EXTRACT_RGB_RED, "RGB Red", N_("RGB Red"))
   enum_value (GEGL_COMPONENT_EXTRACT_RGB_GREEN, "RGB Green", N_("RGB Green"))
   enum_value (GEGL_COMPONENT_EXTRACT_RGB_BLUE, "RGB Blue", N_("RGB Blue"))
-  enum_value (GEGL_COMPONENT_EXTRACT_HUE, "Hue", N_("Hue"))
-  enum_value (GEGL_COMPONENT_EXTRACT_HSV_SATURATION, "HSV Saturation", N_("HSV Saturation"))
-  enum_value (GEGL_COMPONENT_EXTRACT_HSV_VALUE, "HSV Value", N_("HSV Value"))
-  enum_value (GEGL_COMPONENT_EXTRACT_HSL_SATURATION, "HSL Saturation", N_("HSL Saturation"))
-  enum_value (GEGL_COMPONENT_EXTRACT_HSL_LIGHTNESS, "HSL Lightness", N_("HSL Lightness"))
-  enum_value (GEGL_COMPONENT_EXTRACT_CMYK_CYAN, "CMYK Cyan", N_("CMYK Cyan"))
-  enum_value (GEGL_COMPONENT_EXTRACT_CMYK_MAGENTA, "CMYK Magenta", N_("CMYK Magenta"))
-  enum_value (GEGL_COMPONENT_EXTRACT_CMYK_YELLOW, "CMYK Yellow", N_("CMYK Yellow"))
-  enum_value (GEGL_COMPONENT_EXTRACT_CMYK_KEY, "CMYK Key", N_("CMYK Key"))
   enum_value (GEGL_COMPONENT_EXTRACT_LAB_L, "LAB L", N_("LAB L"))
   enum_value (GEGL_COMPONENT_EXTRACT_LAB_A, "LAB A", N_("LAB A"))
   enum_value (GEGL_COMPONENT_EXTRACT_LAB_B, "LAB B", N_("LAB B"))
@@ -76,24 +67,6 @@ prepare (GeglOperation *operation)
       input_format = babl_format ("RGB float");
       break;
 
-    case GEGL_COMPONENT_EXTRACT_HUE:
-    case GEGL_COMPONENT_EXTRACT_HSV_SATURATION:
-    case GEGL_COMPONENT_EXTRACT_HSV_VALUE:
-      input_format = babl_format ("HSV float");
-      break;
-
-    case GEGL_COMPONENT_EXTRACT_HSL_LIGHTNESS:
-    case GEGL_COMPONENT_EXTRACT_HSL_SATURATION:
-      input_format = babl_format ("HSL float");
-      break;
-
-    case GEGL_COMPONENT_EXTRACT_CMYK_CYAN:
-    case GEGL_COMPONENT_EXTRACT_CMYK_MAGENTA:
-    case GEGL_COMPONENT_EXTRACT_CMYK_YELLOW:
-    case GEGL_COMPONENT_EXTRACT_CMYK_KEY:
-      input_format = babl_format ("CMYK float");
-      break;
-
     case GEGL_COMPONENT_EXTRACT_LAB_L:
     case GEGL_COMPONENT_EXTRACT_LAB_A:
     case GEGL_COMPONENT_EXTRACT_LAB_B:
@@ -132,8 +105,6 @@ process (GeglOperation       *operation,
   switch (o->component)
     {
     case GEGL_COMPONENT_EXTRACT_RGB_RED:
-    case GEGL_COMPONENT_EXTRACT_HUE:
-    case GEGL_COMPONENT_EXTRACT_CMYK_CYAN:
     case GEGL_COMPONENT_EXTRACT_LAB_L:
       component_index = 0;
 
@@ -144,9 +115,6 @@ process (GeglOperation       *operation,
       break;
 
     case GEGL_COMPONENT_EXTRACT_RGB_GREEN:
-    case GEGL_COMPONENT_EXTRACT_HSV_SATURATION:
-    case GEGL_COMPONENT_EXTRACT_HSL_SATURATION:
-    case GEGL_COMPONENT_EXTRACT_CMYK_MAGENTA:
     case GEGL_COMPONENT_EXTRACT_LAB_A:
     case GEGL_COMPONENT_EXTRACT_LCH_C:
     case GEGL_COMPONENT_EXTRACT_ALPHA:
@@ -165,9 +133,6 @@ process (GeglOperation       *operation,
       break;
 
     case GEGL_COMPONENT_EXTRACT_RGB_BLUE:
-    case GEGL_COMPONENT_EXTRACT_HSV_VALUE:
-    case GEGL_COMPONENT_EXTRACT_HSL_LIGHTNESS:
-    case GEGL_COMPONENT_EXTRACT_CMYK_YELLOW:
     case GEGL_COMPONENT_EXTRACT_LAB_B:
     case GEGL_COMPONENT_EXTRACT_LCH_H:
       component_index = 2;
@@ -182,10 +147,6 @@ process (GeglOperation       *operation,
           min = 0.0;
           max =  360.0;
         }
-      break;
-
-    case GEGL_COMPONENT_EXTRACT_CMYK_KEY:
-      component_index = 3;
       break;
     }
 

@@ -1,3 +1,5 @@
+#elle: not made: supernova.c stretch-contrast-hsv.c noise-hsv.c
+
 SUBDIRS = perlin
 
 include $(top_srcdir)/operations/Makefile-common.am
@@ -86,7 +88,6 @@ op_LTLIBRARIES = \
 	motion-blur-linear.la \
 	motion-blur-zoom.la \
 	noise-cie-lch.la \
-	noise-hsv.la \
 	noise-hurl.la \
 	noise-perlin.la \
 	noise-pick.la \
@@ -121,9 +122,7 @@ op_LTLIBRARIES = \
 	snn-mean.la \
 	softglow.la \
 	stress.la \
-	stretch-contrast-hsv.la \
 	stretch-contrast.la \
-	supernova.la \
 	svg-huerotate.la \
 	svg-luminancetoalpha.la \
 	svg-matrix.la \

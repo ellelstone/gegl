@@ -27,13 +27,13 @@
 
 enum_start (gegl_alien_map_color_model)
   enum_value (GEGL_ALIEN_MAP_COLOR_MODEL_RGB, "rgb", N_("RGB"))
-  enum_value (GEGL_ALIEN_MAP_COLOR_MODEL_HSL, "hsl", N_("HSL"))
+//  enum_value (GEGL_ALIEN_MAP_COLOR_MODEL_HSL, "hsl", N_("HSL"))
 enum_end (GeglAlienMapColorModel)
 
-property_enum (color_model, _("Color model"),
+/*property_enum (color_model, _("Color model"),
                GeglAlienMapColorModel, gegl_alien_map_color_model,
                GEGL_ALIEN_MAP_COLOR_MODEL_RGB)
-  description (_("What color model used for the transformation"))
+  description (_("What color model used for the transformation"))*/
 
 property_double (cpn_1_frequency, _("Component 1 frequency"), 1)
   value_range (0, 20)
@@ -70,20 +70,20 @@ prepare (GeglOperation *operation)
 {
   GeglProperties *o = GEGL_PROPERTIES (operation);
 
-  if (o->color_model == GEGL_ALIEN_MAP_COLOR_MODEL_RGB)
-    {
+/*  if (o->color_model == GEGL_ALIEN_MAP_COLOR_MODEL_RGB)
+    {*/
       gegl_operation_set_format (operation, "input",
                                  babl_format ("RGBA float"));
       gegl_operation_set_format (operation, "output",
                                  babl_format ("RGBA float"));
-    }
+/*    }
   else
     {
       gegl_operation_set_format (operation, "input",
                                  babl_format ("HSLA float"));
       gegl_operation_set_format (operation, "output",
                                  babl_format ("HSLA float"));
-    }
+    }*/
 }
 
 static gboolean

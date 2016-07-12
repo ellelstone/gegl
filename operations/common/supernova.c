@@ -23,7 +23,7 @@
  * GEGL port: Thomas Manni <thomas.manni@free.fr>
  *
  */
-
+/*
 #include "config.h"
 #include <glib/gi18n-lib.h>
 #include <math.h>
@@ -134,7 +134,7 @@ preprocess_spokes (GeglOperation *operation)
       gegl_color_get_pixel (tmp, format, &(params->spokes[i].color));
     }
 
-  /* store parameters used for this spokes calculation */
+  //store parameters used for this spokes calculation
   params->spokes_count = o->spokes_count;
   params->seed = o->seed;
   params->random_hue = o->random_hue;
@@ -161,13 +161,13 @@ prepare (GeglOperation *operation)
     }
   else
     {
-      /* Preprocessing is done only if spokes_count, seed, random_hue
-       * or color parameters are changed.
-       * Reallocation is done only when spokes_count is changed.
-       *
-       * This to avoid the systematic reallocation and preproccessing of
-       * spokes at each prepare() call.
-       */
+      //Preprocessing is done only if spokes_count, seed, random_hue
+       //or color parameters are changed.
+       //Reallocation is done only when spokes_count is changed.
+       //
+       //This to avoid the systematic reallocation and preproccessing of
+       //spokes at each prepare() call.
+       //
 
       params = (SnParamsType *) o->user_data;
 
@@ -348,3 +348,4 @@ gegl_op_class_init (GeglOpClass *klass)
 }
 
 #endif
+*/

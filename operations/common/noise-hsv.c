@@ -18,7 +18,7 @@
  * Copyright 2000 Tim Copperfield <timecop@japan.co.jp>
  * Copyright 2012 Maxime Nicco <maxime.nicco@gmail.com>
  */
-
+/*
 #include "config.h"
 #include <glib/gi18n-lib.h>
 
@@ -130,7 +130,7 @@ process (GeglOperation       *operation,
 
   for (i = 0; i < n_pixels; i++)
   {
-    /* n is independent from the roi, but from the whole image */
+    //n is independent from the roi, but from the whole image
     gint n = (3 * o->holdness + 4) * (x + whole_region.width * y);
 
     hue        = in_pixel[0];
@@ -138,13 +138,13 @@ process (GeglOperation       *operation,
     value      = in_pixel[2];
     alpha      = in_pixel[3];
 
-    /* there is no need for scattering hue of desaturated pixels here */
+    //there is no need for scattering hue of desaturated pixels here
     if ((o->hue_distance > 0) && (saturation > 0))
       hue = randomize_value (hue, 0.0, 1.0, TRUE, o->hue_distance / 360.0,
                              o->holdness, x, y, n, o->rand);
 
     n += o->holdness + 1;
-    /* desaturated pixels get random hue before increasing saturation */
+    //desaturated pixels get random hue before increasing saturation
     if (o->saturation_distance > 0) {
       if (saturation == 0)
         hue = gegl_random_float_range (o->rand, x, y, 0, n, 0.0, 1.0);
@@ -198,3 +198,4 @@ gegl_op_class_init (GeglOpClass *klass)
 }
 
 #endif
+*/
