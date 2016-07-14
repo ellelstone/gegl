@@ -22,16 +22,16 @@
 
 #ifdef GEGL_PROPERTIES
 
-property_int   (holdness, _("Holdness"), 2)
+property_int   (holdness, _("Holdness"), 1)
    value_range (1, 8)
 
-property_double (lightness_distance, _("Lightness"), 40.0)
+property_double (lightness_distance, _("Lightness"), 5.0)
    value_range  (0.0, 100.0)
 
-property_double (chroma_distance, _("Chroma"), 40.0)
+property_double (chroma_distance, _("Chroma"), 1.0)
    value_range  (0.0, 100.0)
 
-property_double (hue_distance, _("Hue"), 3.0)
+property_double (hue_distance, _("Hue"), 1.0)
    value_range  (0.0, 180.0)
 
 property_seed   (seed, _("Random seed"), rand)
