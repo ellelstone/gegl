@@ -24,7 +24,6 @@ op_LTLIBRARIES = \
 	buffer-sink.la \
 	buffer-source.la \
 	bump-map.la \
-	c2g.la \
 	channel-mixer.la \
 	checkerboard.la \
 	color-enhance.la \
@@ -97,7 +96,6 @@ op_LTLIBRARIES = \
 	noise-solid.la \
 	noise-spread.la \
 	noise-cell.la \
-	oilify.la \
 	opacity.la \
 	open-buffer.la \
 	over.la \
@@ -115,7 +113,6 @@ op_LTLIBRARIES = \
 	ripple.la \
 	saturation.la \
 	save.la \
-	sepia.la \
 	shift.la \
 	sinus.la \
 	snn-mean.la \
