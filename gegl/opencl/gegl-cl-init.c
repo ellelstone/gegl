@@ -237,7 +237,7 @@ gegl_cl_set_default_device_type (cl_device_type default_device_type)
   gegl_cl_default_device_type = default_device_type;
 }
 
-static gboolean
+/*static gboolean
 gegl_cl_device_has_extension (cl_device_id device, const char *extension_name)
 {
   cl_int     cl_err;
@@ -274,7 +274,7 @@ gegl_cl_device_has_extension (cl_device_id device, const char *extension_name)
   g_strfreev (extensions);
 
   return found;
-}
+}*/
 
 gboolean
 gegl_cl_has_extension (const char *extension_name)
@@ -282,7 +282,7 @@ gegl_cl_has_extension (const char *extension_name)
 //  if (!gegl_cl_is_accelerated () || !extension_name)
     return FALSE;
 
-  return gegl_cl_device_has_extension (cl_state.device, extension_name);
+//  return gegl_cl_device_has_extension (cl_state.device, extension_name);
 }
 
 #ifdef G_OS_WIN32

@@ -13,7 +13,7 @@
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  *
  * Copyright (C) 2013 Daniel Sabo
- */
+
 
 #include <string.h>
 #include <stdio.h>
@@ -79,19 +79,19 @@ int main(int argc, char *argv[])
     {
       RUN_TEST ("RGBA float", "RGBA float", GEGL_CL_COLOR_EQUAL)
       RUN_TEST ("RGBA float", "RaGaBaA float", GEGL_CL_COLOR_CONVERT)
-      /* RUN_TEST ("RGBA float", "RGB float", GEGL_CL_COLOR_CONVERT) */
+      //RUN_TEST ("RGBA float", "RGB float", GEGL_CL_COLOR_CONVERT)
       RUN_TEST ("RGBA float", "RGBA float", GEGL_CL_COLOR_CONVERT)
-      /* RUN_TEST ("RGBA float", "RaGaBaA float", GEGL_CL_COLOR_CONVERT) */
+      //RUN_TEST ("RGBA float", "RaGaBaA float", GEGL_CL_COLOR_CONVERT)
       RUN_TEST ("RGBA float", "RGBA u8", GEGL_CL_COLOR_CONVERT)
       RUN_TEST ("RGBA float", "RGB u8", GEGL_CL_COLOR_CONVERT)
 
       RUN_TEST ("RGBA float", "RGBA float", GEGL_CL_COLOR_CONVERT)
       RUN_TEST ("RGBA float", "RGBA float", GEGL_CL_COLOR_EQUAL)
-      /* RUN_TEST ("RGBA float", "RGBA u8", GEGL_CL_COLOR_CONVERT) */
-      /* RUN_TEST ("RGBA float", "RGB u8", GEGL_CL_COLOR_CONVERT) */
+      //RUN_TEST ("RGBA float", "RGBA u8", GEGL_CL_COLOR_CONVERT)
+      //RUN_TEST ("RGBA float", "RGB u8", GEGL_CL_COLOR_CONVERT)
 
       RUN_TEST ("RGBA u8", "RGBA float", GEGL_CL_COLOR_CONVERT)
-      /* RUN_TEST ("RGBA u8", "RGBA float", GEGL_CL_COLOR_CONVERT) */
+      //RUN_TEST ("RGBA u8", "RGBA float", GEGL_CL_COLOR_CONVERT)
       RUN_TEST ("RGBA u8", "RGBA u8", GEGL_CL_COLOR_EQUAL)
     }
 
@@ -103,3 +103,4 @@ int main(int argc, char *argv[])
     return SUCCESS;
   return FAILURE;
 }
+ */

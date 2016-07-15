@@ -1,13 +1,12 @@
-# The tests
-# test-opencl-colors removed
+# elle: these tests removed, not sure how to interpret opencl line in code
+# test-opencl-colors test-backend-file test-node-connections test-buffer-tile-voiding test-svg-abyss
 
 noinst_PROGRAMS =			\
-	test-backend-file		\
 	test-buffer-cast		\
 	test-buffer-changes		\
 	test-buffer-extract		\
 	test-buffer-hot-tile	\
-	test-buffer-tile-voiding	\
+		\
 	test-change-processor-rect	\
 	test-convert-format		\
 	test-color-op			\
@@ -19,14 +18,13 @@ noinst_PROGRAMS =			\
 	test-image-compare		\
 	test-license-check		\
 	test-misc			\
-	test-node-connections		\
+			\
 	test-node-properties		\
 	test-object-forked		\
 	test-serialize \
 	test-path			\
 	test-proxynop-processing	\
-	test-scaled-blit		\
-	test-svg-abyss
+	test-scaled-blit
 
 EXTRA_DIST = test-exp-combine.sh
 

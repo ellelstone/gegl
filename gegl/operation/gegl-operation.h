@@ -259,10 +259,10 @@ void     gegl_operation_invalidate       (GeglOperation       *operation,
                                           const GeglRectangle *roi,
                                           gboolean             clear_cache);
 
-gboolean gegl_operation_cl_set_kernel_args (GeglOperation *operation,
+/*gboolean gegl_operation_cl_set_kernel_args (GeglOperation *operation,
                                             cl_kernel      kernel,
                                             gint          *p,
-                                            cl_int        *err);
+                                            cl_int        *err);*/
 
 /* internal utility functions used by gegl, these should not be used
  * externally */

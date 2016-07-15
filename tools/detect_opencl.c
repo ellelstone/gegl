@@ -18,7 +18,7 @@
 #include <stdio.h>
 
 #include "gegl.h"
-#include "opencl/gegl-cl.h"
+//#include "opencl/gegl-cl.h"
 
 int main(int argc, char **argv)
 {
@@ -26,16 +26,16 @@ int main(int argc, char **argv)
 
   gegl_init(&argc, &argv);
 
-  if (gegl_cl_is_accelerated())
+/*  if (gegl_cl_is_accelerated())
     {
       printf ("yes");
       ret = 0;
     }
   else
-    {
+    {*/
       printf ("no");
       ret = 1;
-    }
+//    }
 
   gegl_exit ();
 

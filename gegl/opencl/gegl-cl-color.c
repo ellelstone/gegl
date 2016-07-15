@@ -29,10 +29,10 @@
 #include "gegl-cl.h"
 #include "gegl-cl-color.h"
 
-#include "opencl/colors.cl.h"
-#include "opencl/colors-8bit-lut.cl.h"
-
-static GHashTable  *color_kernels_hash = NULL;
+//#include "opencl/colors.cl.h"
+//#include "opencl/colors-8bit-lut.cl.h"
+/* elle: above two files and the corresponding .cl files have had contents removed */
+//static GHashTable  *color_kernels_hash = NULL;
 
 typedef struct
 {
@@ -42,14 +42,14 @@ typedef struct
   cl_kernel   kernel;
 } ColorConversionInfo;
 
-static guint
+/*static guint
 color_kernels_hash_hashfunc (gconstpointer key)
 {
   const ColorConversionInfo *ekey = key;
   return GPOINTER_TO_INT (ekey->from_fmt) ^ GPOINTER_TO_INT (ekey->to_fmt);
-}
+}*/
 
-static gboolean
+/*static gboolean
 color_kernels_hash_equalfunc (gconstpointer a,
                               gconstpointer b)
 {
@@ -62,9 +62,9 @@ color_kernels_hash_equalfunc (gconstpointer a,
       return TRUE;
     }
   return FALSE;
-}
+}*/
 
-static gboolean
+/*static gboolean
 gegl_cl_color_load_conversion_set (ColorConversionInfo  *conversions,
                                    gint                  num_conversions,
                                    GeglClRunData       **kernels,
@@ -97,15 +97,15 @@ gegl_cl_color_load_conversion_set (ColorConversionInfo  *conversions,
     }
 
   return TRUE;
-}
+}*/
 
 gboolean
 gegl_cl_color_compile_kernels (void)
 {
-  static GeglClRunData *float_kernels = NULL;
-  static GeglClRunData *lut8_kernels = NULL;
-  gboolean result = TRUE;
-
+//  static GeglClRunData *float_kernels = NULL;
+//  static GeglClRunData *lut8_kernels = NULL;
+  gboolean result = FALSE;//TRUE;
+/*
   ColorConversionInfo float_conversions[] = {
     { babl_format ("RGBA u8"), babl_format ("RGBA float"), "rgbau8_to_rgbaf", NULL },
     { babl_format ("RGBA float"), babl_format ("RGBA u8"), "rgbaf_to_rgbau8", NULL },
@@ -148,7 +148,7 @@ gegl_cl_color_compile_kernels (void)
 
     { babl_format ("RGB float"), babl_format ("RGBA float"), "rgb_gamma_f_to_rgbaf", NULL },
 
-    /* Reuse some conversions */
+    //Reuse some conversions
     { babl_format ("RGB u8"), babl_format ("RGBA float"), "rgbu8_to_rgbaf", NULL },
     { babl_format ("RGBA u8"), babl_format ("RGBA float"), "rgbau8_to_rgbaf", NULL },
 
@@ -164,7 +164,7 @@ gegl_cl_color_compile_kernels (void)
     { babl_format ("RGB u8"), babl_format("YA float"), "rgb_gamma_u8_to_yaf", NULL },
   };
 
-  /* Fail if the kernels are already compiled, meaning this must have been called twice */
+  //Fail if the kernels are already compiled, meaning this must have been called twice
   g_return_val_if_fail (!float_kernels, FALSE);
   g_return_val_if_fail (!color_kernels_hash, FALSE);
 
@@ -194,11 +194,11 @@ gegl_cl_color_compile_kernels (void)
       g_warning ("Failed to compile color conversions (lut8_kernels)");
       result = FALSE;
     }
-
+*/
   return result;
 }
 
-static cl_kernel
+/*static cl_kernel
 find_color_kernel (const Babl *in_format,
                    const Babl *out_format)
 {
@@ -208,7 +208,7 @@ find_color_kernel (const Babl *in_format,
   if (info)
     return info->kernel;
   return NULL;
-}
+}*/
 
 gboolean
 gegl_cl_color_babl (const Babl *buffer_format,
@@ -224,7 +224,7 @@ GeglClColorOp
 gegl_cl_color_supported (const Babl *in_format,
                          const Babl *out_format)
 {
-  if (in_format == out_format)
+/*  if (in_format == out_format)
     return GEGL_CL_COLOR_EQUAL;
 
   if (color_kernels_hash && find_color_kernel (in_format, out_format))
@@ -233,7 +233,7 @@ gegl_cl_color_supported (const Babl *in_format,
   GEGL_NOTE (GEGL_DEBUG_OPENCL, "Missing OpenCL conversion for %s -> %s",
              babl_get_name (in_format),
              babl_get_name (out_format));
-
+*/
   return GEGL_CL_COLOR_NOT_SUPPORTED;
 }
 
@@ -244,14 +244,14 @@ gegl_cl_color_conv (cl_mem         in_tex,
                     const Babl    *in_format,
                     const Babl    *out_format)
 {
-  cl_kernel kernel = NULL;
+/*  cl_kernel kernel = NULL;
   cl_int cl_err = 0;
 
   if (in_format == out_format)
     {
       size_t s = babl_format_get_bytes_per_pixel (in_format);
 
-      /* just copy in_tex to out_tex */
+      //just copy in_tex to out_tex
       cl_err = gegl_clEnqueueCopyBuffer (gegl_cl_get_command_queue(),
                                          in_tex, out_tex, 0, 0, size * s,
                                          0, NULL, NULL);
@@ -273,9 +273,9 @@ gegl_cl_color_conv (cl_mem         in_tex,
                                         kernel, 1,
                                         NULL, &size, NULL,
                                         0, NULL, NULL);
-  CL_CHECK;
+  CL_CHECK;*/
   return FALSE;
-
+/*
 error:
-  return TRUE;
+  return TRUE;*/
 }
