@@ -12,7 +12,6 @@ LIBS = $(op_libs)
 
 opdir = $(ext_dir)
 op_LTLIBRARIES =    \
-	component-extract.la \
 	color-warp.la \
 	demosaic-bimedian.la \
 	demosaic-simple.la \
@@ -21,9 +20,7 @@ op_LTLIBRARIES =    \
 	ink-simulator.la \
 	kuwahara.la \
 	mandelbrot.la \
-	median-blur.la \
 	rawbayer-load.la \
-	rgb-clip.la \
 	unpremul.la \
     vhsfix.la \
 	gradient-map.la

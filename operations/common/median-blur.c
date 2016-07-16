@@ -38,13 +38,13 @@ property_int  (radius, _("Radius"), 3)
 
 typedef struct
 {
-  gint       elems[3][N_BINS]; 
+  gint       elems[3][N_BINS];
   gint       count;
   gint       xmin;
   gint       ymin;
   gint       xmax;
   gint       ymax;
-} Histogram; 
+} Histogram;
 
 typedef enum
 {
@@ -262,11 +262,11 @@ process (GeglOperation       *operation,
   gfloat *src_buf;
   gfloat *dst_buf;
   gint    n_pixels;
-  GeglRectangle src_rect; 
+  GeglRectangle src_rect;
 
   Histogram *hist;
   Direction  dir;
-  
+
   gint src_x, src_y;
   gint dst_x, dst_y;
   gint dst_idx, src_idx;
@@ -303,7 +303,7 @@ process (GeglOperation       *operation,
   dst_buf[dst_idx]     = histogram_get_median (hist, 0);
   dst_buf[dst_idx + 1] = histogram_get_median (hist, 1);
   dst_buf[dst_idx + 2] = histogram_get_median (hist, 2);
- 
+
   if (has_alpha)
     {
       src_idx = (src_x + src_y * src_rect.width) * n_components;
@@ -327,7 +327,7 @@ process (GeglOperation       *operation,
             {
               src_y++;
               dst_y++;
-              dir = TOP_TO_BOTTOM; 
+              dir = TOP_TO_BOTTOM;
             }
         }
       else if (dir == TOP_TO_BOTTOM)
@@ -356,7 +356,7 @@ process (GeglOperation       *operation,
             {
               src_y++;
               dst_y++;
-              dir = TOP_TO_BOTTOM; 
+              dir = TOP_TO_BOTTOM;
             }
         }
 
@@ -373,7 +373,7 @@ process (GeglOperation       *operation,
       dst_buf[dst_idx]     = histogram_get_median (hist, 0);
       dst_buf[dst_idx + 1] = histogram_get_median (hist, 1);
       dst_buf[dst_idx + 2] = histogram_get_median (hist, 2);
-     
+
       if (has_alpha)
         {
           src_idx = (src_x + src_y * src_rect.width) * n_components;
@@ -382,11 +382,11 @@ process (GeglOperation       *operation,
     }
 
   gegl_buffer_set (output, roi, 0, format, dst_buf, GEGL_AUTO_ROWSTRIDE);
-  
+
   g_free (src_buf);
   g_free (dst_buf);
   g_slice_free (Histogram, hist);
- 
+
   return TRUE;
 }
 

@@ -1,4 +1,7 @@
 #elle: HSV/HSL/CMYK: color-rotate noise-hsv.c stretch-contrast-hsv.c supernova.c value-invert.c
+#elle: sRGB-only or YCbCr: color-temperature oilify
+#elle: very slow on GIMPLCH: c2g - perhaps put this back on the GIMP menu
+#
 
 SUBDIRS = perlin
 
@@ -31,6 +34,7 @@ op_LTLIBRARIES = \
 	color-reduction.la \
 	color-to-alpha.la \
 	color.la \
+	component-extract.la \
 	contrast-curve.la \
 	convolution-matrix.la \
 	copy-buffer.la \
@@ -78,6 +82,7 @@ op_LTLIBRARIES = \
 	map-relative.la \
 	matting-global.la \
 	maze.la \
+	median-blur.la \
 	mblur.la \
 	mirrors.la \
 	mono-mixer.la \
@@ -110,6 +115,7 @@ op_LTLIBRARIES = \
 	red-eye-removal.la \
 	reinhard05.la \
 	remap.la \
+	rgb-clip.la \
 	ripple.la \
 	saturation.la \
 	save.la \
