@@ -27,6 +27,7 @@ op_LTLIBRARIES = \
 	buffer-sink.la \
 	buffer-source.la \
 	bump-map.la \
+	c2g.la \
 	channel-mixer.la \
 	checkerboard.la \
 	color-enhance.la \
