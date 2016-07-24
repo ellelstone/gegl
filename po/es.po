@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: gegl.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gegl&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-07-07 07:30+0000\n"
-"PO-Revision-Date: 2016-07-11 14:30-0500\n"
+"POT-Creation-Date: 2016-07-17 10:33+0000\n"
+"PO-Revision-Date: 2016-07-20 12:39-0500\n"
 "Last-Translator: Yolanda Alvarez Perez <yolandaa.alvarez.perez@gmail.com>\n"
 "Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
 "Language: \n"
@@ -3592,7 +3592,7 @@ msgstr "Ruido sólido"
 
 #: ../operations/common/noise-solid.c:349
 msgid "Create a random cloud-like texture"
-msgstr ""
+msgstr "Crear una textura aleatoria parecida a una nube"
 
 #: ../operations/common/noise-spread.c:30
 msgid "Horizontal spread amount"
@@ -3709,7 +3709,7 @@ msgstr "sRGB"
 #: ../operations/generated/src-in.c:39 ../operations/generated/src-out.c:39
 #: ../operations/generated/svg-multiply.c:39 ../operations/generated/xor.c:39
 msgid "Use sRGB gamma instead of linear"
-msgstr ""
+msgstr "Usar gamma sRGB en lugar de lineal"
 
 #: ../operations/common/over.c:181
 #, fuzzy
@@ -3736,7 +3736,7 @@ msgstr "Posición horizontal central"
 
 #: ../operations/common/panorama-projection.c:28
 msgid "Tilt"
-msgstr ""
+msgstr "Inclinar"
 
 #: ../operations/common/panorama-projection.c:29
 #, fuzzy
@@ -3745,33 +3745,35 @@ msgstr "Posición vertical central"
 
 #: ../operations/common/panorama-projection.c:34
 msgid "Spin"
-msgstr ""
+msgstr "Girar"
 
 #: ../operations/common/panorama-projection.c:35
 msgid "Spin angle around camera axis"
-msgstr ""
+msgstr "Ángulo de giro alrededor del eje de la cámara"
 
 #: ../operations/common/panorama-projection.c:43
 msgid "output/rendering width in pixels, -1 for input width"
-msgstr ""
+msgstr "Salida/anchura del renderizado en píxeles, -1 para el ancho de entrada"
 
 #: ../operations/common/panorama-projection.c:49
 msgid "output/rendering height in pixels, -1 for input height"
-msgstr ""
+msgstr "Salida/altura del renderizado en píxeles, -1 para la altura de entrada"
 
 #: ../operations/common/panorama-projection.c:54
 msgid "Little planet"
-msgstr ""
+msgstr "Planeta pequeño"
 
 #: ../operations/common/panorama-projection.c:55
 msgid ""
 "Render a stereographic mapping, a tilt value of 90, which means looking at "
 "nadir provides a good default value."
 msgstr ""
+"Renderizar un mapeo estereográfico, un valor de inclinación de 90, lo que "
+"significa que mirar en el nadir proporciona un buen valor predeterminado."
 
 #: ../operations/common/panorama-projection.c:59
 msgid "Image resampling method to use"
-msgstr ""
+msgstr "Método de remuestreo de la imagen que usar"
 
 #: ../operations/common/panorama-projection.c:536
 #, fuzzy
@@ -3811,11 +3813,11 @@ msgstr "Diamante"
 
 #: ../operations/common/pixelize.c:28
 msgid "Round"
-msgstr ""
+msgstr "Redondo"
 
 #: ../operations/common/pixelize.c:29 ../operations/common/vignette.c:26
 msgid "Square"
-msgstr ""
+msgstr "Cuadrado"
 
 #: ../operations/common/pixelize.c:34
 #, fuzzy
@@ -3860,7 +3862,7 @@ msgstr "Proporción del tamaño de un punto dentro de cada bloque"
 
 #: ../operations/common/pixelize.c:63
 msgid "Color used to fill the background"
-msgstr ""
+msgstr "Color usado para rellenar el fondo"
 
 #: ../operations/common/pixelize.c:655
 #, fuzzy
@@ -3878,15 +3880,15 @@ msgstr "Turbulencia"
 
 #: ../operations/common/plasma.c:37
 msgid "High values give more variation in details"
-msgstr ""
+msgstr "Valores altos dan más variación en los detalles"
 
 #: ../operations/common/plasma.c:41
 msgid "X start of the generated buffer"
-msgstr ""
+msgstr "X inicia del búfer generado"
 
 #: ../operations/common/plasma.c:48
 msgid "Y start of the generated buffer"
-msgstr ""
+msgstr "Y inicia del búfer generado"
 
 #: ../operations/common/plasma.c:421
 msgid "Plasma"
@@ -3894,7 +3896,7 @@ msgstr "Plasma"
 
 #: ../operations/common/plasma.c:425
 msgid "Creates an image filled with a plasma effect."
-msgstr ""
+msgstr "Crea una imagen llena con un efecto de plasma."
 
 #: ../operations/common/polar-coordinates.c:34
 msgid "Circle depth in percent"
@@ -4089,7 +4091,7 @@ msgstr "Conservar enlosabilidad"
 
 #: ../operations/common/ripple.c:170
 msgid "Ripple"
-msgstr ""
+msgstr "Onda"
 
 #: ../operations/common/ripple.c:174
 msgid "Displace pixels in a ripple pattern"
@@ -4156,7 +4158,7 @@ msgstr "Escalado X"
 
 #: ../operations/common/sinus.c:34
 msgid "Scale value for x axis"
-msgstr ""
+msgstr "Valor de escala para el eje x"
 
 #: ../operations/common/sinus.c:40
 msgid "Y Scale"
@@ -4164,7 +4166,7 @@ msgstr "Escalado Y"
 
 #: ../operations/common/sinus.c:41
 msgid "Scale value for y axis"
-msgstr ""
+msgstr "Valor de escala para el eje y"
 
 #: ../operations/common/sinus.c:47
 msgid "Complexity"
@@ -4172,35 +4174,35 @@ msgstr "Complejidad"
 
 #: ../operations/common/sinus.c:48
 msgid "Complexity factor"
-msgstr ""
+msgstr "Factor de complejidad"
 
 #: ../operations/common/sinus.c:53
 msgid "Force tiling"
-msgstr ""
+msgstr "Forzar embaldosado"
 
 #: ../operations/common/sinus.c:54
 msgid "If set, the pattern generated will tile"
-msgstr ""
+msgstr "Si se establece, el patrón generado será de mosaico"
 
 #: ../operations/common/sinus.c:56
 msgid "Distorted"
-msgstr ""
+msgstr "Distorsionado"
 
 #: ../operations/common/sinus.c:57
 msgid "If set, the pattern will be a little more distorted"
-msgstr ""
+msgstr "Si se establece, el patrón será un poco más distorsionado"
 
 #: ../operations/common/sinus.c:65
 msgid "Bilinear"
-msgstr ""
+msgstr "Bilineal"
 
 #: ../operations/common/sinus.c:69
 msgid "Blend Mode"
-msgstr ""
+msgstr "Modo de mezcla"
 
 #: ../operations/common/sinus.c:74
 msgid "Power used to strech the blend"
-msgstr ""
+msgstr "Poder usado para estirar la mezcla"
 
 #: ../operations/common/sinus.c:313
 msgid "Sinus"
@@ -4208,7 +4210,7 @@ msgstr "Seno"
 
 #: ../operations/common/sinus.c:317
 msgid "Generate complex sinusoidal textures"
-msgstr ""
+msgstr "Generar texturas sinusoidales complejas"
 
 #: ../operations/common/snn-mean.c:33
 msgid "Pairs"
@@ -4220,7 +4222,7 @@ msgstr "Número de pares; un número mayor preserva detalles más precisos"
 
 #: ../operations/common/snn-mean.c:334
 msgid "Symmetric Nearest Neighbour"
-msgstr ""
+msgstr "Simétrica del vecino más cercano"
 
 #: ../operations/common/snn-mean.c:336
 #, fuzzy
@@ -4275,7 +4277,7 @@ msgstr "Mantener colores"
 
 #: ../operations/common/stretch-contrast.c:26
 msgid "Impact each channel with the same amount"
-msgstr ""
+msgstr "Impactar cada canal con la misma cantidad"
 
 #: ../operations/common/stretch-contrast.c:566
 #, fuzzy
@@ -4295,7 +4297,7 @@ msgstr ""
 
 #: ../operations/common/stretch-contrast-hsv.c:221
 msgid "Stretch Contrast HSV"
-msgstr ""
+msgstr "Expansión del contraste HSV"
 
 #: ../operations/common/stretch-contrast-hsv.c:224
 #, fuzzy
@@ -4385,11 +4387,11 @@ msgstr "Operación svg_saturate de la matriz de colores SVG"
 
 #: ../operations/common/texturize-canvas.c:29
 msgid "Top-right"
-msgstr ""
+msgstr "Arriba a la derecha"
 
 #: ../operations/common/texturize-canvas.c:31
 msgid "Top-left"
-msgstr ""
+msgstr "Arriba a la izquierda"
 
 #: ../operations/common/texturize-canvas.c:33
 #, fuzzy
@@ -4421,11 +4423,11 @@ msgstr ""
 
 #: ../operations/common/texturize-canvas.c:4379
 msgid "Texturize Canvas"
-msgstr ""
+msgstr "Texturizar lienzo"
 
 #: ../operations/common/texturize-canvas.c:4383
 msgid "Textures the image as if it were an artist's canvas."
-msgstr ""
+msgstr "Texturiza la imagen como si fuera el lienzo de un artista."
 
 #: ../operations/common/threshold.c:28
 #, fuzzy
@@ -4504,11 +4506,11 @@ msgstr "Fondo"
 
 #: ../operations/common/tile-paper.c:38
 msgid "Ignore"
-msgstr ""
+msgstr "Ignorar"
 
 #: ../operations/common/tile-paper.c:39
 msgid "Force"
-msgstr ""
+msgstr "Forzar"
 
 #: ../operations/common/tile-paper.c:43
 #, fuzzy
@@ -4524,11 +4526,11 @@ msgstr "Altura del punto"
 
 #: ../operations/common/tile-paper.c:56 ../operations/common/tile-paper.c:57
 msgid "Move rate"
-msgstr ""
+msgstr "Tasa de movimiento"
 
 #: ../operations/common/tile-paper.c:62
 msgid "Wrap around"
-msgstr ""
+msgstr "Envolver alrededor"
 
 #: ../operations/common/tile-paper.c:63
 #, fuzzy
@@ -4564,11 +4566,11 @@ msgstr "Tipo de fondo"
 
 #: ../operations/common/tile-paper.c:475
 msgid "Paper Tile"
-msgstr ""
+msgstr "Mosaico de papel"
 
 #: ../operations/common/tile-paper.c:479
 msgid "Cut image into paper tiles, and slide them"
-msgstr ""
+msgstr "Cortar la imagen en mosaicos de papel, y deslizarlos"
 
 #: ../operations/common/tile-seamless.c:164
 msgid "Make Seamlessly tileable"
@@ -4586,7 +4588,7 @@ msgstr "Desviación estándar"
 
 #: ../operations/common/unsharp-mask.c:83
 msgid "Unsharp Mask"
-msgstr ""
+msgstr "Desenfocar máscara"
 
 #: ../operations/common/unsharp-mask.c:85
 msgid ""
@@ -4614,11 +4616,11 @@ msgstr ""
 
 #: ../operations/common/value-propagate.c:29
 msgid "More white (larger value)"
-msgstr ""
+msgstr "Más blanco (valor más alto)"
 
 #: ../operations/common/value-propagate.c:30
 msgid "More black (smaller value)"
-msgstr ""
+msgstr "Más negro (valor más pequeño)"
 
 #: ../operations/common/value-propagate.c:31
 msgid "Middle value to peaks"
@@ -4637,16 +4639,16 @@ msgstr "Otro color"
 
 #: ../operations/common/value-propagate.c:34
 msgid "More opaque"
-msgstr ""
+msgstr "Más opaco"
 
 #: ../operations/common/value-propagate.c:35
 msgid "More transparent"
-msgstr ""
+msgstr "Más transparente"
 
 #: ../operations/common/value-propagate.c:38
 #: ../operations/workshop/ink-simulator.c:45
 msgid "Mode"
-msgstr ""
+msgstr "Modo"
 
 #: ../operations/common/value-propagate.c:41
 #, fuzzy
@@ -4675,19 +4677,19 @@ msgstr ""
 
 #: ../operations/common/value-propagate.c:59
 msgid "To top"
-msgstr ""
+msgstr "Al inicio"
 
 #: ../operations/common/value-propagate.c:60
 msgid "Propagate to top"
-msgstr ""
+msgstr "Propagar al inicio"
 
 #: ../operations/common/value-propagate.c:62
 msgid "To left"
-msgstr ""
+msgstr "A la izquierda"
 
 #: ../operations/common/value-propagate.c:63
 msgid "Propagate to left"
-msgstr ""
+msgstr "Propagar a la izquierda"
 
 #: ../operations/common/value-propagate.c:65
 #, fuzzy
@@ -4696,7 +4698,7 @@ msgstr "Altura de la línea"
 
 #: ../operations/common/value-propagate.c:66
 msgid "Propagate to right"
-msgstr ""
+msgstr "Propagar a la derecha"
 
 #: ../operations/common/value-propagate.c:68
 #, fuzzy
@@ -4713,7 +4715,7 @@ msgstr "Valor en la parte inferior"
 #: ../operations/common/value-propagate.c:71
 #: ../operations/common/value-propagate.c:72
 msgid "Propagating value channel"
-msgstr ""
+msgstr "Propagación de canal del valor"
 
 #: ../operations/common/value-propagate.c:74
 #: ../operations/common/value-propagate.c:75
@@ -4722,7 +4724,7 @@ msgstr "Propagando canal alfa"
 
 #: ../operations/common/value-propagate.c:637
 msgid "Value Propagate"
-msgstr ""
+msgstr "Valor propagado"
 
 #: ../operations/common/value-propagate.c:640
 msgid "Propagate certain colors to neighboring pixels."
