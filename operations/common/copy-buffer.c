@@ -60,8 +60,8 @@ process (GeglOperation       *operation,
   if (o->buffer)
     {
       GeglBuffer *buffer = GEGL_BUFFER (o->buffer);
-      const Babl *in_format = gegl_buffer_get_format (input);
-      const Babl *out_format = gegl_buffer_get_format (buffer);
+//      const Babl *in_format = gegl_buffer_get_format (input);//opencl variable
+//      const Babl *out_format = gegl_buffer_get_format (buffer);//opencl variable
 
 /*      if (gegl_operation_use_opencl (operation)
           && gegl_cl_color_supported (in_format, out_format) == GEGL_CL_COLOR_CONVERT)

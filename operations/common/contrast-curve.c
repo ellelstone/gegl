@@ -52,15 +52,15 @@ static void prepare (GeglOperation *operation)
 /* TODO : Replace gegl_curve_calc_values and gegl_curve_calc_value in cl_process
           with something more suitable for the cl version*/
 
-static void
+/*static void
 copy_double_array_to_float_array (gdouble *in,
                                   gfloat  *out,
                                   gint     size)
-{
+{//only used in the cl code
   gint i;
   for (i = 0; i < size; ++i)
     out[i] = (gfloat) in[i];
-}
+}*/
 
 /*static GeglClRunData * cl_data = NULL;
 

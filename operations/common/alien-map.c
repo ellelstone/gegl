@@ -25,10 +25,10 @@
 
 #ifdef GEGL_PROPERTIES
 
-enum_start (gegl_alien_map_color_model)
-  enum_value (GEGL_ALIEN_MAP_COLOR_MODEL_RGB, "rgb", N_("RGB"))
+//enum_start (gegl_alien_map_color_model)
+//  enum_value (GEGL_ALIEN_MAP_COLOR_MODEL_RGB, "rgb", N_("RGB"))
 //  enum_value (GEGL_ALIEN_MAP_COLOR_MODEL_HSL, "hsl", N_("HSL"))
-enum_end (GeglAlienMapColorModel)
+//enum_end (GeglAlienMapColorModel)
 
 /*property_enum (color_model, _("Color model"),
                GeglAlienMapColorModel, gegl_alien_map_color_model,
@@ -68,9 +68,9 @@ property_boolean (cpn_3_keep, _("Keep component 3"), FALSE)
 static void
 prepare (GeglOperation *operation)
 {
-  GeglProperties *o = GEGL_PROPERTIES (operation);
+/*  GeglProperties *o = GEGL_PROPERTIES (operation);
 
-/*  if (o->color_model == GEGL_ALIEN_MAP_COLOR_MODEL_RGB)
+  if (o->color_model == GEGL_ALIEN_MAP_COLOR_MODEL_RGB)
     {*/
       gegl_operation_set_format (operation, "input",
                                  babl_format ("RGBA float"));
