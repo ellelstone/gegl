@@ -40,7 +40,7 @@ enum_start (gegl_gblur_1d_filter)
   enum_value (GEGL_GBLUR_1D_IIR,  "iir",  N_("IIR"))
 enum_end (GeglGblur1dFilter)
 
-property_double (std_dev, _("Size"), 1.5)
+property_double (std_dev, _("Size"), 1.0)
   description (_("Standard deviation (spatial scale factor)"))
   value_range   (0.0, 1500.0)
   ui_range      (0.0, 100.0)
