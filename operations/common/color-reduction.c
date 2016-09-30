@@ -23,15 +23,6 @@
 
 #ifdef GEGL_PROPERTIES
 
-enum_start (gegl_dither_strategy)
-  enum_value (GEGL_DITHER_NONE,             "none",             N_("None"))
-  enum_value (GEGL_DITHER_RANDOM,           "random",           N_("Random"))
-  enum_value (GEGL_DITHER_RESILIENT,        "resilient",        N_("Resilient"))
-  enum_value (GEGL_DITHER_RANDOM_COVARIANT, "random-covariant", N_("Random Covariant"))
-  enum_value (GEGL_DITHER_BAYER,            "bayer",            N_("Bayer"))
-  enum_value (GEGL_DITHER_FLOYD_STEINBERG,  "floyd-steinberg",  N_("Floyd-Steinberg"))
-enum_end (GeglDitherStrategy)
-
 property_int  (red_bits, _("Red bits"), 8)
     description(_("Number of bits for red channel"))
     value_range (1, 16)
@@ -48,15 +39,16 @@ property_int  (alpha_bits, _("Alpha bits"), 8)
     description(_("Number of bits for alpha channel"))
     value_range (1, 16)
 
-property_enum (dither_strategy, _("Dithering strategy"),
-               GeglDitherStrategy, gegl_dither_strategy, GEGL_DITHER_RESILIENT)
-    description (_("The dithering strategy to use"))
+property_enum (dither_method, _("Dithering method"),
+               GeglDitherMethod, gegl_dither_method, GEGL_DITHER_RESILIENT)
+    description (_("The dithering method to use"))
 
 property_seed (seed, _("Random seed"), rand)
 
 #else
 
 #define GEGL_OP_FILTER
+#define GEGL_OP_NAME     color_reduction
 #define GEGL_OP_C_SOURCE color-reduction.c
 
 #include "gegl-op.h"
@@ -80,7 +72,7 @@ generate_channel_masks (guint *channel_bits,
     channel_mask [i] = ~((1 << (16 - channel_bits [i])) - 1);
 }
 
-static guint
+static inline guint
 quantize_value (guint value,
                 guint n_bits,
                 guint mask)
@@ -217,7 +209,7 @@ static const gdouble bayer_matrix_8x8 [] =
   43, 27, 39, 23, 42, 26, 38, 22
 };
 
-static void
+static void inline
 process_row_bayer (GeglBufferIterator *gi,
                    guint               channel_mask [4],
                    guint               channel_bits [4],
@@ -251,7 +243,146 @@ process_row_bayer (GeglBufferIterator *gi,
     }
 }
 
-static void
+static void inline
+process_row_arithmetic_add (GeglBufferIterator *gi,
+                            guint               channel_mask [4],
+                            guint               channel_bits [4],
+                            gint                y)
+{
+  guint16 *data_in  = (guint16*) gi->data [0];
+  guint16 *data_out = (guint16*) gi->data [1];
+  guint x;
+  for (x = 0; x < gi->roi->width; x++)
+    {
+      guint pixel = 4 * (gi->roi->width * y + x);
+      guint ch;
+
+      for (ch = 0; ch < 4; ch++)
+        {
+          gint u = gi->roi->x + x;
+          gint v = gi->roi->y + y;
+          gfloat mask;
+          gfloat value;
+          gfloat value_clamped;
+          gfloat quantized;
+          mask         = (((u+ch * 67) + v * 236) * 119) & 255;
+          mask         = ((mask - 128) * 65536.0 / 256.0) / (1 << (channel_bits [ch] - 1));
+          value         = data_in [pixel + ch] + mask;
+          value_clamped = CLAMP (value, 0.0, 65535.0);
+          quantized     = quantize_value ((guint) (value_clamped + 0.5),
+                                          channel_bits [ch],
+                                          channel_mask [ch]);
+
+          data_out [pixel + ch] = (guint16) quantized;
+        }
+    }
+}
+
+static void inline
+process_row_arithmetic_xor (GeglBufferIterator *gi,
+                            guint               channel_mask [4],
+                            guint               channel_bits [4],
+                            gint                y)
+{
+  guint16 *data_in  = (guint16*) gi->data [0];
+  guint16 *data_out = (guint16*) gi->data [1];
+  guint x;
+  for (x = 0; x < gi->roi->width; x++)
+    {
+      guint pixel = 4 * (gi->roi->width * y + x);
+      guint ch;
+
+      for (ch = 0; ch < 4; ch++)
+        {
+          gint u = gi->roi->x + x;
+          gint v = gi->roi->y + y;
+          gfloat mask;
+          gfloat value;
+          gfloat value_clamped;
+          gfloat quantized;
+          mask         = (((u+ch * 17) ^ v * 149) * 1234) & 511;
+          mask         = ((mask - 257) * 65536.0 / 512.0) / (1 << (channel_bits [ch] - 1));
+          value         = data_in [pixel + ch] + mask;
+          value_clamped = CLAMP (value, 0.0, 65535.0);
+          quantized     = quantize_value ((guint) (value_clamped + 0.5),
+                                          channel_bits [ch],
+                                          channel_mask [ch]);
+
+          data_out [pixel + ch] = (guint16) quantized;
+        }
+    }
+}
+
+static void inline
+process_row_arithmetic_add_covariant (GeglBufferIterator *gi,
+                                      guint               channel_mask [4],
+                                      guint               channel_bits [4],
+                                      gint                y)
+{
+  guint16 *data_in  = (guint16*) gi->data [0];
+  guint16 *data_out = (guint16*) gi->data [1];
+  guint x;
+  for (x = 0; x < gi->roi->width; x++)
+    {
+      guint pixel = 4 * (gi->roi->width * y + x);
+      guint ch;
+
+      for (ch = 0; ch < 4; ch++)
+        {
+          gint u = gi->roi->x + x;
+          gint v = gi->roi->y + y;
+          gfloat mask;
+          gfloat value;
+          gfloat value_clamped;
+          gfloat quantized;
+          mask         = ((u+ v * 236) * 119) & 255;
+          mask         = ((mask - 128) * 65536.0 / 256.0) / (1 << (channel_bits [ch] - 1));
+          value         = data_in [pixel + ch] + mask;
+          value_clamped = CLAMP (value, 0.0, 65535.0);
+          quantized     = quantize_value ((guint) (value_clamped + 0.5),
+                                          channel_bits [ch],
+                                          channel_mask [ch]);
+
+          data_out [pixel + ch] = (guint16) quantized;
+        }
+    }
+}
+
+static void inline
+process_row_arithmetic_xor_covariant (GeglBufferIterator *gi,
+                                      guint               channel_mask [4],
+                                      guint               channel_bits [4],
+                                      gint                y)
+{
+  guint16 *data_in  = (guint16*) gi->data [0];
+  guint16 *data_out = (guint16*) gi->data [1];
+  guint x;
+  for (x = 0; x < gi->roi->width; x++)
+    {
+      guint pixel = 4 * (gi->roi->width * y + x);
+      guint ch;
+
+      for (ch = 0; ch < 4; ch++)
+        {
+          gint u = gi->roi->x + x;
+          gint v = gi->roi->y + y;
+          gfloat mask;
+          gfloat value;
+          gfloat value_clamped;
+          gfloat quantized;
+          mask         = ((u ^ v * 149) * 1234) & 511;
+          mask         = ((mask - 257) * 65536.0 / 512.0) / (1 << (channel_bits [ch] - 1));
+          value         = data_in [pixel + ch] + mask;
+          value_clamped = CLAMP (value, 0.0, 65535.0);
+          quantized     = quantize_value ((guint) (value_clamped + 0.5),
+                                          channel_bits [ch],
+                                          channel_mask [ch]);
+
+          data_out [pixel + ch] = (guint16) quantized;
+        }
+    }
+}
+static void inline
 process_row_random_covariant (GeglBufferIterator *gi,
                               guint               channel_mask [4],
                               guint               channel_bits [4],
@@ -269,9 +400,9 @@ process_row_random_covariant (GeglBufferIterator *gi,
                                              gi->roi->y + y, 0, 0));
       for (ch = 0; ch < 4; ch++)
         {
-          gdouble value;
-          gdouble value_clamped;
-          gdouble quantized;
+          gfloat value;
+          gfloat value_clamped;
+          gfloat quantized;
 
           value         = data_in [pixel + ch] + (r / (1 << channel_bits [ch]));
           value_clamped = CLAMP (value, 0.0, 65535.0);
@@ -284,7 +415,7 @@ process_row_random_covariant (GeglBufferIterator *gi,
     }
 }
 
-static void
+static void inline
 process_row_random (GeglBufferIterator *gi,
                     guint               channel_mask [4],
                     guint               channel_bits [4],
@@ -317,7 +448,7 @@ process_row_random (GeglBufferIterator *gi,
     }
 }
 
-static void
+static void inline
 process_row_resilient (GeglBufferIterator *gi,
                        guint               channel_mask [4],
                        guint               channel_bits [4],
@@ -351,7 +482,7 @@ process_row_resilient (GeglBufferIterator *gi,
     }
 }
 
-static void
+static void inline
 process_row_no_dither (GeglBufferIterator *gi,
                        guint               channel_mask [4],
                        guint               channel_bits [4],
@@ -379,7 +510,7 @@ process_standard (GeglBuffer          *input,
                   const GeglRectangle *result,
                   guint               *channel_bits,
                   GeglRandom          *rand,
-                  GeglDitherStrategy   dither_strategy)
+                  GeglDitherMethod     dither_method)
 {
   GeglBufferIterator *gi;
   guint               channel_mask [4];
@@ -395,31 +526,50 @@ process_standard (GeglBuffer          *input,
   while (gegl_buffer_iterator_next (gi))
     {
       guint    y;
-      for (y = 0; y < gi->roi->height; y++)
+      switch (dither_method)
         {
-          switch (dither_strategy)
-            {
-            case GEGL_DITHER_NONE:
+          case GEGL_DITHER_NONE:
+            for (y = 0; y < gi->roi->height; y++)
               process_row_no_dither (gi, channel_mask, channel_bits, y);
-              break;
-            case GEGL_DITHER_RANDOM:
+            break;
+          case GEGL_DITHER_RANDOM:
+            for (y = 0; y < gi->roi->height; y++)
               process_row_random (gi, channel_mask, channel_bits, y, rand);
-              break;
-            case GEGL_DITHER_RESILIENT:
+            break;
+          case GEGL_DITHER_RESILIENT:
+            for (y = 0; y < gi->roi->height; y++)
               process_row_resilient (gi, channel_mask, channel_bits, y, rand);
-              break;
-            case GEGL_DITHER_RANDOM_COVARIANT:
+            break;
+          case GEGL_DITHER_RANDOM_COVARIANT:
+            for (y = 0; y < gi->roi->height; y++)
               process_row_random_covariant (gi, channel_mask, channel_bits, y, rand);
-              break;
-            case GEGL_DITHER_BAYER:
+             break;
+          case GEGL_DITHER_BAYER:
+            for (y = 0; y < gi->roi->height; y++)
               process_row_bayer (gi, channel_mask, channel_bits, y);
-              break;
-            case GEGL_DITHER_FLOYD_STEINBERG:
-              /* Done separately */
-              break;
-            default:
+            break;
+          case GEGL_DITHER_FLOYD_STEINBERG:
+            /* Done separately */
+            break;
+          case GEGL_DITHER_ARITHMETIC_ADD:
+            for (y = 0; y < gi->roi->height; y++)
+              process_row_arithmetic_add (gi, channel_mask, channel_bits, y);
+            break;
+          case GEGL_DITHER_ARITHMETIC_XOR:
+            for (y = 0; y < gi->roi->height; y++)
+              process_row_arithmetic_xor (gi, channel_mask, channel_bits, y);
+            break;
+          case GEGL_DITHER_ARITHMETIC_ADD_COVARIANT:
+            for (y = 0; y < gi->roi->height; y++)
+              process_row_arithmetic_add_covariant (gi, channel_mask, channel_bits, y);
+            break;
+          case GEGL_DITHER_ARITHMETIC_XOR_COVARIANT:
+            for (y = 0; y < gi->roi->height; y++)
+              process_row_arithmetic_xor_covariant (gi, channel_mask, channel_bits, y);
+            break;
+          default:
+            for (y = 0; y < gi->roi->height; y++)
               process_row_no_dither (gi, channel_mask, channel_bits, y);
-            }
         }
     }
 }
@@ -431,7 +581,7 @@ get_required_for_output (GeglOperation       *self,
 {
   GeglProperties *o = GEGL_PROPERTIES (self);
 
-  if (o->dither_strategy == GEGL_DITHER_FLOYD_STEINBERG)
+  if (o->dither_method == GEGL_DITHER_FLOYD_STEINBERG)
     return *gegl_operation_source_get_bounding_box (self, "input");
   else
     return *roi;
@@ -443,7 +593,7 @@ get_cached_region (GeglOperation       *self,
 {
   GeglProperties *o = GEGL_PROPERTIES (self);
 
-  if (o->dither_strategy == GEGL_DITHER_FLOYD_STEINBERG)
+  if (o->dither_method == GEGL_DITHER_FLOYD_STEINBERG)
     return *gegl_operation_source_get_bounding_box (self, "input");
   else
     return *roi;
@@ -464,9 +614,9 @@ process (GeglOperation       *operation,
   channel_bits [2] = o->blue_bits;
   channel_bits [3] = o->alpha_bits;
 
-  if (o->dither_strategy != GEGL_DITHER_FLOYD_STEINBERG)
+  if (o->dither_method != GEGL_DITHER_FLOYD_STEINBERG)
     process_standard (input, output, result, channel_bits,
-                      o->rand, o->dither_strategy);
+                      o->rand, o->dither_method);
   else
     process_floyd_steinberg (input, output, result, channel_bits);
 
@@ -486,7 +636,7 @@ gegl_op_class_init (GeglOpClass *klass)
     "    <param name='green-bits'>2</param>"
     "    <param name='blue-bits'>2</param>"
     "    <param name='alpha-bits'>2</param>"
-    "    <param name='dither-strategy'>floyd-steinberg</param>"
+    "    <param name='dither-method'>floyd-steinberg</param>"
     "  </params>"
     "</node>"
     "<node operation='gegl:load'>"

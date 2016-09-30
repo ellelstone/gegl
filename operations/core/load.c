@@ -32,6 +32,7 @@ property_uri (uri, _("URI"), "")
 
 #else
 
+#define GEGL_OP_NAME     load
 #define GEGL_OP_C_SOURCE load.c
 
 #include <gegl-plugin.h>

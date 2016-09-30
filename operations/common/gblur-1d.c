@@ -66,6 +66,7 @@ property_boolean (clip_extent, _("Clip to the input extent"), TRUE)
 #else
 
 #define GEGL_OP_FILTER
+#define GEGL_OP_NAME     gblur_1d
 #define GEGL_OP_C_SOURCE gblur-1d.c
 
 #include "gegl-op.h"
@@ -820,7 +821,10 @@ gegl_gblur_1d_process (GeglOperation       *operation,
           format == babl_format ("RaGaBaA float"))
         if (fir_cl_process(input, output, result, format,
                            cmatrix, clen, o->orientation, abyss_policy))
-          return TRUE;*/
+        {
+          gegl_free (cmatrix);
+          return TRUE;
+        }*/
 
       if (o->orientation == GEGL_ORIENTATION_HORIZONTAL)
         fir_hor_blur (input, result, output, cmatrix, clen, abyss_policy, format);

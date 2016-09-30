@@ -44,6 +44,7 @@ property_boolean (invert, _("Invert component"), FALSE)
 #else
 
 #define GEGL_OP_POINT_FILTER
+#define GEGL_OP_NAME component_extract
 #define GEGL_OP_C_SOURCE  component-extract.c
 
 #include "gegl-op.h"

@@ -29,6 +29,7 @@ property_file_path (path, _("File"), "")
 #else
 
 #define GEGL_OP_SOURCE
+#define GEGL_OP_NAME rgbe_load
 #define GEGL_OP_C_SOURCE rgbe-load.c
 
 #include "gegl-op.h"
@@ -138,9 +139,11 @@ gegl_op_class_init (GeglOpClass *klass)
     NULL);
 
   gegl_operation_handlers_register_loader (
+    ".hdr", "gegl:rgbe-load");
+  gegl_operation_handlers_register_loader (
     "image/vnd.radiance", "gegl:rgbe-load");
   gegl_operation_handlers_register_loader (
-    ".hdr", "gegl:rgbe-load");
+    "image/x-hdr", "gegl:rgbe-load");
   gegl_operation_handlers_register_loader (
     ".pic", "gegl:rgbe-load");
 }
