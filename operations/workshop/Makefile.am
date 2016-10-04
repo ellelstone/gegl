@@ -17,7 +17,6 @@ op_LTLIBRARIES =    \
 	demosaic-simple.la \
 	ditto.la \
 	hstack.la \
-	ink-simulator.la \
 	kuwahara.la \
 	mandelbrot.la \
 	rawbayer-load.la \
