@@ -39,9 +39,9 @@ static void prepare (GeglOperation *operation)
 
   const Babl *format;
 
-  if (o->srgb)
-    format = babl_format ("RaGaBaA float");
-  else
+//  if (o->srgb)
+//    format = babl_format ("RaGaBaA float");
+//  else
     format = babl_format ("RaGaBaA float");
 
   gegl_operation_set_format (operation, "input", format);

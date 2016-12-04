@@ -83,7 +83,7 @@ process (GeglOperation       *operation,
   gdouble             diffsum      = 0.0;
   gint                wrong_pixels = 0;
   const Babl         *cielab       = babl_format ("CIE Lab alpha float");
-  const Babl         *srgb         = babl_format ("RGB u8");
+  const Babl         *srgb         = babl_format ("RGB float");
   const Babl         *yadbl        = babl_format ("YA double");
   GeglBuffer         *diff_buffer;
   GeglBufferIterator *iter;
