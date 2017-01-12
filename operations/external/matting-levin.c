@@ -102,10 +102,10 @@ typedef struct
 
 /* All channels use double precision. Despite it being overly precise, slower,
  * and larger; it's much more convenient:
- *   - Input R'G'B' needs to be converted into doubles later when calculating
+ *   - Input RGB needs to be converted into doubles later when calculating
  *     the matting laplacian, as the extra precision is actually useful here,
  *     and UMFPACK requires doubles.
- *   - AUX Y' is easier to use as a double when dealing with the matting
+ *   - AUX Y is easier to use as a double when dealing with the matting
  *     laplacian which is already in doubles.
  */
 

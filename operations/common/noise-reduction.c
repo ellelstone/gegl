@@ -178,7 +178,7 @@ cl_noise_reduction (cl_mem                in_tex,
   cl_mem temp_tex = NULL;
   cl_mem tmptex   = NULL;
 
-  gint stride = 16; //R'G'B'A float
+  gint stride = 16;
 
   if (!cl_data)
     {

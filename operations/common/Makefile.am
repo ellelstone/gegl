@@ -32,10 +32,9 @@ gegl_common_la_SOURCES =\
 	channel-mixer.c \
 	checkerboard.c \
 	color-enhance.c \
-	color-exchange.c \
-	color-reduction.c \
+	dither.c \
 	color-to-alpha.c \
-    color-warp.c \
+	color-warp.c \
 	color.c \
 	component-extract.c \
 	contrast-curve.c \
