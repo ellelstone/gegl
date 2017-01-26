@@ -30,8 +30,8 @@ property_boolean (correlated, _("Correlated noise"), FALSE)
 property_boolean (independent, _("Independent RGB"), TRUE)
    description (_("Control amount of noise for each RGB channel separately"))
 
-property_boolean (linear, _("Linear RGB"), TRUE)
-   description (_("Operate on linearized RGB color data"))
+//property_boolean (linear, _("Linear RGB"), TRUE)
+//   description (_("Operate on linearized RGB color data"))
 
 property_boolean (gaussian, _("Gaussian distribution"), TRUE)
    description (_("Use a gaussian noise distribution, when unticked a linear noise distribution is used instead"))
@@ -99,7 +99,7 @@ noise_linear (GeglRandom *rand, int *i, int xx, int yy)
 static void
 prepare (GeglOperation *operation)
 {
-  GeglProperties *o  = GEGL_PROPERTIES (operation);
+//  GeglProperties *o  = GEGL_PROPERTIES (operation);
       gegl_operation_set_format (operation, "input", babl_format ("RGBA float"));
       gegl_operation_set_format (operation, "output", babl_format ("RGBA float"));
 }
