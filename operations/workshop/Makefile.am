@@ -24,6 +24,5 @@ op_LTLIBRARIES =    \
 	unpremul.la \
     vhsfix.la \
     waterpixels.la \
-    watershed-transform.la \
-    wavelet-blur.la
+    watershed-transform.la
 
