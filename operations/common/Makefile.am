@@ -50,6 +50,7 @@ gegl_common_la_SOURCES =\
 	dropshadow.c \
 	edge.c \
 	edge-laplace.c \
+	edge-neon.c \
 	edge-sobel.c \
 	emboss.c \
 	engrave.c \

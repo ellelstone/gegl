@@ -6,7 +6,8 @@ noinst_PROGRAMS =			\
 	test-buffer-changes		\
 	test-buffer-extract		\
 	test-buffer-hot-tile	\
-		\
+	test-buffer-sharing  	\
+	test-buffer-tile-voiding	\
 	test-change-processor-rect	\
 	test-convert-format		\
 	test-color-op			\
@@ -18,7 +19,8 @@ noinst_PROGRAMS =			\
 	test-image-compare		\
 	test-license-check		\
 	test-misc			\
-			\
+	test-node-connections		\
+	test-node-passthrough		\
 	test-node-properties		\
 	test-object-forked		\
 	test-serialize \

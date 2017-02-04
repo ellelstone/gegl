@@ -439,6 +439,25 @@ gegl_operation_list_properties (const gchar *operation_type,
   return pspecs;
 }
 
+GParamSpec *
+gegl_operation_find_property (const gchar *operation_type,
+                              const gchar *property_name)
+{
+  GParamSpec *ret = NULL;
+  GType         type;
+  GObjectClass *klass;
+
+  type = gegl_operation_gtype_from_name (operation_type);
+  if (!type)
+    return NULL;
+
+  klass  = g_type_class_ref (type);
+  ret = g_object_class_find_property (klass, property_name);
+  g_type_class_unref (klass);
+
+  return ret;
+}
+
 GeglNode *
 gegl_operation_detect (GeglOperation *operation,
                        gint           x,
@@ -672,21 +691,10 @@ gegl_operation_class_set_key (GeglOperationClass *klass,
 
   if (!strcmp (key_name, "name"))
     {
-      if (klass->name && strcmp (klass->name, key_value))
-        {
-          g_warning ("Cannot change name of operation class 0x%lX from \"%s\" "
-                     "to \"%s\"", (gulong) klass, klass->name, key_value);
-          g_free (key_value_dup);
-          return;
-        }
-      else
-        {
-          klass->name = key_value_dup;
-          gegl_operation_class_register_name (klass, key_value, FALSE);
-        }
+      klass->name = key_value_dup;
+      gegl_operation_class_register_name (klass, key_value, FALSE);
     }
-
-  if (!strcmp (key_name, "compat-name"))
+  else if (!strcmp (key_name, "compat-name"))
     {
       klass->compat_name = key_value_dup;
       gegl_operation_class_register_name (klass, key_value, TRUE);

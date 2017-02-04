@@ -12,6 +12,7 @@ LIBS = $(op_libs)
 
 opdir = $(ext_dir)
 op_LTLIBRARIES =    \
+	bilateral-filter-fast.la \
 	demosaic-bimedian.la \
 	demosaic-simple.la \
 	ditto.la \
@@ -21,6 +22,8 @@ op_LTLIBRARIES =    \
 	kuwahara.la \
 	mandelbrot.la \
 	rawbayer-load.la \
+	segment-kmeans.la \
+	slic.la \
 	unpremul.la \
     vhsfix.la \
     waterpixels.la \

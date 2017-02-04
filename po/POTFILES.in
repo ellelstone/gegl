@@ -10,7 +10,6 @@ operations/common/alien-map.c
 operations/common/antialias.c
 operations/common/apply-lens.c
 operations/common/bilateral-filter.c
-operations/common/bilateral-filter-fast.c
 operations/common/box-blur.c
 operations/common/brightness-contrast.c
 operations/common/buffer-sink.c
@@ -41,6 +40,7 @@ operations/common/dither.c
 operations/common/dropshadow.c
 operations/common/edge.c
 operations/common/edge-laplace.c
+operations/common/edge-neon.c
 operations/common/edge-sobel.c
 operations/common/emboss.c
 operations/common/engrave.c
@@ -138,6 +138,7 @@ operations/common/value-propagate.c
 operations/common/video-degradation.c
 operations/common/vignette.c
 operations/common/warp.c
+operations/common/wavelet-blur.c
 operations/common/waves.c
 operations/common/weighted-blend.c
 operations/common/whirl-pinch.c
@@ -220,6 +221,7 @@ operations/transform/shear.c
 operations/transform/transform.c
 operations/transform/transform-core.c
 operations/transform/translate.c
+operations/workshop/bilateral-filter-fast.c
 operations/workshop/component-extract.c
 operations/workshop/demosaic-bimedian.c
 operations/workshop/demosaic-simple.c
@@ -241,7 +243,8 @@ operations/workshop/kuwahara.c
 operations/workshop/mandelbrot.c
 operations/workshop/median-blur.c
 operations/workshop/rawbayer-load.c
+operations/workshop/segment-kmeans.c
+operations/workshop/slic.c
 operations/workshop/vhsfix.c
 operations/workshop/waterpixels.c
 operations/workshop/watershed-transform.c
-operations/workshop/wavelet-blur.c
