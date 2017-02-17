@@ -1,6 +1,6 @@
 # The tests
 
-EXTRA_DIST = invert.sh invert-crop.sh unsharp-crop.sh
+EXTRA_DIST = invert.sh invert-crop.sh unsharp-crop.sh unsharp.sh
 
 TESTS = $(EXTRA_DIST)
 
@@ -10,4 +10,4 @@ check-TESTS: $(TESTS)
 	  $(TESTS)
 
 clean-local:
-	rm -f test-exp-combine.hdr test-exp-combine-diff.png
+	rm -f *-output.png

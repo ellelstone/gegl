@@ -12,20 +12,20 @@ LIBS = $(op_libs)
 
 opdir = $(ext_dir)
 op_LTLIBRARIES =    \
+	bayer-matrix.la \
 	bilateral-filter-fast.la \
 	demosaic-bimedian.la \
 	demosaic-simple.la \
 	ditto.la \
 	gradient-map.la \
 	hstack.la \
-	image-gradient.la \
+	integral-image.la \
 	kuwahara.la \
+	linear-sinusoid.la \
 	mandelbrot.la \
 	rawbayer-load.la \
 	segment-kmeans.la \
-	slic.la \
+	shadows-highlights.la \
+	shadows-highlights-correction.la \
 	unpremul.la \
-    vhsfix.la \
-    waterpixels.la \
-    watershed-transform.la
-
+    vhsfix.la

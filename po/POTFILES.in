@@ -26,6 +26,7 @@ operations/common/color-rotate.c
 operations/common/color-temperature.c
 operations/common/color-to-alpha.c
 operations/common/color-warp.c
+operations/common/component-extract.c
 operations/common/contrast-curve.c
 operations/common/convolution-matrix.c
 operations/common/copy-buffer.c
@@ -50,7 +51,6 @@ operations/common/fattal02.c
 operations/common/fractal-explorer.c
 operations/common/fractal-trace.c
 operations/common/gaussian-blur.c
-operations/common/gaussian-blur-iir.c
 operations/common/gaussian-blur-selective.c
 operations/common/gblur-1d.c
 operations/common/gegl-buffer-load-op.c
@@ -61,6 +61,7 @@ operations/common/grid.c
 operations/common/high-pass.c
 operations/common/illusion.c
 operations/common/image-compare.c
+operations/common/image-gradient.c
 operations/common/introspect.c
 operations/common/invert-gamma.c
 operations/common/invert-linear.c
@@ -116,6 +117,7 @@ operations/common/save.c
 operations/common/sepia.c
 operations/common/shift.c
 operations/common/sinus.c
+operations/common/slic.c
 operations/common/snn-mean.c
 operations/common/softglow.c
 operations/common/stress.c
@@ -138,6 +140,8 @@ operations/common/value-propagate.c
 operations/common/video-degradation.c
 operations/common/vignette.c
 operations/common/warp.c
+operations/common/waterpixels.c
+operations/common/watershed-transform.c
 operations/common/wavelet-blur.c
 operations/common/waves.c
 operations/common/weighted-blend.c
@@ -221,8 +225,8 @@ operations/transform/shear.c
 operations/transform/transform.c
 operations/transform/transform-core.c
 operations/transform/translate.c
+operations/workshop/bayer-matrix.c
 operations/workshop/bilateral-filter-fast.c
-operations/workshop/component-extract.c
 operations/workshop/demosaic-bimedian.c
 operations/workshop/demosaic-simple.c
 operations/workshop/ditto.c
@@ -238,13 +242,13 @@ operations/workshop/generated/soft-dodge.c
 operations/workshop/generated/subtractive.c
 operations/workshop/gradient-map.c
 operations/workshop/hstack.c
-operations/workshop/image-gradient.c
+operations/workshop/integral-image.c
 operations/workshop/kuwahara.c
+operations/workshop/linear-sinusoid.c
 operations/workshop/mandelbrot.c
 operations/workshop/median-blur.c
 operations/workshop/rawbayer-load.c
 operations/workshop/segment-kmeans.c
-operations/workshop/slic.c
+operations/workshop/shadows-highlights.c
+operations/workshop/shadows-highlights-correction.c
 operations/workshop/vhsfix.c
-operations/workshop/waterpixels.c
-operations/workshop/watershed-transform.c

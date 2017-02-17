@@ -103,6 +103,16 @@ gegl_operation_filter_process (GeglOperation        *operation,
   GeglBuffer                 *output;
   gboolean                    success = FALSE;
 
+  GeglRectangle scaled_result = *result;
+  if (level)
+  {
+    scaled_result.x >>= level;
+    scaled_result.y >>= level;
+    scaled_result.width >>= level;
+    scaled_result.height >>= level;
+    result = &scaled_result;
+  }
+
   if (strcmp (output_prop, "output"))
     {
       g_warning ("requested processing of %s pad on a filter", output_prop);
@@ -124,9 +134,7 @@ gegl_operation_filter_process (GeglOperation        *operation,
   if (input != NULL)
     {
       success = klass->process (operation, input, output, result, level);
-
-      if (input)
-        g_object_unref (input);
+      g_clear_object (&input);
     }
   else
     {

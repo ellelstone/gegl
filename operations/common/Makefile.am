@@ -59,7 +59,6 @@ gegl_common_la_SOURCES =\
 	fractal-explorer.c \
 	fractal-trace.c \
 	gaussian-blur.c \
-	gaussian-blur-iir.c \
 	gaussian-blur-selective.c \
 	gblur-1d.c \
 	gegl-buffer-load-op.c \
@@ -70,6 +69,7 @@ gegl_common_la_SOURCES =\
 	high-pass.c \
 	illusion.c \
 	image-compare.c \
+	image-gradient.c \
 	introspect.c \
 	invert-gamma.c \
 	invert-linear.c \
@@ -123,6 +123,7 @@ gegl_common_la_SOURCES =\
 	save.c \
 	shift.c \
 	sinus.c \
+	slic.c \
 	snn-mean.c \
 	softglow.c \
 	stress.c \
@@ -142,6 +143,8 @@ gegl_common_la_SOURCES =\
 	video-degradation.c \
 	vignette.c \
 	warp.c \
+	waterpixels.c \
+	watershed-transform.c \
 	waves.c \
 	wavelet-blur.c \
 	weighted-blend.c \

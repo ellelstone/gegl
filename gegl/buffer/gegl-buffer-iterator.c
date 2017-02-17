@@ -128,7 +128,6 @@ gegl_buffer_iterator_add (GeglBufferIterator  *iter,
 
   g_return_val_if_fail (priv->num_buffers < GEGL_BUFFER_MAX_ITERATORS, 0);
 
-
   index = priv->num_buffers++;
   sub = &priv->sub_iter[index];
 
@@ -140,14 +139,6 @@ gegl_buffer_iterator_add (GeglBufferIterator  *iter,
 
   sub->buffer       = buf;
   sub->full_rect    = *roi;
-
-  if (level)
-  {
-    sub->full_rect.x >>= level;
-    sub->full_rect.y >>= level;
-    sub->full_rect.width >>= level;
-    sub->full_rect.height >>= level;
-  }
 
   sub->access_mode  = access_mode;
   sub->abyss_policy = abyss_policy;
@@ -163,9 +154,6 @@ gegl_buffer_iterator_add (GeglBufferIterator  *iter,
       priv->sub_iter[index].full_rect.width  = priv->sub_iter[0].full_rect.width;
       priv->sub_iter[index].full_rect.height = priv->sub_iter[0].full_rect.height;
     }
-
-  //if (level != 0)
-  //  g_warning ("iterator level != 0");
 
   return index;
 }
@@ -199,8 +187,13 @@ release_tile (GeglBufferIterator *iter,
     {
       if (sub->access_mode & GEGL_ACCESS_WRITE)
         {
+          GeglRectangle roi = {sub->real_roi.x << sub->level,
+                               sub->real_roi.y << sub->level,
+                               sub->real_roi.width << sub->level,
+                               sub->real_roi.height << sub->level};
+
           gegl_buffer_set_unlocked_no_notify (sub->buffer,
-                                              &sub->real_roi,
+                                              &roi,
                                               sub->level,
                                               sub->format,
                                               sub->real_data,
@@ -305,7 +298,7 @@ increment_rects (GeglBufferIterator *iter)
 
 static void
 get_tile (GeglBufferIterator *iter,
-          int        index)
+          int                 index)
 {
   GeglBufferIteratorPriv *priv = iter->priv;
   SubIterState           *sub  = &priv->sub_iter[index];
@@ -322,7 +315,7 @@ get_tile (GeglBufferIterator *iter,
     }
   else
     {
-      int shift_x = buf->shift_x; // XXX: affect by level?
+      int shift_x = buf->shift_x;
       int shift_y = buf->shift_y;
 
       int tile_width  = buf->tile_width;
@@ -349,6 +342,12 @@ get_tile (GeglBufferIterator *iter,
   iter->data[index] = gegl_tile_get_data (sub->current_tile);
 }
 
+static inline double
+level_to_scale (int level)
+{
+  return level?1.0/(1<<level):1.0;
+}
+
 static void
 get_indirect (GeglBufferIterator *iter,
               int        index)
@@ -360,7 +359,7 @@ get_indirect (GeglBufferIterator *iter,
 
   if (sub->access_mode & GEGL_ACCESS_READ)
     {
-      gegl_buffer_get_unlocked (sub->buffer, sub->level?1.0/(1<<sub->level):1.0, &sub->real_roi, sub->format, sub->real_data,
+      gegl_buffer_get_unlocked (sub->buffer, level_to_scale (sub->level), &sub->real_roi, sub->format, sub->real_data,
                                 GEGL_AUTO_ROWSTRIDE, sub->abyss_policy);
     }
 
@@ -376,7 +375,7 @@ needs_indirect_read (GeglBufferIterator *iter,
 {
   GeglBufferIteratorPriv *priv = iter->priv;
   SubIterState           *sub  = &priv->sub_iter[index];
-
+  
   if (sub->access_mode & GEGL_ITERATOR_INCOMPATIBLE)
     return TRUE;
 
@@ -438,7 +437,7 @@ prepare_iteration (GeglBufferIterator *iter)
       /* Format converison needed */
       if (gegl_buffer_get_format (sub->buffer) != sub->format)
         sub->access_mode |= GEGL_ITERATOR_INCOMPATIBLE;
-      /* Incompatable tiles */
+      /* Incompatiable tiles */
       else if ((priv->origin_tile.width  != buf->tile_width) ||
                (priv->origin_tile.height != buf->tile_height) ||
                (abs(origin_offset_x - current_offset_x) % priv->origin_tile.width != 0) ||

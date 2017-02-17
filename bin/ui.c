@@ -42,14 +42,9 @@
 #include <SDL.h>
 #include <gegl-audio-fragment.h>
 
-/* comment this out, and things render more correctly but much slower
- * for images larger than your screen/window resolution
- */
-#define USE_MIPMAPS    1
-
 /* set this to 1 to print the active gegl chain
  */
-#define DEBUG_OP_LIST  0
+//#define DEBUG_OP_LIST  1
 
 
 static int audio_len   = 0;
@@ -330,13 +325,6 @@ int mrg_ui_main (int argc, char **argv, char **ops)
   Mrg *mrg = mrg_new (1024, 768, NULL);
   State o = {NULL,};
 
-#ifdef USE_MIPMAPS
-  /* to use this UI comfortably, mipmap rendering needs to be enabled, there are
-   * still a few glitches, but for basic full frame un-panned, un-cropped use it
-   * already works well.
-   */
-  g_setenv ("GEGL_MIPMAP_RENDERING", "1", TRUE);
-#endif
 
 /* we want to see the speed gotten if the fastest babl conversions we have were more accurate */
   //g_setenv ("BABL_TOLERANCE", "0.1", TRUE);
@@ -371,11 +359,7 @@ int mrg_ui_main (int argc, char **argv, char **ops)
   mrg_main (mrg);
 
   g_object_unref (o.gegl);
-  if (o.buffer)
-  {
-    g_object_unref (o.buffer);
-    o.buffer = NULL;
-  }
+  g_clear_object (&o.buffer);
   gegl_exit ();
 
   end_audio ();
@@ -460,8 +444,9 @@ static void prop_int_drag_cb (MrgEvent *e, void *data1, void *data2)
 
 static gchar *edited_prop = NULL;
 
-static void update_prop (const char *new_string, GeglNode *node)
+static void update_prop (const char *new_string, void *node_p)
 {
+  GeglNode *node = node_p;
   gegl_node_set (node, edited_prop, new_string, NULL);
 }
 
@@ -578,7 +563,7 @@ static void draw_gegl_generic (State *state, Mrg *mrg, cairo_t *cr, GeglNode *no
           if (edited_prop && !strcmp (edited_prop, pspecs[i]->name))
           {
             mrg_printf (mrg, "%s:", pspecs[i]->name);
-            mrg_text_listen (mrg, MRG_CLICK, unset_edited_prop, node, pspecs[i]->name);
+            mrg_text_listen (mrg, MRG_CLICK, unset_edited_prop, node, (void*)pspecs[i]->name);
             mrg_edit_start (mrg, update_prop, node);
             mrg_printf (mrg, "%s\n", value);
             mrg_edit_end (mrg);
@@ -586,7 +571,7 @@ static void draw_gegl_generic (State *state, Mrg *mrg, cairo_t *cr, GeglNode *no
           }
           else
           {
-            mrg_text_listen (mrg, MRG_CLICK, set_edited_prop, node, pspecs[i]->name);
+            mrg_text_listen (mrg, MRG_CLICK, set_edited_prop, node, (void*)pspecs[i]->name);
             mrg_printf (mrg, "%s:%s\n", pspecs[i]->name, value);
             mrg_text_listen_done (mrg);
           }
@@ -1171,47 +1156,32 @@ static char *get_path_parent (const char *path)
 
 static char *suffix_path (const char *path)
 {
-  char *ret, *last_dot;
-
+  char *ret;
   if (!path)
     return NULL;
   ret  = malloc (strlen (path) + strlen (suffix) + 3);
   strcpy (ret, path);
-  last_dot = strrchr (ret, '.');
-  if (last_dot)
-  {
-    char *extension = strdup (last_dot + 1);
-    sprintf (last_dot, "%s.%s", suffix, extension);
-   free (extension);
-  }
-  else
-  {
-    sprintf (ret, "%s%s", path, suffix);
-  }
+  sprintf (ret, "%s%s", path, ".gegl");
   return ret;
 }
 
 static char *unsuffix_path (const char *path)
 {
-  char *ret = NULL, *last_dot, *extension;
-  char *suf;
+  char *ret = NULL, *last_dot;
 
   if (!path)
     return NULL;
   ret = malloc (strlen (path) + 4);
   strcpy (ret, path);
   last_dot = strrchr (ret, '.');
-  extension = strdup (last_dot + 1);
-
-  suf = strstr(ret, suffix);
-  sprintf (suf, ".%s", extension);
-  free (extension);
+  *last_dot = '\0';
   return ret;
 }
 
 static int is_gegl_path (const char *path)
 {
-  if (strstr (path, suffix)) return 1;
+  if (g_str_has_suffix (path, ".gegl"))
+    return 1;
   return 0;
 }
 
@@ -1358,7 +1328,10 @@ static void load_path (State *o)
   }
   else
   {
-    meta = gegl_meta_get (path);
+    meta = NULL;
+    if (is_gegl_path (path))
+      g_file_get_contents (path, &meta, NULL, NULL);
+    //meta = gegl_meta_get (path);
     if (meta)
     {
       GSList *nodes, *n;
@@ -1973,7 +1946,8 @@ static void save_cb (MrgEvent *event, void *data1, void *data2)
   }
   gegl_node_remove_child (o->gegl, load);
   gegl_node_link_many (o->load, o->source, NULL);
-  gegl_meta_set (path, serialized);
+
+  g_file_set_contents (path, serialized, -1, NULL);
   g_free (serialized);
   o->rev = 0;
 }

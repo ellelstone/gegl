@@ -4,6 +4,7 @@ SUBDIRS = \
 	buffer \
 	compositions \
 	simple \
+        mipmap \
 	xml \
 	ff-load-save \
 	python 
