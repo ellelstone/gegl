@@ -97,14 +97,14 @@ prepare (GeglOperation *operation)
     {
       const Babl *model = babl_format_get_model (src_format);
 
-      if (model == babl_model ("RGB") || model == babl_model ("R'G'B'") ||
-          model == babl_model ("RGBA") || model == babl_model ("R'G'B'A"))
+      if (model == babl_model ("RGB") ||
+          model == babl_model ("RGBA"))
         {
           input_format = babl_format ("RGB double");
           n_components = 3;
         }
-      else if (model == babl_model ("Y") || model == babl_model ("Y'") ||
-               model == babl_model ("YA") || model == babl_model ("Y'A"))
+      else if (model == babl_model ("Y") ||
+               model == babl_model ("YA"))
         {
           input_format = babl_format ("Y double");
           n_components = 1;

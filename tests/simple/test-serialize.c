@@ -45,13 +45,17 @@ TestCase tests[] = {
      "gegl:gaussian-blur",
      ""},
 
+    /*
+       XXX: commented out until we have internal fonts for reproducible metrix,
+       see https://bugzilla.gnome.org/show_bug.cgi?id=772992
     {"over aux=[ text string='foo bar' ]",
-     "svg:src-over aux=[ gegl:text string='foo bar' width=33 height=7 ]",
+     "svg:src-over aux=[  gegl:text string='foo bar' width=33 height=7 ]\n",
      ""},
 
     {"over aux=[text string='foo bar' ]",
-     "svg:src-over aux=[ gegl:text string='foo bar' width=33 height=7 ]",
+     "svg:src-over aux=[  gegl:text string='foo bar' width=33 height=7 ]\n",
      ""},
+     */
 
     {"over aux= [ ",
      "svg:src-over",
@@ -73,14 +77,14 @@ TestCase tests[] = {
 
     {"exposure foo=2",
      "gegl:exposure",
-     "gegl:exposure has no foo property, properties: 'black-level', 'exposure', 'gamma', "},
+     "gegl:exposure has no foo property, properties: 'black-level', 'exposure', "},
 
     {"over aux=[text string='foo bar']",
-     "svg:src-over aux=[ gegl:text string='foo bar' width=33 height=7 ]",
+     "svg:src-over aux=[  gegl:text string='foo bar' width=33 height=7 ]\n",
      ""},
 
     {"over aux=[ load path=/ ]",
-     "svg:src-over aux=[ gegl:load path='/' ]",
+     "svg:src-over aux=[  gegl:load path='/' ]\n",
      ""},
 
     {"inver",
@@ -88,19 +92,19 @@ TestCase tests[] = {
      "No such op 'gegl:inver' suggestions: gegl:invert-gamma gegl:invert-linear"},
 
     {"over aux=[ load path=/abc ]",
-     "svg:src-over aux=[ gegl:load path='/abc' ]",
+     "svg:src-over aux=[  gegl:load path='/abc' ]\n",
      ""},
 
     {"id=foo over aux=[ ref=foo invert ]",
-     "id=foo svg:src-over aux=[ ref=foo gegl:invert-linear ]",
+     "id=foo\n svg:src-over aux=[  ref=foo\n gegl:invert-linear ]\n",
      ""},
 
     {"id=bar id=foo over aux=[ ref=foo invert ]",
-     "id=foo svg:src-over aux=[ ref=foo gegl:invert-linear ]",
+     "id=foo\n svg:src-over aux=[  ref=foo\n gegl:invert-linear ]\n",
      ""},
 
     {"over aux=[ text string={ 0='foo bar' } ]",
-     "svg:src-over aux=[ gegl:text string='foo bar' width=33 height=7 ]",
+     "svg:src-over aux=[  gegl:text string='foo bar' width=33 height=7 ]\n",
      ""},
 
     {NULL, NULL, NULL}
@@ -123,8 +127,8 @@ test_serialize (void)
     gint res = SUCCESS;
     gchar *serialization = NULL;
     gegl_create_chain (tests[i].argv_chain, start, end,
-                    0.0, 500, &error);
-    serialization = gegl_serialize (start, gegl_node_get_producer (end, "input", NULL), "/");
+                    0.0, 500, NULL, &error);
+    serialization = gegl_serialize (start, gegl_node_get_producer (end, "input", NULL), "/", GEGL_SERIALIZE_TRIM_DEFAULTS);
     if (strcmp (serialization, tests[i].expected_serialization))
     {
       printf ("%s\nexpected:\n%s\nbut got:\n%s\n", 

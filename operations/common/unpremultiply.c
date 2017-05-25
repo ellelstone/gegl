@@ -17,6 +17,7 @@
  */
 
 #include "config.h"
+#include <glib/gi18n-lib.h>
 
 #ifdef GEGL_PROPERTIES
 
@@ -25,9 +26,8 @@
 #else
 
 #define GEGL_OP_POINT_FILTER
-#define GEGL_OP_NAME     unpremul
-#define GEGL_OP_C_SOURCE unpremul.c
-#define GEGLV4
+#define GEGL_OP_NAME     unpremultiply
+#define GEGL_OP_C_SOURCE unpremultiply.c
 
 #include "gegl-op.h"
 
@@ -73,9 +73,10 @@ gegl_op_class_init (GeglOpClass *klass)
   point_filter_class->process = process;
 
   gegl_operation_class_set_keys (operation_class,
-    "name"        , "gegl:unpremul",
+    "name"        , "gegl:unpremultiply",
     "categories"  , "color",
-    "description" , "Unpremultiplies a buffer that contains pre-multiplied colors (but is marked as not having it)",
+    "title"       , _("Unpremultiply alpha"),
+    "description" , _("Unpremultiplies a buffer that contains pre-multiplied colors (but according to the babl format is not.)"),
     NULL);
 }
 

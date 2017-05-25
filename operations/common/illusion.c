@@ -264,10 +264,11 @@ gegl_op_class_init (GeglOpClass *klass)
   operation_class->threaded                = FALSE;
 
   gegl_operation_class_set_keys (operation_class,
-      "name",        "gegl:illusion",
-      "title",       _("Illusion"),
-      "categories",  "map",
-      "license",     "GPL3+",
+      "name",          "gegl:illusion",
+      "title",          _("Illusion"),
+      "categories",     "map",
+      "license",        "GPL3+",
+      "reference-hash", "bdf2184faa2dfe9472c5d3bb0e625f7f",
       "description", _("Superimpose many altered copies of the image."),
       NULL);
 }

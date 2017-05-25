@@ -113,6 +113,7 @@ gegl_op_class_init (GeglOpClass *klass)
     "name",        "gegl:mono-mixer",
     "title",       _("Mono Mixer"),
     "categories",  "color",
+    "reference-hash", "bda2471708bff38f7d7bc5e701ab5220",
     "description", _("Monochrome channel mixer"),
 //    "cl-source",   mono_mixer_cl_source,
     NULL);

@@ -73,10 +73,14 @@ property_double (shifty, _("Shift Y"), 0.0)
 property_double (cx, _("CX"), -0.75)
     description (_("CX (No effect in Mandelbrot and Sierpinski)"))
     value_range (-2.5, 2.5)
+    ui_meta     ("visible", "! fractaltype {mandelbrot, sierpinski}")
+    ui_meta     ("description", "''")
 
 property_double (cy, _("CY"), -0.2)
     description (_("CY (No effect in Mandelbrot and Sierpinski)"))
     value_range (-2.5, 2.5)
+    ui_meta     ("visible", "$cx.visible")
+    ui_meta     ("description", "''")
 
 property_double (redstretch, _("Red stretching factor"), 1.0)
     value_range (0.0, 1.0)
@@ -428,6 +432,7 @@ gegl_op_class_init (GeglOpClass *klass)
     "name",               "gegl:fractal-explorer",
     "title",              _("Fractal Explorer"),
     "categories",         "render:fractal",
+    "reference-hash",     "fd6c1f91d1a44d67e229754958627e7e",
     "position-dependent", "true",
     "license",            "GPL3+",
     "description",        _("Rendering of multiple different fractal systems, with configurable coloring options."),

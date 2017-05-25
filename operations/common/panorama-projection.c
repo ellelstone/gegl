@@ -365,7 +365,8 @@ process (GeglOperation       *operation,
   GeglMatrix2  scale_matrix;
   GeglMatrix2 *scale = NULL;
   gint sampler_type = o->sampler_type;
-
+  level = 0;
+  factor = 1;
   prepare_transform2 (&transform, operation, level);
 
   if (level)
@@ -538,6 +539,7 @@ gegl_op_class_init (GeglOpClass *klass)
     "name",                  "gegl:panorama-projection",
     "title",                 _("Panorama Projection"),
     "reference-composition", composition,
+    "reference-hash",        "216b28fc8471fb8a741d9b42ac328d37",
     "position-dependent",    "true",
     "categories" ,           "map",
     "description", _("Perform an equilinear/gnomonic or little planet/stereographic projection of an equirectangular input image."),

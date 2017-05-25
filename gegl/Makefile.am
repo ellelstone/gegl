@@ -12,6 +12,7 @@ endif
 
 SUBDIRS = buffer graph module operation process property-types opencl
 
+
 CLEANFILES =
 
 AM_CPPFLAGS = \
@@ -31,6 +32,7 @@ AM_CPPFLAGS = \
 	-I$(top_builddir)/gegl/property-types \
 	-I$(top_srcdir)/gegl/property-types \
 	-DLIBDIR=\""$(libdir)"\" \
+        -DG_LOG_DOMAIN=\"GEGL\" \
 	-DGEGL_LOCALEDIR=\""$(GEGL_LOCALEDIR)"\"
 
 AM_CFLAGS = $(DEP_CFLAGS) $(BABL_CFLAGS)
@@ -72,7 +74,6 @@ GEGL_introspectable_headers =	\
 
 GEGL_public_HEADERS = \
 	$(GEGL_introspectable_headers)	\
-	gegl-c.h			\
 	gegl-cpuaccel.h			\
 	gegl-debug.h			\
 	gegl-op.h			\
@@ -81,7 +82,6 @@ GEGL_public_HEADERS = \
 	buffer/gegl-buffer-cl-iterator.h
 
 GEGL_sources = \
-	gegl-c.c			\
 	gegl-algorithms.c \
 	gegl-apply.c			\
 	gegl-config.c			\

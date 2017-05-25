@@ -61,7 +61,7 @@ gegl_enable_fatal_warnings (void)
 int gegl_str_has_image_suffix (char *path);
 int gegl_str_has_video_suffix (char *path);
 
-static gboolean file_is_gegl_xml (const gchar *path)
+static gboolean file_is_gegl_composition (const gchar *path)
 {
   gchar *extension;
 
@@ -72,10 +72,24 @@ static gboolean file_is_gegl_xml (const gchar *path)
   if (extension[0]=='\0')
     return FALSE;
   if (!strcmp (extension, "xml")||
+      !strcmp (extension, "gegl")||
       !strcmp (extension, "XML")||
       !strcmp (extension, "svg")
       )
     return TRUE;
+  return FALSE;
+}
+
+static gboolean is_xml_fragment (const char *data)
+{
+  int i;
+  for (i = 0; data && data[i]; i++)
+    switch (data[i])
+    {
+      case ' ':case '\t':case '\n':case '\r': break;
+      case '<': return TRUE;
+      default: return FALSE;
+    }
   return FALSE;
 }
 
@@ -92,15 +106,14 @@ main (gint    argc,
   gchar       *path_root = NULL;
 
 #if HAVE_MRG
-  /* we need to override opencl before gegl_main() for it to take effect
-     thus cannot do it from within mrg_main 
-   */
-  g_setenv ("GEGL_USE_OPENCL", "no", TRUE);
   g_setenv ("GEGL_MIPMAP_RENDERING", "1", TRUE);
 #endif
 
   g_object_set (gegl_config (),
                 "application-license", "GPL3",
+#if HAVE_MRG
+                "use-opencl", FALSE,
+#endif
                 NULL);
 
   o = gegl_options_parse (argc, argv);
@@ -153,7 +166,7 @@ main (gint    argc,
             }
           script = g_string_free (acc, FALSE);
         }
-      else if (file_is_gegl_xml (o->file))
+      else if (file_is_gegl_composition (o->file))
         {
           g_file_get_contents (o->file, &script, NULL, &err);
           if (err != NULL)
@@ -190,7 +203,7 @@ main (gint    argc,
           script = g_strdup (DEFAULT_COMPOSITION);
         }
     }
-  
+
   if (o->mode == GEGL_RUN_MODE_DISPLAY)
     {
 #if HAVE_MRG
@@ -199,7 +212,10 @@ main (gint    argc,
 #endif
     }
 
-  gegl = gegl_node_new_from_xml (script, path_root);
+  if (is_xml_fragment (script))
+    gegl = gegl_node_new_from_xml (script, path_root);
+  else
+    gegl = gegl_node_new_from_serialized (script, path_root);
 
   if (!gegl)
     {
@@ -213,15 +229,16 @@ main (gint    argc,
   if (o->rest)
     {
       GError *error = NULL;
-      gegl_create_chain_argv (o->rest, iter, proxy, 0, gegl_node_get_bounding_box (gegl).height, &error);
+      gegl_create_chain_argv (o->rest, iter, proxy, 0, gegl_node_get_bounding_box (gegl).height, path_root, &error);
       if (error)
       {
         fprintf (stderr, "Error: %s\n", error->message);
       }
       if (o->serialize)
       {
-        fprintf (stderr, "%s\n", gegl_serialize (iter, 
-            gegl_node_get_producer (proxy, "input", NULL), "/"));
+        fprintf (stderr, "%s\n", gegl_serialize (iter,
+            gegl_node_get_producer (proxy, "input", NULL), "/",
+            GEGL_SERIALIZE_VERSION|GEGL_SERIALIZE_INDENT));
       }
     }
   }
@@ -261,7 +278,7 @@ main (gint    argc,
             GeglAudioFragment *audio = NULL;
             int frame_no = 0;
             guchar *temp;
-            
+
             bounds.x *= o->scale;
             bounds.y *= o->scale;
             bounds.width *= o->scale;
@@ -273,7 +290,7 @@ main (gint    argc,
                                             "buffer", tempb,
                                             NULL);
             gegl_node_connect_from (output, "input", n0, "output");
-  
+
             iter = gegl_node_get_output_proxy (gegl, "output");
 
             while (gegl_node_get_producer (iter, "input", NULL))
@@ -323,7 +340,7 @@ main (gint    argc,
             GeglNode *n0;
 
             guchar *temp;
-            
+
             bounds.x *= o->scale;
             bounds.y *= o->scale;
             bounds.width *= o->scale;
@@ -349,7 +366,7 @@ main (gint    argc,
             gegl_node_connect_from (output, "input", gegl, "output");
             gegl_node_process (output);
           }
-          
+
           g_object_unref (output);
         }
         break;

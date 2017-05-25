@@ -14,6 +14,7 @@
  * License along with GEGL; if not, see <http://www.gnu.org/licenses/>.
  *
  * Copyright 2012 Ville Sokk <ville.sokk@gmail.com>
+ *           2017 Øyvind Kolås <pippin@gimp.org>
  */
 
 #include <glib.h>
@@ -23,22 +24,19 @@
 #include <string.h>
 #include <glib/gprintf.h>
 
-
 static GRegex   *regex, *exc_regex;
 static gchar    *data_dir        = NULL;
-static gchar    *reference_dir   = NULL;
 static gchar    *output_dir      = NULL;
 static gchar    *pattern         = "";
 static gchar    *exclusion_pattern = "a^"; /* doesn't match anything by default */
 static gboolean *output_all      = FALSE;
+static gint      failed          = 0;
+static GString  *failed_ops      = NULL;
 
 static const GOptionEntry options[] =
 {
   {"data-directory", 'd', 0, G_OPTION_ARG_FILENAME, &data_dir,
    "Root directory of files used in the composition", NULL},
-
-  {"reference-directory", 'r', 0, G_OPTION_ARG_FILENAME, &reference_dir,
-   "Directory where reference images are located", NULL},
 
   {"output-directory", 'o', 0, G_OPTION_ARG_FILENAME, &output_dir,
    "Directory where composition output and diff files are saved", NULL},
@@ -75,94 +73,6 @@ operation_to_path (const gchar *op_name,
   g_free (filename);
 
   return output_path;
-}
-
-static gboolean
-test_operation (const gchar *op_name,
-                const gchar *image,
-                gchar       *output_path)
-{
-  gchar         *ref_path;
-  GeglNode      *img, *ref_img, *gegl;
-  GeglRectangle  ref_bounds, comp_bounds;
-  gint           ref_pixels;
-  gboolean       result = TRUE;
-
-  gegl = gegl_node_new ();
-
-  ref_path = g_build_path (G_DIR_SEPARATOR_S, reference_dir, image, NULL);
-  ref_img = gegl_node_new_child (gegl,
-                                 "operation", "gegl:load",
-                                 "path", ref_path,
-                                 NULL);
-  g_free (ref_path);
-
-  img = gegl_node_new_child (gegl,
-                             "operation", "gegl:load",
-                             "path", output_path,
-                             NULL);
-
-  ref_bounds  = gegl_node_get_bounding_box (ref_img);
-  comp_bounds = gegl_node_get_bounding_box (img);
-  ref_pixels  = ref_bounds.width * ref_bounds.height;
-
-  if (ref_bounds.width != comp_bounds.width ||
-      ref_bounds.height != comp_bounds.height)
-    {
-      g_printf ("FAIL\n  Reference and composition differ in size\n");
-      result = FALSE;
-    }
-  else
-    {
-      GeglNode *comparison;
-      gdouble   max_diff;
-
-      comparison = gegl_node_create_child (gegl, "gegl:image-compare");
-      gegl_node_link (img, comparison);
-      gegl_node_connect_to (ref_img, "output", comparison, "aux");
-      gegl_node_process (comparison);
-      gegl_node_get (comparison, "max diff", &max_diff, NULL);
-
-      if (max_diff < 1.0)
-        {
-          g_printf ("PASS\n");
-          result = TRUE;
-        }
-      else
-        {
-          GeglNode *output;
-          gchar    *diff_path;
-          gdouble   avg_diff_wrong, avg_diff_total;
-          gint      wrong_pixels;
-
-          gegl_node_get (comparison, "avg_diff_wrong", &avg_diff_wrong,
-                         "avg_diff_total", &avg_diff_total, "wrong_pixels",
-                         &wrong_pixels, NULL);
-
-          g_printf ("FAIL\n  Reference image and composition differ\n"
-                    "    wrong pixels : %i/%i (%2.2f%%)\n"
-                    "    max Δe       : %2.3f\n"
-                    "    avg Δe       : %2.3f (wrong) %2.3f (total)\n",
-                    wrong_pixels, ref_pixels,
-                    (wrong_pixels * 100.0 / ref_pixels),
-                    max_diff, avg_diff_wrong, avg_diff_total);
-
-          diff_path = operation_to_path (op_name, TRUE);
-          output = gegl_node_new_child (gegl,
-                                        "operation", "gegl:png-save",
-                                        "path", diff_path,
-                                        NULL);
-          gegl_node_link (comparison, output);
-          gegl_node_process (output);
-
-          g_free (diff_path);
-
-          result = FALSE;
-        }
-    }
-
-  g_object_unref (gegl);
-  return result;
 }
 
 static void
@@ -236,11 +146,30 @@ standard_output (const gchar *op_name)
   g_object_unref (composition);
 }
 
-static gboolean
+static gchar *
+compute_hash_for_path (const gchar *path)
+{
+  gchar *ret = NULL;
+  GeglNode *gegl = gegl_node_new ();
+  GeglRectangle comp_bounds;
+  guchar *buf;
+  GeglNode *img = gegl_node_new_child (gegl,
+                                 "operation", "gegl:load",
+                                 "path", path,
+                                 NULL);
+  comp_bounds = gegl_node_get_bounding_box (img);
+  buf = g_malloc0 (comp_bounds.width * comp_bounds.height * 4);
+  gegl_node_blit (img, 1.0, &comp_bounds, babl_format("RGBA u8"), buf, GEGL_AUTO_ROWSTRIDE, GEGL_BLIT_DEFAULT);
+  ret = g_compute_checksum_for_data (G_CHECKSUM_MD5, buf, comp_bounds.width * comp_bounds.height * 4);
+  g_free (buf);
+  g_object_unref (gegl);
+  return ret;
+}
+
+static void
 process_operations (GType type)
 {
   GType    *operations;
-  gboolean  result = TRUE;
   guint     count;
   gint      i;
 
@@ -249,46 +178,49 @@ process_operations (GType type)
   if (!operations)
     {
       g_free (operations);
-      return TRUE;
+      return;
     }
 
   for (i = 0; i < count; i++)
     {
       GeglOperationClass *operation_class;
-      const gchar        *image, *xml, *name;
+      const gchar        *xml, *name, *hash, *hashB, *hashC, *chain;
       gboolean            matches;
 
       operation_class = g_type_class_ref (operations[i]);
-      image           = gegl_operation_class_get_key (operation_class, "reference-image");
+      hash            = gegl_operation_class_get_key (operation_class, "reference-hash");
+      hashB           = gegl_operation_class_get_key (operation_class, "reference-hashB");
+      hashC           = gegl_operation_class_get_key (operation_class, "reference-hashC");
       xml             = gegl_operation_class_get_key (operation_class, "reference-composition");
+      chain           = gegl_operation_class_get_key (operation_class, "reference-chain");
       name            = gegl_operation_class_get_key (operation_class, "name");
 
       if (name == NULL)
         {
-          result = result && process_operations (operations[i]);
+          process_operations (operations[i]);
           continue;
         }
 
       matches = g_regex_match (regex, name, 0, NULL) &&
         !g_regex_match (exc_regex, name, 0, NULL);
 
-      if (xml && matches)
+      if ((chain||xml) && matches)
         {
           GeglNode *composition;
 
-          if (output_all)
-            g_printf ("%s\n", name);
-          else if (image)
-            g_printf ("%s: ", name); /* more information will follow
+          g_printf ("%s: ", name); /* more information will follow
                                         if we're testing */
 
-          composition = gegl_node_new_from_xml (xml, data_dir);
+          if (xml)
+            composition = gegl_node_new_from_xml (xml, data_dir);
+          else
+            composition = gegl_node_new_from_serialized (chain, data_dir);
+
           if (!composition)
             {
               g_printf ("FAIL\n  Composition graph is flawed\n");
-              result = FALSE;
             }
-          else if (image || output_all)
+          else if (output_all)
             {
               gchar    *output_path = operation_to_path (name, FALSE);
               GeglNode *output      =
@@ -301,10 +233,6 @@ process_operations (GType type)
               gegl_node_process (output);
               g_object_unref (composition);
 
-              /* don't test if run with --all */
-              if (!output_all && image)
-                result = test_operation (name, image, output_path) && result;
-
               g_free (output_path);
             }
         }
@@ -314,27 +242,57 @@ process_operations (GType type)
                !(g_type_is_a (operations[i], GEGL_TYPE_OPERATION_SINK) ||
                  g_type_is_a (operations[i], GEGL_TYPE_OPERATION_TEMPORAL)))
         {
-          g_printf ("%s\n", name);
+          g_printf ("%s ", name);
           standard_output (name);
         }
 
-      result = process_operations (operations[i]) && result;
+      if (matches && hash)
+      {
+        gchar *output_path = operation_to_path (name, FALSE);
+        gchar *gothash = compute_hash_for_path (output_path);
+        if (g_str_equal (hash, gothash))
+          g_printf (" OK\n");
+        else if (hashB && g_str_equal (hashB, gothash))
+          g_printf (" OK (hash b)\n");
+        else if (hashC && g_str_equal (hashC, gothash))
+          g_printf (" OK (hash c)\n");
+        else
+        {
+          g_printf (" FAIL %s != %s\n", gothash, hash);
+          failed ++;
+          g_string_append_printf (failed_ops, "%s %s != %s\n", name, gothash, hash);
+        }
+        g_free (gothash);
+        g_free (output_path);
+      } else if (matches &&
+               !(g_type_is_a (operations[i], GEGL_TYPE_OPERATION_SINK) ||
+                 g_type_is_a (operations[i], GEGL_TYPE_OPERATION_TEMPORAL)))
+      {
+        gchar *output_path = operation_to_path (name, FALSE);
+        gchar *gothash = compute_hash_for_path (output_path);
+        if (g_str_equal (gothash, "9bbe341d798da4f7b181c903e6f442fd"))
+          g_printf (" reference is noop?\n");
+        else
+          g_printf (" hash = %s\n", gothash);
+        g_free (gothash);
+        g_free (output_path);
+      }
+
+      process_operations (operations[i]);
     }
 
   g_free (operations);
-
-  return result;
 }
 
 gint
 main (gint    argc,
       gchar **argv)
 {
-  gboolean        result;
   GError         *error = NULL;
   GOptionContext *context;
 
   setlocale (LC_ALL, "");
+
 
   context = g_option_context_new (NULL);
   g_option_context_add_main_entries (context, options, NULL);
@@ -343,29 +301,31 @@ main (gint    argc,
   g_object_set (gegl_config (),
                 "application-license", "GPL3",
                 NULL);
+  failed_ops = g_string_new ("");
 
   if (!g_option_context_parse (context, &argc, &argv, &error))
     {
       g_printf ("%s\n", error->message);
       g_error_free (error);
-      result = FALSE;
+      return -1;
     }
   else if (output_all && !(data_dir && output_dir))
     {
       g_printf ("Data and output directories must be specified\n");
-      result = FALSE;
+      return -1;
     }
-  else if (!(output_all || (data_dir && output_dir && reference_dir)))
+  else if (!(output_all || (data_dir && output_dir)))
     {
-      g_printf ("Data, reference and output directories must be specified\n");
-      result = FALSE;
+      g_printf ("Data and output directories must be specified\n");
+      return -1;
     }
   else
     {
+
       regex = g_regex_new (pattern, 0, 0, NULL);
       exc_regex = g_regex_new (exclusion_pattern, 0, 0, NULL);
 
-      result = process_operations (GEGL_TYPE_OPERATION);
+      process_operations (GEGL_TYPE_OPERATION);
 
       g_regex_unref (regex);
       g_regex_unref (exc_regex);
@@ -373,8 +333,14 @@ main (gint    argc,
 
   gegl_exit ();
 
-  if (output_all)
-    return 0;
-  else
-    return result;
+  g_printf ("\n\nwith%s opencl acceleration\n", gegl_cl_is_accelerated()?"":"out");
+  if (failed != 0)
+  {
+
+    g_print ("Maybe see bug https://bugzilla.gnome.org/show_bug.cgi?id=780226\n%i operations producing unexpected hashes:\n%s\n", failed, failed_ops->str);
+    return -1;
+  }
+  g_string_free (failed_ops, TRUE);
+
+  return 0;
 }

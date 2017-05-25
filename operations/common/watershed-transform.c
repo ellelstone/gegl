@@ -382,6 +382,7 @@ gegl_op_class_init (GeglOpClass *klass)
   gegl_operation_class_set_keys (operation_class,
     "name",        "gegl:watershed-transform",
     "title",       _("Watershed Transform"),
+    "reference-hash", "43ddd80572ab34095298ac7c36368b0c",
     "categories",  "hidden",
     "description", _("Labels propagation by watershed transformation"),
     NULL);

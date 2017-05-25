@@ -85,8 +85,8 @@ static void
 prepare (GeglOperation *operation)
 {
   GeglProperties *o  = GEGL_PROPERTIES (operation);
-  const Babl *rgba_f = babl_format ("R'G'B'A float");
-  const Babl *y_f  = babl_format ("Y' float");
+  const Babl *rgba_f = babl_format ("RGBA float");
+  const Babl *y_f  = babl_format ("Y float");
 
   if (o->user_data == NULL)
     o->user_data = g_slice_new0 (Luts);

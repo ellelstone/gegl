@@ -415,10 +415,11 @@ prepare (GeglOperation *operation)
 
   gegl_operation_set_format (operation, "output", babl_format ("RGB u8"));
 
-  if (!p->loadedfilename ||
+  if (o->path && 
+      (!p->loadedfilename ||
       strcmp (p->loadedfilename, o->path) ||
        p->prevframe > o->frame  /* a bit heavy handed, but improves consistency */
-      )
+      ))
     {
       gint i;
       gchar *dereferenced_path;
@@ -426,6 +427,8 @@ prepare (GeglOperation *operation)
 
       ff_cleanup (o);
       dereferenced_path = realpath (o->path, NULL);
+      if (!dereferenced_path)
+        return;
       err = avformat_open_input(&p->video_fcontext, dereferenced_path, NULL, 0);
       free (dereferenced_path);
       if (err < 0)
@@ -554,7 +557,7 @@ prepare (GeglOperation *operation)
           strstr (p->video_fcontext->filename, ".MP4"))  /* XXX: too hacky, isn't there an avformat thing to use?,
  or perhaps we can measure this when decoding the first frame.
  */
-        p->codec_delay = 3;
+        p->codec_delay = 1;
       else
         p->codec_delay = 0;
     }
@@ -680,7 +683,7 @@ process (GeglOperation       *operation,
   Priv       *p = (Priv*)o->user_data;
 
   {
-    if (p->video_fcontext && !decode_frame (operation, o->frame))
+    if (o->path && p->video_fcontext && !decode_frame (operation, o->frame))
       {
         long sample_start = 0;
 

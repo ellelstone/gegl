@@ -28,6 +28,10 @@ property_double (scaling, _("Scaling"), 1.0)
 property_enum (sampler_type, _("Resampling method"),
     GeglSamplerType, gegl_sampler_type, GEGL_SAMPLER_CUBIC)
 
+property_enum (abyss_policy, _("Abyss policy"),
+               GeglAbyssPolicy, gegl_abyss_policy,
+               GEGL_ABYSS_NONE)
+
 #else
 
 #define GEGL_OP_COMPOSER
@@ -54,9 +58,10 @@ get_required_for_output (GeglOperation       *operation,
                          const gchar         *input_pad,
                          const GeglRectangle *region)
 {
-  GeglRectangle result = *gegl_operation_source_get_bounding_box (operation, "input");
-
-  return result;
+  if (! strcmp (input_pad, "input"))
+    return *gegl_operation_source_get_bounding_box (operation, "input");
+  else
+    return *region;
 }
 
 static gboolean
@@ -78,7 +83,7 @@ process (GeglOperation       *operation,
 
   sampler = gegl_buffer_sampler_new_at_level (input, format_io, o->sampler_type, level);
 
-  if (aux != NULL)
+  if (aux != NULL && o->scaling != 0.0)
     {
       it = gegl_buffer_iterator_new (output, result, level, format_io,
                                      GEGL_ACCESS_WRITE, GEGL_ABYSS_NONE);
@@ -87,56 +92,54 @@ process (GeglOperation       *operation,
       index_coords = gegl_buffer_iterator_add (it, aux, result, level, format_coords,
                                                GEGL_ACCESS_READ, GEGL_ABYSS_NONE);
       index_in = gegl_buffer_iterator_add (it, input, result, level, format_io,
-                                           GEGL_ACCESS_READ, GEGL_ABYSS_NONE);
+                                           GEGL_ACCESS_READ, o->abyss_policy);
 
       while (gegl_buffer_iterator_next (it))
         {
-          gint        i;
-          gint        n_pixels = it->length;
-          gint        x = it->roi->x; /* initial x                   */
-          gint        y = it->roi->y; /*           and y coordinates */
-          gdouble     scaling = GEGL_PROPERTIES (operation)->scaling;
+          gint        w;
+          gint        h;
+          gfloat      x;
+          gfloat      y;
+          gfloat      scaling = GEGL_PROPERTIES (operation)->scaling;
           gfloat     *in = it->data[index_in];
           gfloat     *out = it->data[index_out];
           gfloat     *coords = it->data[index_coords];
 
-          for (i=0; i<n_pixels; i++)
+          y = it->roi->y + 0.5; /* initial y coordinate */
+
+          for (h = it->roi->height; h; h--, y++)
             {
-              /* if the coordinate asked is an exact pixel, we fetch it
-               * directly, to avoid the blur of sampling */
-              if (coords[0] == 0 && coords[1] == 0)
-                {
-                  out[0] = in[0];
-                  out[1] = in[1];
-                  out[2] = in[2];
-                  out[3] = in[3];
-                }
-              else
-                {
-                  gegl_sampler_get (sampler, x + coords[0] * scaling + 0.5,
-                                             y + coords[1] * scaling + 0.5,
-                                             NULL, out,
-                                             GEGL_ABYSS_NONE);
-                }
+              x = it->roi->x + 0.5; /* initial x coordinate */
 
-              coords += 2;
-              in += 4;
-              out += 4;
-
-              /* update x and y coordinates */
-              x++;
-              if (x >= (it->roi->x + it->roi->width))
+              for (w = it->roi->width; w; w--, x++)
                 {
-                  x = it->roi->x;
-                  y++;
-                }
+                  /* if the coordinate asked is an exact pixel, we fetch it
+                   * directly, to avoid the blur of sampling */
+                  if (coords[0] == 0.0f && coords[1] == 0.0f)
+                    {
+                      out[0] = in[0];
+                      out[1] = in[1];
+                      out[2] = in[2];
+                      out[3] = in[3];
+                    }
+                  else
+                    {
+                      gegl_sampler_get (sampler, x + coords[0] * scaling,
+                                                 y + coords[1] * scaling,
+                                                 NULL, out,
+                                                 o->abyss_policy);
+                    }
 
+                  coords += 2;
+                  in += 4;
+                  out += 4;
+                }
             }
         }
     }
   else
     {
-      gegl_buffer_copy (input, result, GEGL_ABYSS_NONE,
+      gegl_buffer_copy (input, result, o->abyss_policy,
                         output, result);
     }
 
@@ -177,6 +180,7 @@ gegl_op_class_init (GeglOpClass *klass)
     "name",        "gegl:map-relative",
     "title",       _("Map Relative"),
     "categories" , "map",
+    "reference-hash", "5d41ac166c82cf5f6acf7141e7f85bbf",
     "description", _("sample input with an auxiliary buffer that contain relative source coordinates"),
     "reference-composition", composition,
     NULL);

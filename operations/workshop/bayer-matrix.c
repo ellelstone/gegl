@@ -237,7 +237,7 @@ prepare (GeglOperation *operation)
         }
     }
 
-  gegl_operation_set_format (operation, "output", babl_format ("Y' float"));
+  gegl_operation_set_format (operation, "output", babl_format ("Y float"));
 }
 
 static GeglRectangle

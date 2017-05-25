@@ -59,6 +59,7 @@ operations/common/gegl.c
 operations/common/grey.c
 operations/common/grid.c
 operations/common/high-pass.c
+operations/common/hue-chroma.c
 operations/common/illusion.c
 operations/common/image-compare.c
 operations/common/image-gradient.c
@@ -83,6 +84,7 @@ operations/common/mosaic.c
 operations/common/motion-blur-circular.c
 operations/common/motion-blur-linear.c
 operations/common/motion-blur-zoom.c
+operations/common/newsprint.c
 operations/common/noise-cell.c
 operations/common/noise-cie-lch.c
 operations/common/noise-hsv.c
@@ -135,6 +137,7 @@ operations/common/tile-glass.c
 operations/common/tile-paper.c
 operations/common/tile-seamless.c
 operations/common/unsharp-mask.c
+operations/common/unpremultiply.c
 operations/common/value-invert.c
 operations/common/value-propagate.c
 operations/common/video-degradation.c
@@ -211,7 +214,6 @@ operations/generated/src.c
 operations/generated/src-in.c
 operations/generated/src-out.c
 operations/generated/subtract.c
-operations/generated/svg-multiply.c
 operations/generated/xor.c
 operations/seamless-clone/seamless-clone.c
 operations/seamless-clone/seamless-clone-compose.c
@@ -245,10 +247,9 @@ operations/workshop/hstack.c
 operations/workshop/integral-image.c
 operations/workshop/kuwahara.c
 operations/workshop/linear-sinusoid.c
-operations/workshop/mandelbrot.c
 operations/workshop/median-blur.c
 operations/workshop/rawbayer-load.c
 operations/workshop/segment-kmeans.c
 operations/workshop/shadows-highlights.c
 operations/workshop/shadows-highlights-correction.c
-operations/workshop/vhsfix.c
+operations/workshop/spiral.c

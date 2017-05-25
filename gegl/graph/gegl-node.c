@@ -1247,11 +1247,6 @@ gegl_node_set_operation_object (GeglNode      *self,
 
   g_return_if_fail (GEGL_IS_OPERATION (operation));
 
-  if (self->operation)
-    g_object_unref (self->operation);
-
-  self->operation = g_object_ref (operation);
-
   if (gegl_node_has_pad (self, "output"))
     gegl_node_get_consumers (self, "output", &consumer_nodes, &consumer_names);
 
@@ -1261,6 +1256,11 @@ gegl_node_set_operation_object (GeglNode      *self,
 
   gegl_node_disconnect_sources (self);
   gegl_node_disconnect_sinks (self);
+
+  if (self->operation)
+    g_object_unref (self->operation);
+
+  self->operation = g_object_ref (operation);
 
   /* Delete all the pads from the previous operation */
   while (self->pads)
@@ -2214,3 +2214,12 @@ void gegl_node_progress (GeglNode *node,
     g_idle_add (delayed_emission, closure);
   }
 }
+
+const char *gegl_operation_get_op_version (const char *op_name)
+{
+  const gchar *ret = gegl_operation_get_key (op_name, "op-version");
+  if (!ret)
+    ret = "0:0";
+  return ret;
+}
+

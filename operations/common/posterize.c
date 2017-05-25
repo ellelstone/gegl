@@ -31,7 +31,6 @@ property_int  (levels, _("Levels"), 8)
 #define GEGL_OP_POINT_FILTER
 #define GEGL_OP_NAME     posterize
 #define GEGL_OP_C_SOURCE posterize.c
-#define GEGLV4
 
 #include "gegl-op.h"
 
@@ -131,6 +130,7 @@ gegl_op_class_init (GeglOpClass *klass)
   gegl_operation_class_set_keys (operation_class,
     "name",        "gegl:posterize",
     "title",       _("Posterize"),
+    "reference-hash", "6c325366cad73837346ea052aea4d7dc",
     "categories" , "color",
     "description",
        _("Reduces the number of levels in each color component of the image."),

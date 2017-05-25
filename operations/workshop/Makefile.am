@@ -22,10 +22,8 @@ op_LTLIBRARIES =    \
 	integral-image.la \
 	kuwahara.la \
 	linear-sinusoid.la \
-	mandelbrot.la \
 	rawbayer-load.la \
 	segment-kmeans.la \
 	shadows-highlights.la \
 	shadows-highlights-correction.la \
-	unpremul.la \
-    vhsfix.la
+	spiral.la

@@ -384,7 +384,7 @@ process (GeglOperation       *operation,
           guchar *data;
 
           g_mutex_lock (&mutex);
-          data = gegl_buffer_linear_open (output, result, NULL, babl_format ("BaGaRaA u8"));
+          data = gegl_buffer_linear_open (output, result, NULL, babl_format ("cairo-ARGB32"));
           surface = cairo_image_surface_create_for_data (data,
                                                          CAIRO_FORMAT_ARGB32,
                                                          result->width,
@@ -529,9 +529,10 @@ gegl_op_class_init (GeglOpClass *klass)
   /*operation_class->no_cache = TRUE;*/
 
   gegl_operation_class_set_keys (operation_class,
-    "name",         "gegl:path",
-    "title",        _("Render Path"),
-    "categories",   "render",
+    "name",           "gegl:path",
+    "title",          _("Render Path"),
+    "categories",     "render",
+    "reference-hash", "eba13d16fba3284ceee264073ebfa356",
     "reference-composition", composition,
     "description" , _("Renders a brush stroke"),
     NULL);

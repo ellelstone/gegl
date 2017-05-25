@@ -153,7 +153,8 @@ gegl_op_class_init (GeglOpClass *klass)
       "name",       "gegl:brightness-contrast",
       "title",      _("Brightness Contrast"),
       "categories", "color",
-      "description", _("Changes the light level and contrast. 'Contrast' is a scale factor around 0.5f gray (the brightness of which varies depending on the image's ICC profile's TRC), and 'brightness' a constant offset to apply after contrast scaling."),
+      "reference-hash", "a60848d705029cad1cb89e44feb7f56e",
+      "description", _("Changes the light level and contrast."),
 //      "cl-source"  , brightness_contrast_cl_source,
       "reference-composition", composition,
       NULL);

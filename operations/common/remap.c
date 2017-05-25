@@ -57,6 +57,8 @@ process (GeglOperation       *op,
   gfloat *min = min_buf;
   gfloat *max = max_buf;
   gfloat *out = out_buf;
+  if (!min || !max || !out || !in)
+    return FALSE;
 
   for (i = 0; i < n_pixels; i++)
     {
@@ -95,6 +97,7 @@ gegl_op_class_init (GeglOpClass *klass)
 
   gegl_operation_class_set_keys (operation_class,
     "name"       , "gegl:remap",
+    "title"      , _("Remap"),
     "description",
           _("stretch components of pixels individually based on luminance envelopes"),
     "categories" , "compositors",

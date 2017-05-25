@@ -98,7 +98,7 @@ prepare (GeglOperation *operation)
       else
         {
           p->LibRaw->params.shot_select = o->image_num;
-    
+
           p->LibRaw->params.aber[0] = 1.0;
           p->LibRaw->params.aber[2] = 1.0;
           p->LibRaw->params.gamm[0] = 1.0 / 2.4;
@@ -145,11 +145,21 @@ get_bounding_box (GeglOperation *operation)
     }
 
   if (p->LibRaw != NULL &&
-      (p->LibRaw->progress_flags & LIBRAW_PROGRESS_IDENTIFY)) 
+      (p->LibRaw->progress_flags & LIBRAW_PROGRESS_IDENTIFY))
     {
-      result.width  = p->LibRaw->sizes.width;
-      result.height = p->LibRaw->sizes.height;
-      gegl_operation_set_format (operation, "output", babl_format ("R'G'B' u16"));
+      switch (p->LibRaw->sizes.flip)
+      {
+        case 5:
+        case 6:
+          result.width  = p->LibRaw->sizes.height;
+          result.height = p->LibRaw->sizes.width;
+          break;
+        default:
+          result.width  = p->LibRaw->sizes.width;
+          result.height = p->LibRaw->sizes.height;
+          break;
+      }
+      gegl_operation_set_format (operation, "output", babl_format ("RGB u16"));
     }
 
   return result;
@@ -193,9 +203,9 @@ process (GeglOperation       *operation,
       rect.height = p->image->height;
 
       if (p->image->colors == 1)
-        format = babl_format ("Y' u16");
+        format = babl_format ("Y u16");
       else // 3 color channels
-        format = babl_format ("R'G'B' u16");
+        format = babl_format ("RGB u16");
 
       gegl_buffer_set (output, &rect, 0, format, p->image->data, GEGL_AUTO_ROWSTRIDE);
       return TRUE;

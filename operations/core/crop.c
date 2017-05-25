@@ -96,7 +96,11 @@ gegl_crop_get_bounding_box (GeglOperation *operation)
   result.width  = o->width;
   result.height = o->height;
 
-  gegl_rectangle_intersect (&result, &result, in_rect);
+  /* in_rect sometimes ends up as 0,0,0,0 and in those cases - other
+   * code ends up seg-faulting
+   */
+  if (in_rect->width != 0 && in_rect->height != 0)
+    gegl_rectangle_intersect (&result, &result, in_rect);
 
   return result;
 }
@@ -218,6 +222,7 @@ gegl_op_class_init (GeglOpClass *klass)
       "categories",  "core",
       "title",       _("Crop"),
       "description", _("Crop a buffer"),
+      "reference-hash", "6f9f160434a4e9484d334c29122e5682",
       "reference-composition", composition,
       NULL);
 

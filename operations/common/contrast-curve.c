@@ -256,6 +256,7 @@ gegl_op_class_init (GeglOpClass *klass)
     "name"       , "gegl:contrast-curve",
     "title",       _("Contrast Curve"),
     "categories" , "color",
+    "reference-hash", "43ddd80572ab34095298ac7c36368b0c",
     "description",
         _("Adjusts the contrast of a grayscale image with a curve specifying contrast for intensity."),
         NULL);
