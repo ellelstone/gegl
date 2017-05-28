@@ -151,14 +151,14 @@ compute_phi (gdouble xr,
   return phi;
 }
 
-#include "opencl/gegl-cl.h"
-#include "gegl-buffer-cl-iterator.h"
+//#include "opencl/gegl-cl.h"
+//#include "gegl-buffer-cl-iterator.h"
 
-#include "opencl/motion-blur-circular.cl.h"
+//#include "opencl/motion-blur-circular.cl.h"
 
-static GeglClRunData *cl_data = NULL;
+//static GeglClRunData *cl_data = NULL;
 
-static gboolean
+/*static gboolean
 cl_motion_blur_circular (cl_mem               in,
                          cl_mem               out,
                          const GeglRectangle *src_rect,
@@ -271,7 +271,7 @@ cl_process (GeglOperation       *operation,
     }
 
   return TRUE;
-}
+}*/
 
 static gboolean
 process (GeglOperation       *operation,
@@ -300,9 +300,9 @@ process (GeglOperation       *operation,
   while (angle < 0.0)
     angle += 2 * G_PI;
 
-  if (gegl_operation_use_opencl (operation))
-    if (cl_process (operation, input, output, roi, whole_region, angle, center_x, center_y))
-      return TRUE;
+//  if (gegl_operation_use_opencl (operation))
+//    if (cl_process (operation, input, output, roi, whole_region, angle, center_x, center_y))
+//      return TRUE;
 
   src_rect = *roi;
   src_rect.x -= op_area->left;
@@ -414,7 +414,7 @@ gegl_op_class_init (GeglOpClass *klass)
   filter_class    = GEGL_OPERATION_FILTER_CLASS (klass);
 
   operation_class->prepare = prepare;
-  operation_class->opencl_support = TRUE;
+//  operation_class->opencl_support = TRUE;
 
   filter_class->process    = process;
 
