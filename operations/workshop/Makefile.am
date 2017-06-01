@@ -14,6 +14,7 @@ opdir = $(ext_dir)
 op_LTLIBRARIES =    \
 	bayer-matrix.la \
 	bilateral-filter-fast.la \
+	box-blur.la \
 	demosaic-bimedian.la \
 	demosaic-simple.la \
 	ditto.la \
@@ -22,6 +23,7 @@ op_LTLIBRARIES =    \
 	integral-image.la \
 	kuwahara.la \
 	linear-sinusoid.la \
+	median-blur.la \
 	rawbayer-load.la \
 	segment-kmeans.la \
 	shadows-highlights.la \

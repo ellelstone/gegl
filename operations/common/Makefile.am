@@ -14,7 +14,7 @@ LIBS = $(op_libs)
 
 opdir = $(ext_dir)
 op_LTLIBRARIES = \
-	gegl-common.la 
+	gegl-common.la
 
 gegl_common_la_SOURCES =\
     alien-map.c \
@@ -22,7 +22,6 @@ gegl_common_la_SOURCES =\
 	antialias.c \
 	apply-lens.c \
 	bilateral-filter.c \
-	box-blur.c \
 	brightness-contrast.c \
 	buffer-sink.c \
 	buffer-source.c \
@@ -86,7 +85,6 @@ gegl_common_la_SOURCES =\
 	matting-global.c \
 	maze.c \
 	mblur.c \
-	median-blur.c \
 	mirrors.c \
 	mono-mixer.c \
 	mosaic.c \
