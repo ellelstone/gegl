@@ -23,7 +23,11 @@
 #ifdef GEGL_PROPERTIES
 
 property_boolean (keep_colors, _("Keep colors"), TRUE)
-    description(_("Impact each channel with the same amount"))
+    description(_("Adjust each channel by the same amount."))
+property_boolean (white_only, _("Adjust white point only"), FALSE)
+    description(_("Move white point towards display white but don't adjust the black point."))
+property_boolean (black_only, _("Adjust black point only"), FALSE)
+    description(_("Move black point towards display black but don't adjust the white point."))
 
 #else
 
@@ -473,6 +477,9 @@ process (GeglOperation       *operation,
 
   for (c = 0; c < 3; c++)
     {
+
+      if (o->white_only) min[c]=0.0;
+      if (o->black_only) max[c]=1.0;
       diff[c] = max[c] - min[c];
 
       /* Avoid a divide by zero error if the image is a solid color */
@@ -567,9 +574,7 @@ gegl_op_class_init (GeglOpClass *klass)
     "title",       _("Stretch Contrast"),
     "categories" , "color:enhance",
     "description",
-        _("Scales the components of the buffer to be in the 0.0-1.0 range. "
-          "This improves images that make poor use of the available contrast "
-          "(little contrast, very dark, or very bright images)."),
+        _("Normalizes (compresses or stretches as required) the components of the buffer to fill the 0.0-1.0 range."),
         NULL);
 }
 
