@@ -46,6 +46,8 @@ remove_in_betweens (GeglNode *nop_raw,
       int count = gegl_node_get_consumers (iter, "output", &nodes, NULL);
       if (count)
         iter = nodes[0];
+      else
+        iter = NULL;
       g_free (nodes);
       if (iter && iter != nop_transformed)
         collect = g_list_append (collect, iter);
@@ -538,7 +540,7 @@ gegl_create_chain_argv (char      **ops,
                                                proxy), "operation",
                                              level_op[level], NULL);
 
-                  if (iter[level])
+                  if (iter[level] && gegl_node_has_pad (new, "input"))
                     gegl_node_link_many (iter[level], new, proxy, NULL);
                   else
                     gegl_node_link_many (new, proxy, NULL);
