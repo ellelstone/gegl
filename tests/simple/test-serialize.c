@@ -33,6 +33,15 @@ TestCase tests[] = {
      "gegl:invert-linear",
      ""},
 
+    {"threshold value=0.1",
+     "gegl:threshold value=0.10000000000000001",
+     ""},
+
+
+    {"threshold value={ 0=0.1 2=0.33 }",
+     "gegl:threshold value={  0.000000=0.100000  2.000000=0.330000  } ",
+     ""},
+  
     {"invert a=b",
      "gegl:invert-linear",
      "gegl:invert has no a property."},
@@ -86,7 +95,7 @@ TestCase tests[] = {
      "gegl:exposure has no foo property, properties: 'black-level', 'exposure', "},
 
     {"over aux=[ load path=/ ]",
-     "svg:src-over aux=[  gegl:load path='/' ]\n",
+     "svg:src-over aux=[  gegl:load path='/' ] ",
      ""},
 
     {"inver",
@@ -94,15 +103,15 @@ TestCase tests[] = {
      "No such op 'gegl:inver' suggestions: gegl:invert-gamma gegl:invert-linear"},
 
     {"over aux=[ load path=/abc ]",
-     "svg:src-over aux=[  gegl:load path='/abc' ]\n",
+     "svg:src-over aux=[  gegl:load path='/abc' ] ",
      ""},
 
     {"id=foo over aux=[ ref=foo invert ]",
-     "id=foo\n svg:src-over aux=[  ref=foo\n gegl:invert-linear ]\n",
+     "id=foo\n svg:src-over aux=[  ref=foo\n gegl:invert-linear ] ",
      ""},
 
     {"id=bar id=foo over aux=[ ref=foo invert ]",
-     "id=foo\n svg:src-over aux=[  ref=foo\n gegl:invert-linear ]\n",
+     "id=foo\n svg:src-over aux=[  ref=foo\n gegl:invert-linear ] ",
      ""},
 
 
