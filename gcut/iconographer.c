@@ -30,7 +30,7 @@
 #define NEGL_FFT_DIM        64
 
 /* each row in the video terrain is the following 8bit RGB (24bit) data: */
-typedef struct FrameInfo  
+typedef struct FrameInfo
 {
   uint8_t rgb_hist[NEGL_RGB_HIST_SLOTS];
   uint8_t rgb_square_diff[3];
@@ -42,7 +42,7 @@ char *format="histogram diff audio 4 thumb 64 mid-col 20";
 int frame_start = 0;
 int frame_end   = 0;
 int total_frames = 0;
-double frame_rate = 0; 
+double frame_rate = 0;
 
 char *video_path = NULL;
 char *thumb_path = NULL;
@@ -89,7 +89,7 @@ static void parse_args (int argc, char **argv)
     {
       format = g_strdup (argv[i+1]);
       i++;
-    } 
+    }
     else if (g_str_equal (argv[i], "-p") ||
         g_str_equal (argv[i], "--progress"))
     {
@@ -111,26 +111,26 @@ static void parse_args (int argc, char **argv)
       input_analysis_path = g_strdup (argv[i+1]);
       output_analysis_path = g_strdup (argv[i+1]);
       i++;
-    } 
+    }
 
     else if (g_str_equal (argv[i], "-s") ||
              g_str_equal (argv[i], "--start-frame"))
     {
       frame_start = g_strtod (argv[i+1], NULL);
       i++;
-    } 
+    }
     else if (g_str_equal (argv[i], "-t") ||
              g_str_equal (argv[i], "--time-out"))
     {
       time_out = g_strtod (argv[i+1], NULL);
       i++;
-    } 
+    }
     else if (g_str_equal (argv[i], "-e") ||
              g_str_equal (argv[i], "--end-frame"))
     {
       frame_end = g_strtod (argv[i+1], NULL);
       i++;
-    } 
+    }
     else if (g_str_equal (argv[i], "--help"))
     {
       usage();
@@ -162,7 +162,7 @@ typedef struct {
   int r;
   int g;
   int b;
-  int no; 
+  int no;
 } Entry;
 
 static int rgb_hist_inited = 0;
@@ -283,7 +283,7 @@ static void find_best_thumb (void)
   int frame = 0;
   float best_score = 0.0;
   frame_thumb = 0;
-  
+
   for (frame = 0; frame < frame_end; frame++)
   {
     FrameInfo info;
@@ -311,14 +311,14 @@ static int extract_mid_col (GeglBuffer *buffer, void *rgb_mid_col, int samples)
 {
   GeglRectangle mid_col;
   mid_col.x = 0;
-  mid_col.y = 
+  mid_col.y =
      gegl_buffer_get_extent (buffer)-> height * 1.0 *
       samples / gegl_buffer_get_extent (buffer)->width / 2.0;
   mid_col.height = 1;
   mid_col.width = samples;
-  gegl_buffer_get (video_frame, &mid_col, 
+  gegl_buffer_get (video_frame, &mid_col,
      1.0 * samples / gegl_buffer_get_extent (buffer)->width,
-     babl_format ("R'G'B' u8"),
+     babl_format ("RGBA u8"),
      rgb_mid_col,
      GEGL_AUTO_ROWSTRIDE,
      GEGL_ABYSS_NONE);
@@ -332,7 +332,7 @@ static int extract_thumb (GeglBuffer *buffer, void *rgb_thumb, int samples, int 
   if (horizontal)
   {
     thumb_scan.y = 0;
-    thumb_scan.x = 
+    thumb_scan.x =
        gegl_buffer_get_extent (buffer)-> width * 1.0 *
        samples / gegl_buffer_get_extent (buffer)->width * vpos;
     vpos += (1.0/samples2);
@@ -343,7 +343,7 @@ static int extract_thumb (GeglBuffer *buffer, void *rgb_thumb, int samples, int 
   else
   {
     thumb_scan.x = 0;
-    thumb_scan.y = 
+    thumb_scan.y =
        gegl_buffer_get_extent (buffer)-> height * 1.0 *
        samples / gegl_buffer_get_extent (buffer)->width * vpos;
     vpos += (1.0/samples2);
@@ -351,10 +351,10 @@ static int extract_thumb (GeglBuffer *buffer, void *rgb_thumb, int samples, int 
     thumb_scan.height = 1;
     thumb_scan.width = samples;
   }
-  gegl_buffer_get (buffer, &thumb_scan, 
+  gegl_buffer_get (buffer, &thumb_scan,
      horizontal?1.0 * samples/ gegl_buffer_get_extent (buffer)->height:
                 1.0 * samples/ gegl_buffer_get_extent (buffer)->width,
-     babl_format ("R'G'B' u8"),
+     babl_format ("RGBA u8"),
      (void*)rgb_thumb,
      //(void*)&(info->rgb_thumb)[0],
      GEGL_AUTO_ROWSTRIDE,
@@ -384,13 +384,13 @@ static int extract_audio_energy (GeglAudioFragment *audio, uint8_t *audio_energy
   right_sum /= sample_count;
   left_max = left_sum;
   right_max = right_sum;
-  
+
   left_max *= 255;
   if (left_max > 255)
-    left_max = 255;         
+    left_max = 255;
   right_max *= 255;
   if (right_max > 255)
-    right_max = 255;         
+    right_max = 255;
 
   for (i = 0; i < dups; i ++)
   {
@@ -406,13 +406,13 @@ static int extract_mid_row (GeglBuffer *buffer, void *rgb_mid_row, int samples)
   GeglRectangle mid_row;
   mid_row.width = 1;
   mid_row.height = samples;
-  mid_row.x = 
+  mid_row.x =
      gegl_buffer_get_extent (buffer)-> width * 1.0 *
       samples / gegl_buffer_get_extent (buffer)->height / 2.0;
   mid_row.y = 0;
-  gegl_buffer_get (buffer, &mid_row, 
+  gegl_buffer_get (buffer, &mid_row,
     1.0 * samples / gegl_buffer_get_extent (buffer)->height,
-    babl_format ("R'G'B' u8"),
+    babl_format ("RGBA u8"),
     rgb_mid_row,
     GEGL_AUTO_ROWSTRIDE,
     GEGL_ABYSS_NONE);
@@ -432,12 +432,12 @@ static void record_pix_stats (GeglBuffer *buffer, GeglBuffer *previous_buffer,
   long g_square_diff = 0;
   long b_square_diff = 0;
   GeglBufferIterator *it = gegl_buffer_iterator_new (buffer, NULL, 0,
-          babl_format ("R'G'B' u8"),
+          babl_format ("RGBA u8"),
           GEGL_BUFFER_READ,
           GEGL_ABYSS_NONE);
   if (previous_video_frame)
     gegl_buffer_iterator_add (it, previous_buffer, NULL, 0,
-          babl_format ("R'G'B' u8"),
+          babl_format ("RGBA u8"),
           GEGL_BUFFER_READ,
           GEGL_ABYSS_NONE);
 
@@ -471,7 +471,7 @@ static void record_pix_stats (GeglBuffer *buffer, GeglBuffer *previous_buffer,
         sum++;
       }
     }
-  
+
       if (previous_buffer)
       {
         uint8_t *data_prev = (void*)it->data[1];
@@ -493,7 +493,7 @@ static void record_pix_stats (GeglBuffer *buffer, GeglBuffer *previous_buffer,
    {
      int val = (sqrtf(rgb_hist[slot]) / (sqrtf(second_max_hist) * 0.9 + sqrtf(max_hist) * 0.1)) * 255;
      if (val > 255)
-       val = 255; 
+       val = 255;
      info_rgb_hist[rgb_hist_shuffle (slot)] = val;
     }
   }
@@ -534,7 +534,7 @@ main (gint    argc,
   {
     gegl_node_get (load, "frame-rate", &frame_rate, NULL);
     total_frames = 0; gegl_node_get (load, "frames", &total_frames, NULL);
-    
+
     if (frame_end == 0)
       frame_end = total_frames;
   }
@@ -564,7 +564,7 @@ main (gint    argc,
   }
   else
   {
-    terrain = gegl_buffer_new (&terrain_rect, babl_format ("R'G'B' u8"));
+    terrain = gegl_buffer_new (&terrain_rect, babl_format ("RGBA u8"));
     {
       gint frame;
       gint max_buf_pos = 0;
@@ -581,7 +581,7 @@ main (gint    argc,
           {
             double percent_full = 100.0 * (frame-frame_start) / (frame_end-frame_start);
             double percent_time = time_out?100.0 * babl_ticks()/1000.0/1000.0 / time_out:0.0;
-            fprintf (stdout, "\r%2.1f%% %i/%i (%i)", 
+            fprintf (stdout, "\r%2.1f%% %i/%i (%i)",
                      percent_full>percent_time?percent_full:percent_time,
                      frame-frame_start,
                      frame_end-frame_start,
@@ -720,7 +720,7 @@ main (gint    argc,
       g_object_unref (save_graph);
     }
   }
-  
+
   if (thumb_path)
   {
     GeglNode *save_graph = gegl_node_new ();

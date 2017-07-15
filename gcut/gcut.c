@@ -128,9 +128,9 @@ GeglEDL *gcut_new           (void)
   edl->frame = -1;            /* frame-no in renderer thread */
   edl->scale = 1.0;
 
-  edl->buffer = gegl_buffer_new (&roi, babl_format ("R'G'B'A u8"));
-  edl->buffer_copy = gegl_buffer_new (&roi, babl_format ("R'G'B'A u8"));
-  edl->buffer_copy_temp = gegl_buffer_new (&roi, babl_format ("R'G'B'A u8"));
+  edl->buffer = gegl_buffer_new (&roi, babl_format ("RGBA u8"));
+  edl->buffer_copy = gegl_buffer_new (&roi, babl_format ("RGBA u8"));
+  edl->buffer_copy_temp = gegl_buffer_new (&roi, babl_format ("RGBA u8"));
 
   edl->clip_query = strdup ("");
   edl->use_proxies = 0;
@@ -1301,7 +1301,7 @@ int main (int argc, char **argv)
 
     sprintf (str, "%s 0 %i\n", edl_path, duration);
     {
-      char * path = realpath (edl_path, NULL); 
+      char * path = realpath (edl_path, NULL);
       char * rpath = g_strdup_printf ("%s.edl", path);
       char * parent = g_strdup (rpath);
       strrchr(parent, '/')[1]='\0';
