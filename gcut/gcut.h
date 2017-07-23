@@ -72,11 +72,11 @@ const char *compute_cache_path    (const char *path);
 enum {
   GEDL_UI_MODE_FULL = 0,
   GEDL_UI_MODE_NONE = 1,
-  GEDL_UI_MODE_TIMELINE = 2,
-  GEDL_UI_MODE_PART = 3,
+  GEDL_UI_MODE_PART = 2,
+  GEDL_UI_MODE_TIMELINE = 3,
 };
 
-#define GEDL_LAST_UI_MODE 1
+#define GEDL_LAST_UI_MODE 2
 
 GeglEDL    *gcut_new                (void);
 void        gcut_free               (GeglEDL    *edl);
@@ -139,7 +139,7 @@ void        gegl_meta_set_audio    (const char        *path,
 void        gegl_meta_get_audio    (const char        *path,
                                     GeglAudioFragment *audio);
 
-#define SPLIT_VER  0.8
+#define SPLIT_VER  0.666
 
 extern char *gcut_binary_path;
 
