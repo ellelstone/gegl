@@ -63,16 +63,22 @@ static void each_knot (const GeglPathItem *path_node,
                        gpointer user_data)
 {
   GString *str = user_data;
-
-  g_string_append_printf (str, " %f=%f ", path_node->point[0].x, path_node->point[0].y);
+  gchar fstr[G_ASCII_DTOSTR_BUF_SIZE];
+  g_ascii_dtostr (fstr, sizeof(fstr), path_node->point[0].x);
+  g_string_append_printf (str, " %s=", fstr);
+  g_ascii_dtostr (fstr, sizeof(fstr), path_node->point[0].y);
+  g_string_append_printf (str, "%s ", fstr);
 }
 
 static void each_knot_rel (const GeglPathItem *path_node,
                            gpointer user_data)
 {
   GString *str = user_data;
-
-  g_string_append_printf (str, " %f=%frel ", path_node->point[0].x, path_node->point[0].y);
+  gchar fstr[G_ASCII_DTOSTR_BUF_SIZE];
+  g_ascii_dtostr (fstr, sizeof(fstr), path_node->point[0].x);
+  g_string_append_printf (str, " %s=", fstr);
+  g_ascii_dtostr (fstr, sizeof(fstr), path_node->point[0].y);
+  g_string_append_printf (str, "%srel ", fstr);
 }
 
 void
@@ -155,17 +161,29 @@ gegl_create_chain_argv (char      **ops,
                 time = 0.001;
               gegl_path_calc_y_for_x (g_object_get_qdata (G_OBJECT (new),
                                       anim_quark), time, &y);
-              /* TODO: switch on int/double, thus permitting animating ints */
+
               {
-                GParamSpecDouble *spec = (void*)gegl_operation_find_property (
-                                gegl_node_get_operation (new),
-                                prop);
-                if (y < spec->minimum)
-                  y = spec->minimum;
-                if (y > spec->maximum)
-                  y = spec->maximum;
+                GParamSpec *pspec = gegl_operation_find_property (gegl_node_get_operation (new), prop);
+
+                if (GEGL_IS_PARAM_SPEC_DOUBLE (pspec))
+                {
+                  GParamSpecDouble *double_spec = (void*)pspec;
+                  if (y <= double_spec->minimum)
+                    y = double_spec->minimum;
+                  if (y >= double_spec->maximum)
+                    y = double_spec->maximum;
+                  gegl_node_set (new, prop, y, NULL);
+                }
+                else if (GEGL_IS_PARAM_SPEC_INT (pspec))
+                {
+                  GParamSpecInt *int_spec = (void*)pspec;
+                  if (y <= int_spec->minimum)
+                    y = int_spec->minimum;
+                  if (y >= int_spec->maximum)
+                    y = int_spec->maximum;
+                  gegl_node_set (new, prop, (int)(y), NULL);
+                }
               }
-              gegl_node_set (new, prop, y, NULL);
 
               in_keyframes = 0;
             }

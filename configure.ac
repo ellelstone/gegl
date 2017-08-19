@@ -14,7 +14,7 @@ dnl    set GEGL_BINARY_AGE _and_ GEGL_INTERFACE_AGE to 0.
 
 m4_define([gegl_major_version], [0])
 m4_define([gegl_minor_version], [3])
-m4_define([gegl_micro_version], [19])
+m4_define([gegl_micro_version], [21])
 m4_define([gegl_real_version],
           [gegl_major_version.gegl_minor_version.gegl_micro_version])
 m4_define([gegl_version], [gegl_real_version])
@@ -37,7 +37,7 @@ m4_define([gegl_stable],
 m4_define([gimp_full_name], [Generic Graphical Library])
 
 # required versions of external libraries
-m4_define([babl_required_version], [0.1.26])
+m4_define([babl_required_version], [0.1.30])
 m4_define([cairo_required_version], [0.0.0])
 m4_define([gdk_pixbuf_required_version], [2.32.0])
 m4_define([introspection_required_version], [1.32.0])
