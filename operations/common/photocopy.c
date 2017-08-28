@@ -36,7 +36,7 @@ property_double (white, _("Percent White"), 0.2)
 
 #else
 
-#define GEGL_OP_AREA_FILTER
+#define GEGL_OP_FILTER
 #define GEGL_OP_NAME     photocopy
 #define GEGL_OP_C_SOURCE photocopy.c
 
@@ -319,6 +319,7 @@ gegl_op_class_init (GeglOpClass *klass)
   operation_class->prepare                 = prepare;
   operation_class->get_required_for_output = get_required_for_output;
   operation_class->get_cached_region       = get_cached_region;
+  operation_class->threaded                = FALSE;
   filter_class->process                    = process;
 
   gegl_operation_class_set_keys (operation_class,
