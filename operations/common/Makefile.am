@@ -17,7 +17,6 @@ gegl_common_la_SOURCES =\
     	module.c \
     	alien-map.c \
 	bilateral-filter.c \
-	box-blur.c \
 	brightness-contrast.c \
 	buffer-sink.c \
 	buffer-source.c \
