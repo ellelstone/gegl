@@ -33,6 +33,8 @@
 #include <gegl.h>
 #include <gegl-plugin.h>
 
+#include "buffer/gegl-buffer-cl-cache.h"
+
 #include "gegl-config.h"
 
 #include "transform-core.h"
@@ -1180,8 +1182,7 @@ gegl_transform_process (GeglOperation        *operation,
 
       gegl_operation_context_take_object (context, "output", G_OBJECT (output));
 
-      if (input != NULL)
-        g_object_unref (input);
+      g_clear_object (&input);
     }
   else
     {
@@ -1200,6 +1201,11 @@ gegl_transform_process (GeglOperation        *operation,
        */
       input  = gegl_operation_context_get_source (context, "input");
       output = gegl_operation_context_get_target (context, "output");
+
+      /* flush opencl caches, to avoid racy flushing
+       
+      if (gegl_cl_is_accelerated ())
+        gegl_buffer_cl_cache_flush (input, NULL);*/
 
       if (gegl_operation_use_threading (operation, result))
       {
@@ -1256,8 +1262,7 @@ gegl_transform_process (GeglOperation        *operation,
         func (operation, output, input, &matrix, result, level);
       }
 
-      if (input != NULL)
-        g_object_unref (input);
+      g_clear_object (&input);
     }
 
   return TRUE;

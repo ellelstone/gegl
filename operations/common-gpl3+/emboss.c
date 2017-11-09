@@ -1,17 +1,17 @@
 /* This file is an image processing operation for GEGL
  *
- * GEGL is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
  *
- * GEGL is distributed in the hope that it will be useful,
+ * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- * You should have received a copy of the GNU Lesser General Public
- * License along with GEGL; if not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * Copyright 1997 Eric L. Hernes (erich@rrnet.com)
  * Copyright 2011 Robert Sasu (sasu.robert@gmail.com)
@@ -261,11 +261,12 @@ gegl_op_class_init (GeglOpClass *klass)
 
   filter_class->process    = process;
   operation_class->prepare = prepare;
+  operation_class->threaded = FALSE; // XXX: docs operation test yields horizontal stripe on division
 
   gegl_operation_class_set_keys (operation_class,
     "name",        "gegl:emboss",
     "title",       _("Emboss"),
-    "reference-hash", "9dcee11a194ac61c64a7d1cafaa1f34f",
+    "reference-hash", "6866ddbaf3d44665ae2a2aa8b43a6451",
     "categories",  "light",
     "license",     "GPL3+",
     "description", _("Simulates an image created by embossing"),

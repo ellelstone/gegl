@@ -630,6 +630,7 @@ gegl_gblur_1d_prepare (GeglOperation *operation)
         format = "YaA float";
     }
 
+  gegl_operation_set_format (operation, "input", babl_format (format));
   gegl_operation_set_format (operation, "output", babl_format (format));
 }
 
@@ -925,7 +926,7 @@ gegl_op_class_init (GeglOpClass *klass)
     "name",           "gegl:gblur-1d",
     "categories",     "hidden:blur",
     "title",          _("1D Gaussian-blur"),
-    "reference-hash", "33713bd5bab893c8e585c72cb8607e80",
+    "reference-hash", "699e000911c5d106aa5692455be93f71",
     "description",
         _("Performs an averaging of neighboring pixels with the "
           "normal distribution as weighting"),

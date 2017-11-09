@@ -22,15 +22,15 @@
 #ifdef GEGL_PROPERTIES
 
 enum_start (gegl_component_extract)
-  enum_value (GEGL_COMPONENT_EXTRACT_RGB_RED, "RGB Red", N_("RGB Red"))
-  enum_value (GEGL_COMPONENT_EXTRACT_RGB_GREEN, "RGB Green", N_("RGB Green"))
-  enum_value (GEGL_COMPONENT_EXTRACT_RGB_BLUE, "RGB Blue", N_("RGB Blue"))
-  enum_value (GEGL_COMPONENT_EXTRACT_LAB_L, "LAB L", N_("LAB L"))
-  enum_value (GEGL_COMPONENT_EXTRACT_LAB_A, "LAB A", N_("LAB A"))
-  enum_value (GEGL_COMPONENT_EXTRACT_LAB_B, "LAB B", N_("LAB B"))
-  enum_value (GEGL_COMPONENT_EXTRACT_LCH_C, "LCH C(ab)", N_("LCH C(ab)"))
-  enum_value (GEGL_COMPONENT_EXTRACT_LCH_H, "LCH H(ab)", N_("LCH H(ab)"))
-  enum_value (GEGL_COMPONENT_EXTRACT_ALPHA, "Alpha", N_("Alpha"))
+  enum_value (GEGL_COMPONENT_EXTRACT_RGB_RED, "rgb-r", N_("RGB Red"))
+  enum_value (GEGL_COMPONENT_EXTRACT_RGB_GREEN, "rgb-g", N_("RGB Green"))
+  enum_value (GEGL_COMPONENT_EXTRACT_RGB_BLUE, "rgb-b", N_("RGB Blue"))
+  enum_value (GEGL_COMPONENT_EXTRACT_LAB_L, "lab-l", N_("LAB L"))
+  enum_value (GEGL_COMPONENT_EXTRACT_LAB_A, "lab-a", N_("LAB A"))
+  enum_value (GEGL_COMPONENT_EXTRACT_LAB_B, "lab-b", N_("LAB B"))
+  enum_value (GEGL_COMPONENT_EXTRACT_LCH_C, "lch-c", N_("LCH C(ab)"))
+  enum_value (GEGL_COMPONENT_EXTRACT_LCH_H, "lch-h", N_("LCH H(ab)"))
+  enum_value (GEGL_COMPONENT_EXTRACT_ALPHA, "alpha", N_("Alpha"))
 enum_end (GeglComponentExtract)
 
 property_enum (component, _("Component"),

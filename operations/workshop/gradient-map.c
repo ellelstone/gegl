@@ -169,9 +169,7 @@ static void prepare (GeglOperation *operation)
       o->user_data = props;
     }
 
-  if (props->gradient) {
-    g_free(props->gradient);
-  }
+  g_free(props->gradient);
   props->gradient = create_linear_gradient(colors, stops, GRADIENT_STOPS,
                                 gradient_length, gradient_channels, output_format);
 }
@@ -182,9 +180,7 @@ static void finalize (GObject *object)
     GeglProperties *o = GEGL_PROPERTIES (op);
     if (o->user_data) {
       GradientMapProperties *props = (GradientMapProperties *)o->user_data;
-      if (props->gradient) {
-        g_free(props->gradient);
-      }
+      g_free(props->gradient);
       o->user_data = NULL;
     }
     G_OBJECT_CLASS(gegl_op_parent_class)->finalize (object);
@@ -244,6 +240,7 @@ gegl_op_class_init (GeglOpClass *klass)
       "name",       "gegl:gradient-map",
       "title"      , _("Gradient Map"),
       "categories", "color",
+      "reference-hash", "669ccb10db850cbb7cc1647d94f03224",
       "description", _("Applies a color gradient."),
       "reference-composition", composition,
       NULL);

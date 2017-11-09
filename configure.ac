@@ -37,26 +37,26 @@ m4_define([gegl_stable],
 m4_define([gimp_full_name], [Generic Graphical Library])
 
 # required versions of external libraries
-m4_define([babl_required_version], [0.1.30])
-m4_define([cairo_required_version], [0.0.0])
+m4_define([babl_required_version], [0.1.34])
+m4_define([cairo_required_version], [1.12.2])
 m4_define([exiv2_required_version], [0.25])
 m4_define([gdk_pixbuf_required_version], [2.32.0])
 m4_define([introspection_required_version], [1.32.0])
 m4_define([glib_required_version], [2.44.0])
 m4_define([graphviz_required_version], [0.0.0])
 m4_define([jasper_required_version], [1.900.1])
-m4_define([lcms_required_version], [2.2])
+m4_define([lcms_required_version], [2.8])
 m4_define([lensfun_required_version], [0.2.5])
-m4_define([librsvg_required_version], [2.14.0])
+m4_define([librsvg_required_version], [2.40.6])
 m4_define([libv4l2_required_version], [1.0.1])
 m4_define([lua_required_version], [5.1.0])
-m4_define([openexr_required_version], [0.0.0])
+m4_define([openexr_required_version], [1.6.1])
 m4_define([libraw_required_version], [0.15.4])
 m4_define([pango_required_version], [1.38.0])
-m4_define([png_required_version], [0.0.0])
-m4_define([sdl_required_version], [0.0.0])
+m4_define([png_required_version], [1.6.0])
+m4_define([sdl_required_version], [1.2.0])
 m4_define([libtiff_required_version], [4.0.0])
-m4_define([webp_required_version], [0.0.0])
+m4_define([webp_required_version], [0.5.0])
 m4_define([poly2tri-c_required_version], [0.0.0])
 m4_define([pygobject2_required_version], [2.26])
 m4_define([pygobject3_required_version], [3.2])
@@ -546,6 +546,9 @@ DEP_LIBS=`$PKG_CONFIG --libs $GLIB_PACKAGES gthread-2.0`
 # gettext i18n support
 ######################
 
+AM_GNU_GETTEXT([external])
+AM_GNU_GETTEXT_VERSION([0.19.8])
+
 GETTEXT_PACKAGE=gegl-$GEGL_API_VERSION
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE",
@@ -568,10 +571,6 @@ AC_CHECK_FUNCS(bind_textdomain_codeset,,
 *** Check for bind_textdomain_codeset() failed!  This is required.
 ]))
 LIBS=$gegl_save_LIBS
-
-IT_PROG_INTLTOOL(0.40.1)
-
-AM_GLIB_GNU_GETTEXT
 
 
 ######################################

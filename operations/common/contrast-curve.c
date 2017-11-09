@@ -158,8 +158,7 @@ cl_process (GeglOperation       *self,
       g_free (ysf);
       return FALSE;
 error:
-      if (ysf)
-        g_free (ysf);
+      g_free (ysf);
       if (cl_curve)
         gegl_clReleaseMemObject (cl_curve);
 
@@ -251,12 +250,13 @@ gegl_op_class_init (GeglOpClass *klass)
 //  point_filter_class->cl_process = cl_process;
   operation_class->prepare = prepare;
 //  operation_class->opencl_support = TRUE;
+  operation_class->threaded = FALSE; // XXX: recalculate of gegl_curve_calc_value is not thread safe
 
   gegl_operation_class_set_keys (operation_class,
     "name"       , "gegl:contrast-curve",
     "title",       _("Contrast Curve"),
     "categories" , "color",
-    "reference-hash", "43ddd80572ab34095298ac7c36368b0c",
+    "reference-hash", "a101c74702f52e4bd2fda04eda56034e",
     "description",
         _("Adjusts the contrast of a grayscale image with a curve specifying contrast for intensity."),
         NULL);

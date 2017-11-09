@@ -22,7 +22,7 @@
 
 #include <glib/gi18n-lib.h>
 
-//#define USE_FINE_GRAINDED_FFMPEG 1
+/* #define USE_FINE_GRAINED_FFMPEG 1 */
 
 #ifdef GEGL_PROPERTIES
 
@@ -1085,8 +1085,7 @@ finalize (GObject *object)
       avio_closep (&p->oc->pb);
       avformat_free_context (p->oc);
 
-      g_free (o->user_data);
-      o->user_data = NULL;
+      g_clear_pointer (&o->user_data, g_free);
     }
 
   G_OBJECT_CLASS (g_type_class_peek_parent (G_OBJECT_GET_CLASS (object)))->finalize (object);

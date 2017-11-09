@@ -6,21 +6,19 @@
  * *
  * * don't make people pay for this, or I'll jump up and down and
  * * yell and scream and embarrass you in front of your friends...
- */
-
-/* This file is an image processing operation for GEGL
- * GEGL is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or (at your option) any later version.
  *
- * GEGL is distributed in the hope that it will be useful,
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- * You should have received a copy of the GNU Lesser General Public
- * License along with GEGL; if not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * Contains code originaly from GIMP 'maze' Plugin by
  * Kevin Turner <acapnotic@users.sourceforge.net>
@@ -35,8 +33,8 @@
 #ifdef GEGL_PROPERTIES
 
 enum_start (gegl_maze_algorithm)
-  enum_value (GEGL_MAZE_ALGORITHM_DEPTH_FIRST, "Depth First", N_("Depth first"))
-  enum_value (GEGL_MAZE_ALGORITHM_PRIM,        "Prim",        N_("Prim's algorithm"))
+  enum_value (GEGL_MAZE_ALGORITHM_DEPTH_FIRST, "depth-first", N_("Depth first"))
+  enum_value (GEGL_MAZE_ALGORITHM_PRIM,        "prim",        N_("Prim's algorithm"))
 enum_end (GeglMazeAlgorithm)
 
 property_int    (x, _("Width"), 16)

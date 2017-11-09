@@ -1,17 +1,17 @@
 /* This file is an image processing operation for GEGL
  *
- * GEGL is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
  *
- * GEGL is distributed in the hope that it will be useful,
+ * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- * You should have received a copy of the GNU Lesser General Public
- * License along with GEGL; if not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * Copyright 1997 Miles O'Neal <meo@rru.com>  http://www.rru.com/~meo/
  * Copyright 2012 Maxime Nicco <maxime.nicco@gmail.com>
@@ -81,6 +81,7 @@ process (GeglOperation       *operation,
   const Babl         *format;
   gint                bpp;
   GeglBufferIterator *gi;
+  GeglSampler        *sampler;
 
   o = GEGL_PROPERTIES (operation);
 
@@ -89,6 +90,8 @@ process (GeglOperation       *operation,
 
   gi = gegl_buffer_iterator_new (output, result, 0, format,
                                  GEGL_ACCESS_WRITE, GEGL_ABYSS_CLAMP);
+
+  sampler = gegl_buffer_sampler_new_at_level (input, format, GEGL_SAMPLER_NEAREST, level);
 
   while (gegl_buffer_iterator_next (gi))
     {
@@ -127,12 +130,12 @@ process (GeglOperation       *operation,
                   }
               }
 
-            gegl_buffer_sample_at_level (input, pos_x, pos_y, NULL, data, format,
-                                level,
-                                GEGL_SAMPLER_NEAREST, GEGL_ABYSS_CLAMP);
+            gegl_sampler_get (sampler, pos_x, pos_y, NULL, data, GEGL_ABYSS_CLAMP);
             data += bpp;
           }
     }
+
+  g_object_unref (sampler);
 
   return TRUE;
 }

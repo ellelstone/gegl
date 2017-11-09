@@ -1,17 +1,17 @@
 /* This file is an image processing operation for GEGL
  *
- * GEGL is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
  *
- * GEGL is distributed in the hope that it will be useful,
+ * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- * You should have received a copy of the GNU Lesser General Public
- * License along with GEGL; if not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * Copyright (C) 1996 Stephen Norris  (srn@flibble.cs.su.oz.au)
  * Copyright (C) 1996 Eiichi Takamori (taka@ma1.seikyou.ne.jp)
@@ -422,7 +422,7 @@ gegl_op_class_init (GeglOpClass *klass)
     "title",              _("Plasma"),
     "categories",         "render",
     "position-dependent", "true",
-    "reference-hash",     "37e9f230aeab22e16c3a6d82eb135380",
+    "reference-hash",     "e44d2503f51cf92aa216a17ac4b65419",
     "license",            "GPL3+",
     "description", _("Creates an image filled with a plasma effect."),
     NULL);

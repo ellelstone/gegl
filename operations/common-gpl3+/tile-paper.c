@@ -1,19 +1,17 @@
 /* This file is an image processing operation for GEGL
- * GEGL is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or (at your option) any later version.
  *
- * GEGL is distributed in the hope that it will be useful,
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- * You should have received a copy of the GNU Lesser General Public
- * License along with GEGL; if not, see <http://www.gnu.org/licenses/>.
- *
- * Contains code originaly from GIMP tile-paper.c, copyright
- * Copyright 1997-1999 Hirotsuna Mizuno <s1041150@u-aizu.ac.jp>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * Tile paper ported to GEGL:
  * Copyright 2015 Akash Hiremath (akash akya) <akashh246@gmail.com>
@@ -454,7 +452,7 @@ gegl_op_class_init (GeglOpClass *klass)
     "categories",         "artistic:map",
     "license",            "GPL3+",
     "position-dependent", "true",
-    "reference-hash",     "5d7cea11b78bbed807b87d78a3cf9f75",
+    "reference-hash",     "8d5b9be5ebde7010cb87644d494e8b0b",
     "description",        _("Cut image into paper tiles, and slide them"),
     NULL);
 }

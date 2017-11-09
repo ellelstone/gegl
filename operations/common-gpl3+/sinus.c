@@ -13,7 +13,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- *
  * Exchange one color with the other (settable threshold to convert from
  * one color-shade to another...might do wonders on certain images, or be
  * totally useless on others).
@@ -318,7 +317,7 @@ gegl_op_class_init (GeglOpClass *klass)
     "title",              _("Sinus"),
     "categories",         "render",
     "position-dependent", "true",
-    "reference-hash",     "29cba0927c46bb245b42b2941708541d",
+    "reference-hash",     "2b8f1c94ec19ad23f5ff3253647e759e",
     "license",            "GPL3+",
     "description",        _("Generate complex sinusoidal textures"),
     NULL);

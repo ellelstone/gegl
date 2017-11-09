@@ -29,7 +29,7 @@ enum_start (gegl_value_propagate_mode)
   enum_value (GEGL_VALUE_PROPAGATE_MODE_WHITE, "white", N_("More white (larger value)"))
   enum_value (GEGL_VALUE_PROPAGATE_MODE_BLACK, "black", N_("More black (smaller value)"))
   enum_value (GEGL_VALUE_PROPAGATE_MODE_MIDDLE, "middle", N_("Middle value to peaks"))
-  enum_value (GEGL_VALUE_PROPAGATE_MODE_COLOR_PEAK, "color_peak", N_("Color to peaks"))
+  enum_value (GEGL_VALUE_PROPAGATE_MODE_COLOR_PEAK, "color-peak", N_("Color to peaks"))
   enum_value (GEGL_VALUE_PROPAGATE_MODE_COLOR, "color", N_("Only color"))
   enum_value (GEGL_VALUE_PROPAGATE_MODE_OPAQUE, "opaque", N_("More opaque"))
   enum_value (GEGL_VALUE_PROPAGATE_MODE_TRANSPARENT, "transparent", N_("More transparent"))
@@ -55,7 +55,7 @@ property_double (rate, _("Propagating rate"), 1.0)
 property_color   (color, _("Color"), "blue")
      description (_("Color to use for the \"Only color\" and \"Color to peaks\" modes"))
      ui_meta     ("role", "color-primary")
-     ui_meta     ("visible", "mode {color_peak, color}")
+     ui_meta     ("visible", "mode {color-peak, color}")
      ui_meta     ("description", "''")
 
 property_boolean (top, _("To top"), TRUE)
@@ -75,7 +75,7 @@ property_boolean (value, _("Propagating value channel"), TRUE)
 
 property_boolean (alpha, _("Propagating alpha channel"), TRUE)
      description (_("Propagating alpha channel"))
-     ui_meta     ("sensitive", "! mode {color_peak}")
+     ui_meta     ("sensitive", "! mode {color-peak}")
 
 #else
 

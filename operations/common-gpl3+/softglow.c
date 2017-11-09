@@ -1,17 +1,17 @@
 /* This file is an image processing operation for GEGL
  *
- * GEGL is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
  *
- * GEGL is distributed in the hope that it will be useful,
+ * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- * You should have received a copy of the GNU Lesser General Public
- * License along with GEGL; if not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * Copyright 1997 Spencer Kimball
  * Copyright 2012 Maxime Nicco <maxime.nicco@gmail.com>
@@ -233,7 +233,7 @@ gegl_op_class_init (GeglOpClass *klass)
     "title",       _("Softglow"),
     "categories",  "artistic",
     "license",     "GPL3+",
-    "reference-hash", "9ee1639c709f7404762786d0835eb3a4",
+    "reference-hash", "79d6d9b996a749e262c4229684b91923",
     "description", _("Simulate glow by making highlights intense and fuzzy"),
     NULL);
 }

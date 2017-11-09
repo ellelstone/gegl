@@ -156,7 +156,7 @@ process (GeglOperation       *operation,
   gint            m, n;
   gdouble         u0, v0;
   gdouble         u, v;
-  gdouble         m_du, m_dv;
+  gdouble         m_du = 0.0, m_dv = 0.0;
   gdouble         n_du, n_dv;
   gfloat         *result = out_buf;
 
@@ -297,6 +297,7 @@ gegl_op_class_init (GeglOpClass *klass)
     "title",              _("Linear Sinusoid"),
     "categories",         "render",
     "position-dependent", "true",
+    "reference-hash",     "7b66b312f7f3c8000df1f782e23913b3",
     "license",            "GPL3+",
     "description",        _("Generate a linear sinusoid pattern"),
     NULL);

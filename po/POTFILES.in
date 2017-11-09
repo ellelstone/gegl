@@ -1,6 +1,5 @@
 # List of source files containing translatable strings.
 # Please keep this file sorted alphabetically.
-[encoding: UTF-8]
 bin/gegl.c
 bin/gegl-options.c
 gegl/gegl-enums.c
@@ -18,6 +17,7 @@ operations/common/color.c
 operations/common/color-enhance.c
 operations/common/color-rotate.c
 operations/common/color-temperature.c
+operations/common/color-warp.c
 operations/common/component-extract.c
 operations/common/contrast-curve.c
 operations/common/convolution-matrix.c
@@ -114,7 +114,6 @@ operations/common-gpl3+/cartoon.c
 operations/common-gpl3+/channel-mixer.c
 operations/common-gpl3+/color-exchange.c
 operations/common-gpl3+/color-to-alpha.c
-operations/common-gpl3+/color-warp.c
 operations/common-gpl3+/cubism.c
 operations/common-gpl3+/deinterlace.c
 operations/common-gpl3+/diffraction-patterns.c
@@ -232,6 +231,7 @@ operations/transform/transform-core.c
 operations/transform/translate.c
 operations/workshop/bayer-matrix.c
 operations/workshop/bilateral-filter-fast.c
+operations/workshop/color-to-alpha-plus.c
 operations/workshop/demosaic-bimedian.c
 operations/workshop/demosaic-simple.c
 operations/workshop/ditto.c
@@ -248,10 +248,10 @@ operations/workshop/generated/subtractive.c
 operations/workshop/gradient-map.c
 operations/workshop/hstack.c
 operations/workshop/integral-image.c
-operations/workshop/kuwahara.c
 operations/workshop/linear-sinusoid.c
 operations/workshop/median-blur.c
 operations/workshop/rawbayer-load.c
 operations/workshop/segment-kmeans.c
 operations/workshop/shadows-highlights.c
 operations/workshop/shadows-highlights-correction.c
+operations/workshop/spherize.c
