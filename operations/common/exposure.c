@@ -76,8 +76,16 @@ process (GeglOperation       *op,
   in_pixel = in_buf;
   out_pixel = out_buf;
   
+  white = exp2f (exposure_negated);;
+  out_pixel = out_buf;
+  
   white = exp2f (exposure_negated);
-  diff = MAX (white - black_level, 0.01);
+  diff = MAX (white - black_level, 0.00000001);//add 1 doesn't work; add 10,000 does work.
+//  diff = MAX (white - black_level, 0.00000001);
+//  diff = MAX (white - black_level, 0.0000001); //add 1 works
+//  diff = MAX (white - black_level, 0.000001); //add 1 works
+//                                 0.0000000001
+//                                 0.00000000023283064365387
   gain = 1.0f / diff;
 
   for (i=0; i<n_pixels; i++)
