@@ -24,7 +24,10 @@
 
 property_boolean (keep_colors, _("Keep colors"), TRUE)
     description(_("Impact each channel with the same amount"))
-
+property_boolean (only_white_point, _("Adjust only white point"), FALSE)
+    description(_("Adjust only the white point (NOTE: For convenience, selecting both 'Adjust only white point' and 'Adjust only black point ' defaults to adjusting both white and black points."))
+property_boolean (only_black_point, _("Adjust only black point"), FALSE)
+    description(_("Adjust only the black point (NOTE: For convenience, selecting both 'Adjust only white point' and 'Adjust only black point' defaults to adjusting both white and black points."))
 property_boolean (perceptual, _("Non-linear components"), FALSE)
     description(_("When set operate on gamma corrected values instead of linear RGB - acting like the old normalize filter in GIMP"))
 
@@ -488,7 +491,10 @@ process (GeglOperation       *operation,
 
   for (c = 0; c < 3; c++)
     {
-      diff[c] = max[c] - min[c];
+      if ( (o->only_white_point) && !(o->only_black_point) ) min[c]=0.0;
+      if ( (o->only_black_point) && !(o->only_white_point) ) max[c]=1.0;
+	  if ( (o->only_white_point) &&  (o->only_black_point) ) diff[c] = max[c] - min[c];
+	  diff[c] = max[c] - min[c];
 
       /* Avoid a divide by zero error if the image is a solid color */
       if (diff[c] < 1e-3)
@@ -581,11 +587,9 @@ gegl_op_class_init (GeglOpClass *klass)
   gegl_operation_class_set_keys (operation_class,
     "name",        "gegl:stretch-contrast",
     "title",       _("Stretch Contrast"),
-    "categories" , "color:enhance",
+    "categories" , "color",
     "description",
-        _("Scales the components of the buffer to be in the 0.0-1.0 range. "
-          "This improves images that make poor use of the available contrast "
-          "(little contrast, very dark, or very bright images)."),
+        _("Scales the components of the buffer to be in the 0.0-1.0 range."),
         NULL);
 }
 
