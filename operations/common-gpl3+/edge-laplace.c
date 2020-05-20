@@ -57,8 +57,8 @@ prepare (GeglOperation *operation)
 
   area->left = area->right = area->top = area->bottom = LAPLACE_RADIUS;
 
-  gegl_operation_set_format (operation, "input", babl_format_with_space ("R'G'B'A float", space));
-  gegl_operation_set_format (operation, "output", babl_format_with_space ("R'G'B'A float", space));
+  gegl_operation_set_format (operation, "input", babl_format_with_space ("RGBA float", space));
+  gegl_operation_set_format (operation, "output", babl_format_with_space ("RGBA float", space));
 }
 
 static gboolean
