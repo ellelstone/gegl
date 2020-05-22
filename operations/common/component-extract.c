@@ -226,7 +226,7 @@ process (GeglOperation       *operation,
             gdouble scale  = 1.0 / (max - min);
             gdouble offset = -min;
 
-            value = CLAMP ((value + offset) * scale, 0.0, 1.0);
+            value = (value + offset) * scale;
           }
 
         if (o->invert)
