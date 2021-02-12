@@ -3,6 +3,7 @@ ACLOCAL_AMFLAGS = -I m4 ${ACLOCAL_FLAGS}
 # The libs directory needs to be before anything which can depend on its
 # libraries, otherwise any potentially rebuilt libs won't be picked up until
 # the next run of make.
+# elle: removed subdir gcut as it no longer compiles: multiple definition of `_GeglEDL';
 SUBDIRS=\
 	libs \
 	opencl \
@@ -10,7 +11,6 @@ SUBDIRS=\
 	libs/npd \
 	seamless-clone \
 	bin \
-	gcut \
 	tools \
 	operations \
 	examples \
